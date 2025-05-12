@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useLocation } from "wouter";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -12,9 +12,11 @@ import {
 } from "@/components/ui/select";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Command, CommandInput, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon, ChevronDown, PlaneTakeoff, PlaneLanding, CalendarDays, Plus, User, Baby } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { airports, filterAirports, Airport } from "@/data/airports";
 
 type TripType = 'one-way' | 'round-trip' | 'multi-city';
 
@@ -25,6 +27,12 @@ interface FlightSearchFormProps {
 export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
   const [origin, setOrigin] = useState<string>("");
   const [destination, setDestination] = useState<string>("");
+  const [originQuery, setOriginQuery] = useState<string>("");
+  const [destinationQuery, setDestinationQuery] = useState<string>("");
+  const [originAirports, setOriginAirports] = useState<Airport[]>([]);
+  const [destinationAirports, setDestinationAirports] = useState<Airport[]>([]);
+  const [openOrigin, setOpenOrigin] = useState(false);
+  const [openDestination, setOpenDestination] = useState(false);
   const [departureDate, setDepartureDate] = useState<Date | undefined>();
   const [returnDate, setReturnDate] = useState<Date | undefined>();
   const [preference, setPreference] = useState<string>("");
@@ -40,6 +48,44 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
   const [infantCount, setInfantCount] = useState<number>(0);
 
   const [, setLocation] = useLocation();
+
+  // Filter airports when origin query changes
+  useEffect(() => {
+    if (originQuery.length >= 2) {
+      const filtered = filterAirports(originQuery);
+      setOriginAirports(filtered);
+      setOpenOrigin(true);
+    } else {
+      setOriginAirports([]);
+      setOpenOrigin(false);
+    }
+  }, [originQuery]);
+
+  // Filter airports when destination query changes
+  useEffect(() => {
+    if (destinationQuery.length >= 2) {
+      const filtered = filterAirports(destinationQuery);
+      setDestinationAirports(filtered);
+      setOpenDestination(true);
+    } else {
+      setDestinationAirports([]);
+      setOpenDestination(false);
+    }
+  }, [destinationQuery]);
+
+  // Handle airport selection for origin
+  const handleOriginSelect = (airport: Airport) => {
+    setOrigin(`${airport.city} (${airport.code})`);
+    setOriginQuery("");
+    setOpenOrigin(false);
+  };
+
+  // Handle airport selection for destination
+  const handleDestinationSelect = (airport: Airport) => {
+    setDestination(`${airport.city} (${airport.code})`);
+    setDestinationQuery("");
+    setOpenDestination(false);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -73,25 +119,64 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
   return (
     <div className="mb-8">
       <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 gap-y-6">
           {/* Origin Field */}
           <div>
             <Label className="text-sm font-medium text-sw-gray-700 mb-1">
               Origin <span className="text-red-500">*</span>
             </Label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <PlaneTakeoff className="h-4 w-4 text-sw-gray-400" />
-              </div>
-              <Input 
-                type="text" 
-                placeholder="Entry Origin City" 
-                className="pl-10 pr-3 py-2.5 w-full border border-sw-gray-300 rounded-md"
-                value={origin}
-                onChange={(e) => setOrigin(e.target.value)}
-                required
-              />
-            </div>
+            <Popover open={openOrigin} onOpenChange={setOpenOrigin}>
+              <PopoverTrigger asChild>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
+                    <PlaneTakeoff className="h-4 w-4 text-sw-gray-400" />
+                  </div>
+                  <Input 
+                    type="text" 
+                    placeholder="Enter Origin City or Airport" 
+                    className="pl-10 pr-3 py-2.5 w-full border border-sw-gray-300 rounded-md"
+                    value={origin || originQuery}
+                    onChange={(e) => {
+                      if (origin) setOrigin("");
+                      setOriginQuery(e.target.value);
+                    }}
+                    onClick={() => {
+                      if (origin) {
+                        setOriginQuery("");
+                        setOrigin("");
+                      }
+                    }}
+                    required
+                  />
+                </div>
+              </PopoverTrigger>
+              <PopoverContent className="p-0 w-full" align="start">
+                <Command>
+                  <CommandInput 
+                    placeholder="Search airports..." 
+                    value={originQuery}
+                    onValueChange={setOriginQuery}
+                    className="h-9"
+                  />
+                  <CommandEmpty>No airports found.</CommandEmpty>
+                  <CommandGroup className="max-h-64 overflow-auto">
+                    {originAirports.map((airport) => (
+                      <CommandItem
+                        key={airport.code}
+                        onSelect={() => handleOriginSelect(airport)}
+                        className="cursor-pointer"
+                      >
+                        <div className="flex items-center">
+                          <span className="font-bold text-sm mr-2">{airport.code}</span>
+                          <span className="text-sm">{airport.city}, {airport.country}</span>
+                        </div>
+                        <span className="text-xs text-sw-gray-500 ml-6">{airport.name}</span>
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </Command>
+              </PopoverContent>
+            </Popover>
           </div>
           
           {/* Destination Field */}
@@ -99,19 +184,58 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
             <Label className="text-sm font-medium text-sw-gray-700 mb-1">
               Destination <span className="text-red-500">*</span>
             </Label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <PlaneLanding className="h-4 w-4 text-sw-gray-400" />
-              </div>
-              <Input 
-                type="text" 
-                placeholder="Entry Destination City" 
-                className="pl-10 pr-3 py-2.5 w-full border border-sw-gray-300 rounded-md"
-                value={destination}
-                onChange={(e) => setDestination(e.target.value)}
-                required
-              />
-            </div>
+            <Popover open={openDestination} onOpenChange={setOpenDestination}>
+              <PopoverTrigger asChild>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
+                    <PlaneLanding className="h-4 w-4 text-sw-gray-400" />
+                  </div>
+                  <Input 
+                    type="text" 
+                    placeholder="Enter Destination City or Airport" 
+                    className="pl-10 pr-3 py-2.5 w-full border border-sw-gray-300 rounded-md"
+                    value={destination || destinationQuery}
+                    onChange={(e) => {
+                      if (destination) setDestination("");
+                      setDestinationQuery(e.target.value);
+                    }}
+                    onClick={() => {
+                      if (destination) {
+                        setDestinationQuery("");
+                        setDestination("");
+                      }
+                    }}
+                    required
+                  />
+                </div>
+              </PopoverTrigger>
+              <PopoverContent className="p-0 w-full" align="start">
+                <Command>
+                  <CommandInput 
+                    placeholder="Search airports..." 
+                    value={destinationQuery}
+                    onValueChange={setDestinationQuery}
+                    className="h-9"
+                  />
+                  <CommandEmpty>No airports found.</CommandEmpty>
+                  <CommandGroup className="max-h-64 overflow-auto">
+                    {destinationAirports.map((airport) => (
+                      <CommandItem
+                        key={airport.code}
+                        onSelect={() => handleDestinationSelect(airport)}
+                        className="cursor-pointer"
+                      >
+                        <div className="flex items-center">
+                          <span className="font-bold text-sm mr-2">{airport.code}</span>
+                          <span className="text-sm">{airport.city}, {airport.country}</span>
+                        </div>
+                        <span className="text-xs text-sw-gray-500 ml-6">{airport.name}</span>
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </Command>
+              </PopoverContent>
+            </Popover>
           </div>
           
           {/* Departure Date */}
