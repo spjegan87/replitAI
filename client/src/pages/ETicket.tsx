@@ -314,7 +314,10 @@ export default function ETicket() {
                     <Separator />
                     
                     <div>
-                      <h3 className="text-sm font-medium mb-3 text-sw-gray-800">Passenger Details</h3>
+                      <h3 className="text-sm font-medium mb-3 text-sw-gray-800 flex items-center">
+                        <Users className="h-4 w-4 mr-2 text-sw-blue" />
+                        Passenger Information
+                      </h3>
                       <div className="space-y-4">
                         <Tabs defaultValue="passenger-1" className="w-full">
                           <TabsList className="mb-4 flex flex-wrap overflow-x-auto">
@@ -338,43 +341,76 @@ export default function ETicket() {
                           
                           {passengerDetails.map((passenger, index) => (
                             <TabsContent key={index} value={`passenger-${index + 1}`} className="mt-2">
-                              <div className="grid grid-cols-2 gap-4 bg-white p-3 rounded-md">
-                                <div>
-                                  <div className="text-xs text-sw-gray-500">Full Name</div>
-                                  <div className="font-bold text-sw-gray-800">{passenger.firstName} {passenger.lastName}</div>
+                              <div className="grid grid-cols-2 gap-4 bg-white p-4 rounded-md border border-sky-100">
+                                <div className="col-span-2 border-b border-sky-100 pb-2 mb-2">
+                                  <Badge className={`mr-2 ${
+                                    passenger.type === 'adult' ? 'bg-blue-100 text-blue-800' : 
+                                    passenger.type === 'child' ? 'bg-green-100 text-green-800' : 
+                                    'bg-purple-100 text-purple-800'
+                                  }`}>
+                                    {passenger.type.charAt(0).toUpperCase() + passenger.type.slice(1)} Passenger
+                                  </Badge>
+                                  {index === 0 && passenger.type === 'adult' && (
+                                    <span className="text-xs text-sw-blue ml-2">Primary Contact</span>
+                                  )}
                                 </div>
                                 
                                 <div>
-                                  <div className="text-xs text-sw-gray-500">Passenger Type</div>
+                                  <div className="text-xs text-sw-gray-500">Full Name</div>
                                   <div className="font-bold text-sw-gray-800 flex items-center">
-                                    <Badge className={`mr-2 ${
-                                      passenger.type === 'adult' ? 'bg-blue-100 text-blue-800' : 
-                                      passenger.type === 'child' ? 'bg-green-100 text-green-800' : 
-                                      'bg-purple-100 text-purple-800'
-                                    }`}>
-                                      {passenger.type.charAt(0).toUpperCase() + passenger.type.slice(1)}
-                                    </Badge>
+                                    <UserCircle className="h-4 w-4 mr-1 text-sw-gray-400" />
+                                    {passenger.firstName} {passenger.lastName}
+                                  </div>
+                                </div>
+                                
+                                <div>
+                                  <div className="text-xs text-sw-gray-500">Seat Assignment</div>
+                                  <div className="font-bold text-sw-gray-800">
+                                    {String.fromCharCode(65 + Math.floor(Math.random() * 6))}{Math.floor(Math.random() * 30) + 1}
                                   </div>
                                 </div>
                                 
                                 <div>
                                   <div className="text-xs text-sw-gray-500">Date of Birth</div>
-                                  <div className="font-bold text-sw-gray-800">{passenger.dob}</div>
+                                  <div className="font-bold text-sw-gray-800 flex items-center">
+                                    <CalendarDays className="h-4 w-4 mr-1 text-sw-gray-400" />
+                                    {passenger.dob}
+                                  </div>
+                                </div>
+                                
+                                <div>
+                                  <div className="text-xs text-sw-gray-500">Frequent Flyer</div>
+                                  <div className="font-bold text-sw-gray-800">--</div>
                                 </div>
                                 
                                 {passenger.email && (
                                   <div>
                                     <div className="text-xs text-sw-gray-500">Email</div>
-                                    <div className="font-bold text-sw-gray-800">{passenger.email}</div>
+                                    <div className="font-bold text-sw-gray-800 flex items-center">
+                                      <Mail className="h-4 w-4 mr-1 text-sw-gray-400" />
+                                      {passenger.email}
+                                    </div>
                                   </div>
                                 )}
                                 
                                 {passenger.phone && (
                                   <div>
                                     <div className="text-xs text-sw-gray-500">Phone</div>
-                                    <div className="font-bold text-sw-gray-800">{passenger.phone}</div>
+                                    <div className="font-bold text-sw-gray-800 flex items-center">
+                                      <Phone className="h-4 w-4 mr-1 text-sw-gray-400" />
+                                      {passenger.phone}
+                                    </div>
                                   </div>
                                 )}
+                                
+                                <div className="col-span-2 mt-2 text-xs text-sw-gray-500 bg-gray-50 p-2 rounded">
+                                  <div className="flex items-start">
+                                    <Check className="h-4 w-4 mr-1 text-green-500 shrink-0" />
+                                    <div>
+                                      Two checked bags included for this passenger
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
                             </TabsContent>
                           ))}
