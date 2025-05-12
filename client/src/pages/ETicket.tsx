@@ -311,6 +311,79 @@ export default function ETicket() {
                       <div className="font-bold text-sw-gray-800">{new Date().toLocaleDateString()}</div>
                     </div>
                     
+                    <Separator />
+                    
+                    <div>
+                      <h3 className="text-sm font-medium mb-3 text-sw-gray-800">Passenger Details</h3>
+                      <div className="space-y-4">
+                        <Tabs defaultValue="passenger-1" className="w-full">
+                          <TabsList className="mb-4 flex flex-wrap overflow-x-auto">
+                            {passengerDetails.map((passenger, index) => (
+                              <TabsTrigger 
+                                key={index} 
+                                value={`passenger-${index + 1}`}
+                                className="flex items-center"
+                              >
+                                {passenger.type === 'adult' ? (
+                                  <UserCircle className="h-4 w-4 mr-1" />
+                                ) : passenger.type === 'child' ? (
+                                  <Users className="h-4 w-4 mr-1" />
+                                ) : (
+                                  <Baby className="h-4 w-4 mr-1" />
+                                )}
+                                {passenger.firstName} {passenger.lastName}
+                              </TabsTrigger>
+                            ))}
+                          </TabsList>
+                          
+                          {passengerDetails.map((passenger, index) => (
+                            <TabsContent key={index} value={`passenger-${index + 1}`} className="mt-2">
+                              <div className="grid grid-cols-2 gap-4 bg-white p-3 rounded-md">
+                                <div>
+                                  <div className="text-xs text-sw-gray-500">Full Name</div>
+                                  <div className="font-bold text-sw-gray-800">{passenger.firstName} {passenger.lastName}</div>
+                                </div>
+                                
+                                <div>
+                                  <div className="text-xs text-sw-gray-500">Passenger Type</div>
+                                  <div className="font-bold text-sw-gray-800 flex items-center">
+                                    <Badge className={`mr-2 ${
+                                      passenger.type === 'adult' ? 'bg-blue-100 text-blue-800' : 
+                                      passenger.type === 'child' ? 'bg-green-100 text-green-800' : 
+                                      'bg-purple-100 text-purple-800'
+                                    }`}>
+                                      {passenger.type.charAt(0).toUpperCase() + passenger.type.slice(1)}
+                                    </Badge>
+                                  </div>
+                                </div>
+                                
+                                <div>
+                                  <div className="text-xs text-sw-gray-500">Date of Birth</div>
+                                  <div className="font-bold text-sw-gray-800">{passenger.dob}</div>
+                                </div>
+                                
+                                {passenger.email && (
+                                  <div>
+                                    <div className="text-xs text-sw-gray-500">Email</div>
+                                    <div className="font-bold text-sw-gray-800">{passenger.email}</div>
+                                  </div>
+                                )}
+                                
+                                {passenger.phone && (
+                                  <div>
+                                    <div className="text-xs text-sw-gray-500">Phone</div>
+                                    <div className="font-bold text-sw-gray-800">{passenger.phone}</div>
+                                  </div>
+                                )}
+                              </div>
+                            </TabsContent>
+                          ))}
+                        </Tabs>
+                      </div>
+                    </div>
+                    
+                    <Separator />
+                    
                     <div className="flex justify-center mt-4">
                       <div className="flex flex-col items-center text-center">
                         <QrCode className="h-24 w-24 text-sw-gray-800 mb-2" />
