@@ -1,9 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useSearch } from "wouter";
-import { ArrowLeft, ChevronRight, Calendar, Users, Clock, PlaneTakeoff, PlaneLanding, Check, AlertCircle } from "lucide-react";
+import { 
+  ArrowLeft, ChevronRight, Calendar, Users, Clock, PlaneTakeoff, 
+  PlaneLanding, Check, AlertCircle, CalendarDays, UserCircle, 
+  Baby, Mail, Phone, Info 
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { formatPrice } from "@/lib/utils";
@@ -25,7 +32,11 @@ export default function Itinerary() {
   const duration = searchParams.get("duration") || "2h 35m";
   const price = parseFloat(searchParams.get("price") || "149.99");
   const passengers = parseInt(searchParams.get("passengers") || "10");
+  const adultCount = parseInt(searchParams.get("adultCount") || "8");
+  const childCount = parseInt(searchParams.get("childCount") || "2");
+  const infantCount = parseInt(searchParams.get("infantCount") || "0");
   const cabin = searchParams.get("cabin") || "economy";
+  const aircraft = searchParams.get("aircraft") || "Boeing 737-800";
 
   // Handle back navigation
   const handleBack = () => {
@@ -34,11 +45,98 @@ export default function Itinerary() {
     setLocation(`/search-results?${searchParamsStr}`);
   };
   
+  // Passenger details state
+  const [passengerDetails, setPassengerDetails] = useState<Array<{
+    firstName: string;
+    lastName: string;
+    email?: string;
+    phone?: string;
+    dob: string;
+    type: 'adult' | 'child' | 'infant';
+  }>>([]);
+  
+  // Generate initial passenger forms based on passenger counts
+  useEffect(() => {
+    const initialPassengers = [];
+    
+    // Create adult passengers
+    for (let i = 0; i < adultCount; i++) {
+      initialPassengers.push({
+        firstName: '',
+        lastName: '',
+        email: i === 0 ? '' : undefined, // Only require email for primary passenger
+        phone: i === 0 ? '' : undefined, // Only require phone for primary passenger
+        dob: '',
+        type: 'adult' as const
+      });
+    }
+    
+    // Create child passengers
+    for (let i = 0; i < childCount; i++) {
+      initialPassengers.push({
+        firstName: '',
+        lastName: '',
+        email: undefined,
+        phone: undefined,
+        dob: '',
+        type: 'child' as const
+      });
+    }
+    
+    // Create infant passengers
+    for (let i = 0; i < infantCount; i++) {
+      initialPassengers.push({
+        firstName: '',
+        lastName: '',
+        email: undefined,
+        phone: undefined,
+        dob: '',
+        type: 'infant' as const
+      });
+    }
+    
+    setPassengerDetails(initialPassengers);
+  }, [adultCount, childCount, infantCount]);
+  
+  // Update passenger details
+  const updatePassenger = (index: number, field: string, value: string) => {
+    const updated = [...passengerDetails];
+    updated[index] = {
+      ...updated[index],
+      [field]: value
+    };
+    setPassengerDetails(updated);
+  };
+  
+  // Check if all required fields are filled
+  const isFormValid = () => {
+    return passengerDetails.every((passenger, index) => {
+      // For every passenger, first and last name and DOB are required
+      if (!passenger.firstName || !passenger.lastName || !passenger.dob) return false;
+      
+      // For primary passenger (first adult), email and phone are also required
+      if (index === 0 && passenger.type === 'adult') {
+        return Boolean(passenger.email && passenger.phone);
+      }
+      
+      return true;
+    });
+  };
+  
   // Handle proceed to payment
   const handleProceedToPayment = () => {
+    if (!isFormValid()) {
+      alert("Please fill in all required passenger information.");
+      return;
+    }
+    
     // Add additional parameters for payment page
     const paymentParams = new URLSearchParams(search);
     paymentParams.set("totalPrice", (price * passengers).toString());
+    
+    // Add passenger details as JSON string
+    paymentParams.set("passengerDetails", JSON.stringify(passengerDetails));
+    
     setLocation(`/payment?${paymentParams.toString()}`);
   };
   
@@ -76,7 +174,11 @@ export default function Itinerary() {
             </div>
             <div className="flex items-center">
               <Users className="h-4 w-4 text-sw-gray-500 mr-1" />
-              <span className="text-sm text-sw-gray-600">{passengers} Passengers</span>
+              <span className="text-sm text-sw-gray-600">
+                {passengers} Passengers ({adultCount} Adult{adultCount !== 1 ? 's' : ''}, 
+                {childCount > 0 ? ` ${childCount} Child${childCount !== 1 ? 'ren' : ''}` : ''}
+                {infantCount > 0 ? `, ${infantCount} Infant${infantCount !== 1 ? 's' : ''}` : ''})
+              </span>
             </div>
           </div>
         </div>

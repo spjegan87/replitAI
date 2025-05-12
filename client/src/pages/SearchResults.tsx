@@ -66,7 +66,7 @@ export default function SearchResults() {
   
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const flightsPerPage = 5;
+  const flightsPerPage = 15;
   
   // Load flights data
   useEffect(() => {
