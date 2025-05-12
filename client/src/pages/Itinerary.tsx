@@ -137,6 +137,12 @@ export default function Itinerary() {
     // Add passenger details as JSON string
     paymentParams.set("passengerDetails", JSON.stringify(passengerDetails));
     
+    // Ensure origin and destination details are passed (even if already in params)
+    paymentParams.set("origin", origin);
+    paymentParams.set("destination", destination);
+    paymentParams.set("departureDate", departureDate);
+    if (returnDate) paymentParams.set("returnDate", returnDate);
+    
     setLocation(`/payment?${paymentParams.toString()}`);
   };
   

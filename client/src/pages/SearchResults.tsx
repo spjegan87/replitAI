@@ -513,14 +513,23 @@ export default function SearchResults() {
                           <Button 
                             className="bg-sw-yellow text-sw-gray-800 hover:bg-yellow-500 transition-colors"
                             onClick={() => {
-                              // Pass flight details to itinerary page
+                              // Pass flight details and booking data to itinerary page
                               const params = new URLSearchParams(search);
+                              
+                              // Flight specific details
                               params.set("flightNumber", flight.flightNumber);
                               params.set("departureTime", flight.departureTime);
                               params.set("arrivalTime", flight.arrivalTime);
                               params.set("duration", flight.duration);
                               params.set("price", flight.price.toString());
                               params.set("aircraft", flight.aircraft);
+                              
+                              // Ensure origin and destination details are passed (even if already in params)
+                              params.set("origin", origin);
+                              params.set("destination", destination);
+                              params.set("departureDate", departureDate);
+                              if (returnDate) params.set("returnDate", returnDate);
+                              
                               setLocation(`/itinerary?${params.toString()}`);
                             }}
                           >
