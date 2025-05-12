@@ -41,16 +41,27 @@ export default function SearchResults() {
   const searchParams = new URLSearchParams(search);
   
   // Parse search parameters
+  // Trip information
   const origin = searchParams.get("origin") || "LAX";
   const destination = searchParams.get("destination") || "SFO";
   const departureDate = searchParams.get("departureDate") || "10 Oct 2022";
   const returnDate = searchParams.get("returnDate") || "18 Oct 2022";
   const tripType = searchParams.get("tripType") || "round-trip";
-  const cabin = searchParams.get("cabin") || "economy";
+  
+  // Passenger information
   const passengers = searchParams.get("passengers") || "10";
   const adultCount = parseInt(searchParams.get("adultCount") || "8");
   const childCount = parseInt(searchParams.get("childCount") || "2");
   const infantCount = parseInt(searchParams.get("infantCount") || "0");
+  
+  // Flight preferences
+  const cabin = searchParams.get("cabin") || "economy";
+  const groupCategory = searchParams.get("groupCategory") || "Adhoc";
+  const isFlexible = searchParams.get("isFlexible") === "true";
+  
+  // Additional information
+  const preference = searchParams.get("preference") || "";
+  const remarks = searchParams.get("remarks") || "";
   
   // Filter and sorting states
   const [flights, setFlights] = useState<FlightResult[]>([]);
@@ -192,6 +203,29 @@ export default function SearchResults() {
               {' '}{passengers} Passengers | {cabin.charAt(0).toUpperCase() + cabin.slice(1)} | 
               {' '}{departureDate}{returnDate ? ` - ${returnDate}` : ''}
             </div>
+          </div>
+          
+          {/* Additional flight details */}
+          <div className="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4 pt-2 border-t border-sky-100 text-xs text-sw-gray-600">
+            <div className="flex items-center">
+              <Users className="h-3.5 w-3.5 mr-1 text-sw-gray-500" />
+              {adultCount} Adult{adultCount !== 1 ? 's' : ''}, 
+              {childCount > 0 ? ` ${childCount} Child${childCount !== 1 ? 'ren' : ''}` : ''}
+              {infantCount > 0 ? `, ${infantCount} Infant${infantCount !== 1 ? 's' : ''}` : ''}
+            </div>
+            
+            <div className="flex items-center">
+              <Tag className="h-3.5 w-3.5 mr-1 text-sw-gray-500" />
+              Group: {groupCategory}
+              {isFlexible && <span className="ml-2 bg-green-100 text-green-800 px-1.5 py-0.5 rounded text-xs">Flexible Dates</span>}
+            </div>
+            
+            {preference && (
+              <div className="flex items-center">
+                <Heart className="h-3.5 w-3.5 mr-1 text-sw-gray-500" />
+                Preference: {preference}
+              </div>
+            )}
           </div>
         </div>
         

@@ -97,19 +97,29 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
     // Calculate total passenger count
     const totalPassengers = adultCount + childCount + infantCount;
     
-    // Create search params to pass data to the search results page
+    // Create search params to pass all flight details data to the search results page
     const searchParams = new URLSearchParams({
+      // Trip information
       tripType,
       origin: origin || "",
       destination: destination || "",
       departureDate: departureDateStr,
       returnDate: returnDateStr,
-      cabin: cabin || "economy",
+      
+      // Passenger information
       passengers: totalPassengers.toString(),
       adultCount: adultCount.toString(),
       childCount: childCount.toString(),
       infantCount: infantCount.toString(),
-      groupCategory: groupCategory || "Adhoc"
+      
+      // Flight preferences
+      cabin: cabin || "economy",
+      groupCategory: groupCategory || "Adhoc",
+      isFlexible: isFlexible.toString(),
+      
+      // Additional information
+      preference: preference || "",
+      remarks: remarks || ""
     }).toString();
     
     // Navigate to search results page with the search parameters
