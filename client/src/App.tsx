@@ -6,12 +6,18 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import SearchResults from "@/pages/SearchResults";
+import Itinerary from "@/pages/Itinerary";
+import Payment from "@/pages/Payment";
+import Confirmation from "@/pages/Confirmation";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/search-results" component={SearchResults} />
+      <Route path="/itinerary" component={Itinerary} />
+      <Route path="/payment" component={Payment} />
+      <Route path="/confirmation" component={Confirmation} />
       <Route component={NotFound} />
     </Switch>
   );

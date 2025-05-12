@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "wouter";
+import { useLocation, useSearch } from "wouter";
 import { ArrowLeft, Clock, PlaneTakeoff, PlaneLanding, ChevronRight, ChevronDown, Luggage } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -86,6 +86,18 @@ const sampleFlightResults: FlightResult[] = [
 
 export default function SearchResults() {
   const [, setLocation] = useLocation();
+  const search = useSearch();
+  const searchParams = new URLSearchParams(search);
+  
+  // Parse search parameters
+  const origin = searchParams.get("origin") || "LAX";
+  const destination = searchParams.get("destination") || "SFO";
+  const departureDate = searchParams.get("departureDate") || "10 Oct 2022";
+  const returnDate = searchParams.get("returnDate") || "18 Oct 2022";
+  const tripType = searchParams.get("tripType") || "round-trip";
+  const cabin = searchParams.get("cabin") || "economy";
+  const passengers = searchParams.get("passengers") || "10";
+  
   const [flights, setFlights] = useState<FlightResult[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedFilter, setSelectedFilter] = useState("price");
@@ -93,12 +105,19 @@ export default function SearchResults() {
   // Simulate loading flight results
   useEffect(() => {
     const timer = setTimeout(() => {
-      setFlights(sampleFlightResults);
+      // Modify sample flight results to use the search parameters
+      const updatedFlights = sampleFlightResults.map(flight => ({
+        ...flight,
+        origin: origin.toUpperCase(),
+        destination: destination.toUpperCase()
+      }));
+      
+      setFlights(updatedFlights);
       setLoading(false);
     }, 1000);
     
     return () => clearTimeout(timer);
-  }, []);
+  }, [origin, destination]);
   
   // Handle back navigation
   const handleBack = () => {
@@ -146,12 +165,14 @@ export default function SearchResults() {
         <div className="bg-sky-50 p-4 rounded-lg mb-6">
           <div className="flex flex-wrap items-center justify-between">
             <div className="flex items-center text-sw-gray-800 mb-2 md:mb-0">
-              <div className="font-medium mr-4">Los Angeles (LAX)</div>
+              <div className="font-medium mr-4">{origin}</div>
               <ChevronRight className="h-5 w-5 text-sw-gray-500 mr-4" />
-              <div className="font-medium">San Francisco (SFO)</div>
+              <div className="font-medium">{destination}</div>
             </div>
             <div className="text-sm text-sw-gray-600">
-              Round Trip | 10 Passengers | Economy | 10 Oct - 18 Oct 2022
+              {tripType === 'one-way' ? 'One Way' : tripType === 'round-trip' ? 'Round Trip' : 'Multi-City'} | 
+              {' '}{passengers} Passengers | {cabin.charAt(0).toUpperCase() + cabin.slice(1)} | 
+              {' '}{departureDate}{returnDate ? ` - ${returnDate}` : ''}
             </div>
           </div>
         </div>
@@ -246,7 +267,19 @@ export default function SearchResults() {
                         {formatPrice(flight.price)}
                       </div>
                       <div className="text-xs text-sw-gray-500 mb-3">per person</div>
-                      <Button className="bg-sw-yellow text-sw-gray-800 hover:bg-yellow-500 transition-colors">
+                      <Button 
+                        className="bg-sw-yellow text-sw-gray-800 hover:bg-yellow-500 transition-colors"
+                        onClick={() => {
+                          // Pass flight details to itinerary page
+                          const params = new URLSearchParams(search);
+                          params.set("flightNumber", flight.flightNumber);
+                          params.set("departureTime", flight.departureTime);
+                          params.set("arrivalTime", flight.arrivalTime);
+                          params.set("duration", flight.duration);
+                          params.set("price", flight.price.toString());
+                          setLocation(`/itinerary?${params.toString()}`);
+                        }}
+                      >
                         Select
                       </Button>
                     </div>

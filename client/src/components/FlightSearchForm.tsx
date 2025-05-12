@@ -38,22 +38,25 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, this would submit the form data to a backend service
-    console.log({
-      tripType,
-      origin,
-      destination,
-      departureDate,
-      returnDate,
-      preference,
-      cabin,
-      groupCategory,
-      isFlexible,
-      remarks
-    });
     
-    // Navigate to search results page
-    setLocation("/search-results");
+    // Format dates to string representation
+    const departureDateStr = departureDate ? format(departureDate, "dd MMM yyyy") : "";
+    const returnDateStr = returnDate ? format(returnDate, "dd MMM yyyy") : "";
+    
+    // Create search params to pass data to the search results page
+    const searchParams = new URLSearchParams({
+      tripType,
+      origin: origin || "",
+      destination: destination || "",
+      departureDate: departureDateStr,
+      returnDate: returnDateStr,
+      cabin: cabin || "economy",
+      passengers: "10", // Default from form UI
+      groupCategory: groupCategory || "Adhoc"
+    }).toString();
+    
+    // Navigate to search results page with the search parameters
+    setLocation(`/search-results?${searchParams}`);
   };
 
   return (
