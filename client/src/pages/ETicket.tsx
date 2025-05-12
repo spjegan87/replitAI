@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation, useSearch } from "wouter";
 import { 
   ArrowLeft, 
@@ -10,14 +10,22 @@ import {
   Info, 
   Luggage, 
   QrCode, 
-  Download
+  Download,
+  UserCircle,
+  Users,
+  Baby,
+  Mail,
+  Phone,
+  Calendar
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { formatPrice } from "@/lib/utils";
 
 export default function ETicket() {
   const [, setLocation] = useLocation();
@@ -39,6 +47,75 @@ export default function ETicket() {
   const childCount = parseInt(searchParams.get("childCount") || "2");
   const infantCount = parseInt(searchParams.get("infantCount") || "0");
   const cabin = searchParams.get("cabin") || "economy";
+  const duration = searchParams.get("duration") || "2h 35m";
+  const aircraft = searchParams.get("aircraft") || "Boeing 737-800";
+  
+  // Parse passenger details
+  const [passengerDetails, setPassengerDetails] = useState<Array<{
+    firstName: string;
+    lastName: string;
+    email?: string;
+    phone?: string;
+    dob: string;
+    type: 'adult' | 'child' | 'infant';
+  }>>([]);
+  
+  // Parse passenger details from URL
+  useEffect(() => {
+    const passengerDetailsParam = searchParams.get("passengerDetails");
+    if (passengerDetailsParam) {
+      try {
+        const parsedDetails = JSON.parse(passengerDetailsParam);
+        setPassengerDetails(parsedDetails);
+      } catch (err) {
+        console.error("Error parsing passenger details:", err);
+        // If parsing fails, create sample passengers
+        createSamplePassengers();
+      }
+    } else {
+      // If no passenger details, create sample ones
+      createSamplePassengers();
+    }
+  }, []);
+  
+  // Create sample passengers if no details provided
+  const createSamplePassengers = () => {
+    const samplePassengers = [];
+    
+    // Add sample adults
+    for (let i = 0; i < adultCount; i++) {
+      samplePassengers.push({
+        firstName: i === 0 ? "John" : `Adult ${i+1}`,
+        lastName: i === 0 ? "Doe" : "Passenger",
+        email: i === 0 ? "john.doe@example.com" : undefined,
+        phone: i === 0 ? "555-123-4567" : undefined,
+        dob: "1985-01-01",
+        type: 'adult' as const,
+      });
+    }
+    
+    // Add sample children
+    for (let i = 0; i < childCount; i++) {
+      samplePassengers.push({
+        firstName: `Child ${i+1}`,
+        lastName: "Passenger",
+        dob: "2015-05-15",
+        type: 'child' as const,
+      });
+    }
+    
+    // Add sample infants
+    for (let i = 0; i < infantCount; i++) {
+      samplePassengers.push({
+        firstName: `Infant ${i+1}`,
+        lastName: "Passenger",
+        dob: "2021-10-10",
+        type: 'infant' as const,
+      });
+    }
+    
+    setPassengerDetails(samplePassengers);
+  };
   
   // Handle back to confirmation
   const handleBack = () => {
