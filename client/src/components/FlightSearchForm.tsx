@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "wouter";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -33,6 +34,8 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
   const [showRemarks, setShowRemarks] = useState<boolean>(false);
   const [remarks, setRemarks] = useState<string>("");
 
+  const [, setLocation] = useLocation();
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // In a real app, this would submit the form data to a backend service
@@ -48,6 +51,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
       isFlexible,
       remarks
     });
+    
+    // Navigate to search results page
+    setLocation("/search-results");
   };
 
   return (
