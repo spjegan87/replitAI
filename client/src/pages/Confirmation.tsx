@@ -1,27 +1,41 @@
-import { useLocation } from "wouter";
+import { useLocation, useSearch } from "wouter";
 import { Check, Calendar, Printer, User, Mail, Users, MapPin, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { formatPrice } from "@/lib/utils";
 
 export default function Confirmation() {
   const [, setLocation] = useLocation();
+  const search = useSearch();
+  const searchParams = new URLSearchParams(search);
   
-  // In a real app, we would fetch this data from the server
+  // Parse search parameters or use defaults
   const bookingDetails = {
-    bookingNumber: "SW" + Math.floor(Math.random() * 100000000).toString().padStart(8, '0'),
-    departureDate: "10 Oct 2022",
-    returnDate: "18 Oct 2022",
-    origin: "LAX",
-    destination: "SFO",
-    flightNumbers: ["SW 1422", "SW 3316"],
-    passengers: 10,
-    totalPrice: "$1,499.90",
-    contactName: "John Doe",
-    contactEmail: "john.doe@example.com",
-    contactPhone: "(555) 123-4567"
+    bookingNumber: searchParams.get("bookingNumber") || "SW" + Math.floor(Math.random() * 100000000).toString().padStart(8, '0'),
+    departureDate: searchParams.get("departureDate") || "10 Oct 2022",
+    returnDate: searchParams.get("returnDate") || "18 Oct 2022",
+    origin: searchParams.get("origin") || "LAX",
+    destination: searchParams.get("destination") || "SFO",
+    flightNumbers: [
+      searchParams.get("flightNumber") || "SW 1422", 
+      searchParams.get("flightNumber") ? 
+        searchParams.get("flightNumber")!.replace(/\d+$/, (n) => (parseInt(n) + 10).toString()) : 
+        "SW 3316"
+    ],
+    passengers: parseInt(searchParams.get("passengers") || "10"),
+    adultCount: parseInt(searchParams.get("adultCount") || "8"),
+    childCount: parseInt(searchParams.get("childCount") || "2"),
+    infantCount: parseInt(searchParams.get("infantCount") || "0"),
+    totalPrice: formatPrice(parseFloat(searchParams.get("totalPrice") || searchParams.get("price") || "1499.90")),
+    contactName: searchParams.get("cardholderName") || "John Doe",
+    contactEmail: searchParams.get("email") || "john.doe@example.com",
+    contactPhone: searchParams.get("phone") || "(555) 123-4567",
+    departureTime: searchParams.get("departureTime") || "06:45 AM",
+    arrivalTime: searchParams.get("arrivalTime") || "09:20 AM",
+    cabin: searchParams.get("cabin") || "economy"
   };
   
   // Go to homepage
@@ -139,7 +153,15 @@ export default function Confirmation() {
             </CardContent>
           </Card>
           
-          <div className="flex justify-center">
+          <div className="flex justify-center space-x-4">
+            <Button 
+              variant="outline"
+              className="text-sw-blue border-sw-blue"
+              onClick={() => setLocation(`/e-ticket?bookingNumber=${bookingDetails.bookingNumber}&origin=${bookingDetails.origin}&destination=${bookingDetails.destination}&departureDate=${bookingDetails.departureDate}&returnDate=${bookingDetails.returnDate}&flightNumber=${bookingDetails.flightNumbers[0]}`)}
+            >
+              View E-Ticket
+            </Button>
+            
             <Button 
               className="bg-sw-yellow text-sw-gray-800 hover:bg-yellow-500 transition-colors"
               onClick={handleGoHome}

@@ -9,6 +9,7 @@ import SearchResults from "@/pages/SearchResults";
 import Itinerary from "@/pages/Itinerary";
 import Payment from "@/pages/Payment";
 import Confirmation from "@/pages/Confirmation";
+import ETicket from "@/pages/ETicket";
 
 function Router() {
   return (
@@ -18,6 +19,7 @@ function Router() {
       <Route path="/itinerary" component={Itinerary} />
       <Route path="/payment" component={Payment} />
       <Route path="/confirmation" component={Confirmation} />
+      <Route path="/e-ticket" component={ETicket} />
       <Route component={NotFound} />
     </Switch>
   );

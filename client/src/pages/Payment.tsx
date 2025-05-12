@@ -100,8 +100,16 @@ export default function Payment() {
         description: "Your group booking has been confirmed!",
       });
       
-      // Navigate to confirmation page
-      setLocation("/confirmation");
+      // Navigate to confirmation page with all the data
+      const confirmationParams = new URLSearchParams(search);
+      
+      // Add payment information 
+      confirmationParams.set("paymentComplete", "true");
+      confirmationParams.set("cardholderName", cardholderName);
+      confirmationParams.set("email", email);
+      confirmationParams.set("phone", phone);
+      
+      setLocation(`/confirmation?${confirmationParams.toString()}`);
     }, 2000);
   };
   
