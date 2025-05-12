@@ -320,6 +320,157 @@ export default function Itinerary() {
             )}
           </div>
           
+          {/* Passenger Information */}
+          <div className="mb-8">
+            <h2 className="text-xl font-medium text-sw-gray-800 mb-4">Passenger Information</h2>
+            
+            <Card>
+              <CardContent className="p-6">
+                <Tabs defaultValue="passenger-1" className="w-full">
+                  <TabsList className="mb-4 flex flex-wrap overflow-x-auto">
+                    {passengerDetails.map((passenger, index) => (
+                      <TabsTrigger 
+                        key={index} 
+                        value={`passenger-${index + 1}`}
+                        className="flex items-center"
+                      >
+                        {passenger.type === 'adult' ? (
+                          <UserCircle className="h-4 w-4 mr-1" />
+                        ) : passenger.type === 'child' ? (
+                          <Users className="h-4 w-4 mr-1" />
+                        ) : (
+                          <Baby className="h-4 w-4 mr-1" />
+                        )}
+                        {passenger.firstName || passenger.lastName 
+                          ? `${passenger.firstName} ${passenger.lastName}`
+                          : `${passenger.type.charAt(0).toUpperCase() + passenger.type.slice(1)} ${index + 1}`
+                        }
+                      </TabsTrigger>
+                    ))}
+                  </TabsList>
+                  
+                  {passengerDetails.map((passenger, index) => (
+                    <TabsContent key={index} value={`passenger-${index + 1}`} className="mt-2">
+                      <div className="space-y-6">
+                        <div className="flex items-center mb-3">
+                          <Badge className={`mr-2 ${
+                            passenger.type === 'adult' ? 'bg-blue-100 text-blue-800' : 
+                            passenger.type === 'child' ? 'bg-green-100 text-green-800' : 
+                            'bg-purple-100 text-purple-800'
+                          }`}>
+                            {passenger.type.charAt(0).toUpperCase() + passenger.type.slice(1)}
+                          </Badge>
+                          {index === 0 && passenger.type === 'adult' && (
+                            <span className="text-sm text-sw-gray-600 flex items-center">
+                              <Info className="h-4 w-4 mr-1" />
+                              Primary Contact
+                            </span>
+                          )}
+                        </div>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {/* First Name */}
+                          <div>
+                            <Label htmlFor={`first-name-${index}`} className="mb-1 block">
+                              First Name <span className="text-red-500">*</span>
+                            </Label>
+                            <Input 
+                              id={`first-name-${index}`}
+                              value={passenger.firstName}
+                              onChange={(e) => updatePassenger(index, 'firstName', e.target.value)}
+                              className="w-full"
+                            />
+                          </div>
+                          
+                          {/* Last Name */}
+                          <div>
+                            <Label htmlFor={`last-name-${index}`} className="mb-1 block">
+                              Last Name <span className="text-red-500">*</span>
+                            </Label>
+                            <Input 
+                              id={`last-name-${index}`}
+                              value={passenger.lastName}
+                              onChange={(e) => updatePassenger(index, 'lastName', e.target.value)}
+                              className="w-full"
+                            />
+                          </div>
+                          
+                          {/* Date of Birth */}
+                          <div>
+                            <Label htmlFor={`dob-${index}`} className="mb-1 block">
+                              Date of Birth <span className="text-red-500">*</span>
+                            </Label>
+                            <div className="flex items-center">
+                              <CalendarDays className="h-4 w-4 mr-2 text-sw-gray-400" />
+                              <Input 
+                                id={`dob-${index}`}
+                                type="date"
+                                value={passenger.dob}
+                                onChange={(e) => updatePassenger(index, 'dob', e.target.value)}
+                                className="w-full"
+                              />
+                            </div>
+                          </div>
+                          
+                          {/* Email - only for primary passenger */}
+                          {index === 0 && passenger.type === 'adult' && (
+                            <div>
+                              <Label htmlFor="email" className="mb-1 block">
+                                Email <span className="text-red-500">*</span>
+                              </Label>
+                              <div className="flex items-center">
+                                <Mail className="h-4 w-4 mr-2 text-sw-gray-400" />
+                                <Input 
+                                  id="email"
+                                  type="email"
+                                  value={passenger.email || ""}
+                                  onChange={(e) => updatePassenger(index, 'email', e.target.value)}
+                                  className="w-full"
+                                />
+                              </div>
+                            </div>
+                          )}
+                          
+                          {/* Phone - only for primary passenger */}
+                          {index === 0 && passenger.type === 'adult' && (
+                            <div className={index === 0 ? "md:col-span-2" : ""}>
+                              <Label htmlFor="phone" className="mb-1 block">
+                                Phone Number <span className="text-red-500">*</span>
+                              </Label>
+                              <div className="flex items-center">
+                                <Phone className="h-4 w-4 mr-2 text-sw-gray-400" />
+                                <Input 
+                                  id="phone"
+                                  type="tel"
+                                  value={passenger.phone || ""}
+                                  onChange={(e) => updatePassenger(index, 'phone', e.target.value)}
+                                  className="w-full"
+                                />
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                        
+                        <div className="text-sm text-sw-gray-500 mt-4">
+                          <div className="flex items-start">
+                            <Info className="h-4 w-4 mr-2 mt-0.5 text-sw-blue" />
+                            <p>
+                              {passenger.type === 'infant' 
+                                ? 'Infants must be under 2 years of age at the time of travel.' 
+                                : passenger.type === 'child' 
+                                  ? 'Children must be between 2-11 years of age at the time of travel.'
+                                  : 'Adults must be 12 years or older at the time of travel.'}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </TabsContent>
+                  ))}
+                </Tabs>
+              </CardContent>
+            </Card>
+          </div>
+          
           {/* Price Summary */}
           <div>
             <Card>
