@@ -109,6 +109,16 @@ export default function Payment() {
       confirmationParams.set("email", email);
       confirmationParams.set("phone", phone);
       
+      // Ensure origin and destination details are passed (even if already in params)
+      confirmationParams.set("origin", origin);
+      confirmationParams.set("destination", destination);
+      confirmationParams.set("departureDate", departureDate);
+      if (returnDate) confirmationParams.set("returnDate", returnDate);
+      
+      // Generate a booking number
+      const bookingNumber = "SW" + Math.floor(Math.random() * 10000000).toString().padStart(8, '0');
+      confirmationParams.set("bookingNumber", bookingNumber);
+      
       setLocation(`/confirmation?${confirmationParams.toString()}`);
     }, 2000);
   };
