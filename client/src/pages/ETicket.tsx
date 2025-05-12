@@ -69,6 +69,7 @@ export default function ETicket() {
       try {
         const parsedDetails = JSON.parse(passengerDetailsParam);
         setPassengerDetails(parsedDetails);
+        console.log("Successfully parsed passenger details:", parsedDetails);
       } catch (err) {
         console.error("Error parsing passenger details:", err);
         // If parsing fails, create sample passengers
@@ -76,9 +77,10 @@ export default function ETicket() {
       }
     } else {
       // If no passenger details, create sample ones
+      console.log("No passenger details found in URL, creating sample data");
       createSamplePassengers();
     }
-  }, []);
+  }, [searchParams]);
   
   // Create sample passengers if no details provided
   const createSamplePassengers = () => {

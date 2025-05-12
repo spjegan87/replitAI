@@ -157,7 +157,43 @@ export default function Confirmation() {
             <Button 
               variant="outline"
               className="text-sw-blue border-sw-blue"
-              onClick={() => setLocation(`/e-ticket?bookingNumber=${bookingDetails.bookingNumber}&origin=${bookingDetails.origin}&destination=${bookingDetails.destination}&departureDate=${bookingDetails.departureDate}&returnDate=${bookingDetails.returnDate}&flightNumber=${bookingDetails.flightNumbers[0]}`)}
+              onClick={() => {
+                // Create URL params with all booking details for e-ticket
+                const eTicketParams = new URLSearchParams();
+                
+                // Add all essential flight and booking information
+                eTicketParams.set("bookingNumber", bookingDetails.bookingNumber);
+                eTicketParams.set("origin", bookingDetails.origin);
+                eTicketParams.set("destination", bookingDetails.destination);
+                eTicketParams.set("departureDate", bookingDetails.departureDate);
+                eTicketParams.set("departureTime", bookingDetails.departureTime);
+                eTicketParams.set("arrivalTime", bookingDetails.arrivalTime);
+                eTicketParams.set("flightNumber", bookingDetails.flightNumbers[0]);
+                eTicketParams.set("passengers", bookingDetails.passengers.toString());
+                eTicketParams.set("adultCount", bookingDetails.adultCount.toString());
+                eTicketParams.set("childCount", bookingDetails.childCount.toString());
+                eTicketParams.set("infantCount", bookingDetails.infantCount.toString());
+                eTicketParams.set("totalPrice", bookingDetails.totalPrice);
+                eTicketParams.set("contactName", bookingDetails.contactName);
+                eTicketParams.set("contactEmail", bookingDetails.contactEmail);
+                eTicketParams.set("contactPhone", bookingDetails.contactPhone);
+                eTicketParams.set("cabin", bookingDetails.cabin);
+                
+                // Pass passenger details if available
+                if (searchParams.get("passengerDetails")) {
+                  eTicketParams.set("passengerDetails", searchParams.get("passengerDetails") || "");
+                }
+                
+                // Add return flight information if available
+                if (bookingDetails.returnDate) {
+                  eTicketParams.set("returnDate", bookingDetails.returnDate);
+                  if (bookingDetails.flightNumbers.length > 1) {
+                    eTicketParams.set("returnFlightNumber", bookingDetails.flightNumbers[1]);
+                  }
+                }
+                
+                setLocation(`/e-ticket?${eTicketParams.toString()}`);
+              }}
             >
               View E-Ticket
             </Button>
