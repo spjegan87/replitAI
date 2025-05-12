@@ -183,85 +183,22 @@ export default function Itinerary() {
           </div>
         </div>
         
-        {/* Flight Details */}
+        {/* Content Grid: Flight Details, Passenger Info, Price Summary */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          {/* Outbound Flight */}
-          <div className="md:col-span-2">
-            <Card>
-              <CardContent className="p-0">
-                <div className="p-4 border-b border-gray-200">
-                  <div className="flex justify-between items-center mb-2">
-                    <h3 className="font-bold text-sw-gray-800">Outbound Flight</h3>
-                    <Badge variant="outline" className="bg-green-50 text-green-600 hover:bg-green-50">Confirmed</Badge>
-                  </div>
-                  <div className="text-sm text-sw-gray-600">
-                    {departureDate} · Southwest Airlines · {flightNumber}
-                  </div>
-                </div>
-                
-                <div className="p-4">
-                  <div className="flex items-start justify-between mb-6">
-                    <div className="text-center">
-                      <div className="text-xl font-bold">{departureTime}</div>
-                      <div className="text-sm text-sw-gray-600">{departureDate}</div>
-                      <div className="text-sm font-medium">{origin}</div>
-                    </div>
-                    
-                    <div className="flex flex-col items-center mx-4 pt-2">
-                      <div className="text-xs text-sw-gray-500">{duration}</div>
-                      <div className="w-20 md:w-28 h-0.5 bg-sw-gray-300 my-1 relative"></div>
-                      <div className="text-xs text-sw-gray-500">Nonstop</div>
-                    </div>
-                    
-                    <div className="text-center">
-                      <div className="text-xl font-bold">{arrivalTime}</div>
-                      <div className="text-sm text-sw-gray-600">{departureDate}</div>
-                      <div className="text-sm font-medium">{destination}</div>
-                    </div>
-                  </div>
-                  
-                  <Separator className="my-4" />
-                  
-                  <div className="space-y-3">
-                    <div className="flex items-start">
-                      <PlaneTakeoff className="h-5 w-5 text-sw-gray-500 mr-3 mt-0.5" />
-                      <div>
-                        <div className="font-medium text-sw-gray-800">Departure</div>
-                        <div className="text-sm text-sw-gray-600">Terminal 1, Gate A12</div>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-start">
-                      <PlaneLanding className="h-5 w-5 text-sw-gray-500 mr-3 mt-0.5" />
-                      <div>
-                        <div className="font-medium text-sw-gray-800">Arrival</div>
-                        <div className="text-sm text-sw-gray-600">Terminal B, Gate 22</div>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-start">
-                      <Clock className="h-5 w-5 text-sw-gray-500 mr-3 mt-0.5" />
-                      <div>
-                        <div className="font-medium text-sw-gray-800">Flight Duration</div>
-                        <div className="text-sm text-sw-gray-600">{duration}</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            {/* Return flight would go here if round trip */}
-            {returnDate && (
-              <Card className="mt-6">
+          {/* Left column (spans 2 columns on medium screens and up) */}
+          <div className="md:col-span-2 space-y-8">
+            {/* Outbound Flight */}
+            <div>
+              <h2 className="text-xl font-medium text-sw-gray-800 mb-4">Flight Details</h2>
+              <Card>
                 <CardContent className="p-0">
                   <div className="p-4 border-b border-gray-200">
                     <div className="flex justify-between items-center mb-2">
-                      <h3 className="font-bold text-sw-gray-800">Return Flight</h3>
+                      <h3 className="font-bold text-sw-gray-800">Outbound Flight</h3>
                       <Badge variant="outline" className="bg-green-50 text-green-600 hover:bg-green-50">Confirmed</Badge>
                     </div>
                     <div className="text-sm text-sw-gray-600">
-                      {returnDate} · Southwest Airlines · {flightNumber}
+                      {departureDate} · Southwest Airlines · {flightNumber}
                     </div>
                   </div>
                   
@@ -269,8 +206,8 @@ export default function Itinerary() {
                     <div className="flex items-start justify-between mb-6">
                       <div className="text-center">
                         <div className="text-xl font-bold">{departureTime}</div>
-                        <div className="text-sm text-sw-gray-600">{returnDate}</div>
-                        <div className="text-sm font-medium">{destination}</div>
+                        <div className="text-sm text-sw-gray-600">{departureDate}</div>
+                        <div className="text-sm font-medium">{origin}</div>
                       </div>
                       
                       <div className="flex flex-col items-center mx-4 pt-2">
@@ -281,12 +218,11 @@ export default function Itinerary() {
                       
                       <div className="text-center">
                         <div className="text-xl font-bold">{arrivalTime}</div>
-                        <div className="text-sm text-sw-gray-600">{returnDate}</div>
-                        <div className="text-sm font-medium">{origin}</div>
+                        <div className="text-sm text-sw-gray-600">{departureDate}</div>
+                        <div className="text-sm font-medium">{destination}</div>
                       </div>
                     </div>
                     
-                    {/* Return flight details would mirror outbound */}
                     <Separator className="my-4" />
                     
                     <div className="space-y-3">
@@ -294,7 +230,7 @@ export default function Itinerary() {
                         <PlaneTakeoff className="h-5 w-5 text-sw-gray-500 mr-3 mt-0.5" />
                         <div>
                           <div className="font-medium text-sw-gray-800">Departure</div>
-                          <div className="text-sm text-sw-gray-600">Terminal B, Gate 15</div>
+                          <div className="text-sm text-sw-gray-600">Terminal 1, Gate A12</div>
                         </div>
                       </div>
                       
@@ -302,7 +238,7 @@ export default function Itinerary() {
                         <PlaneLanding className="h-5 w-5 text-sw-gray-500 mr-3 mt-0.5" />
                         <div>
                           <div className="font-medium text-sw-gray-800">Arrival</div>
-                          <div className="text-sm text-sw-gray-600">Terminal 1, Gate B8</div>
+                          <div className="text-sm text-sw-gray-600">Terminal B, Gate 22</div>
                         </div>
                       </div>
                       
@@ -317,211 +253,272 @@ export default function Itinerary() {
                   </div>
                 </CardContent>
               </Card>
-            )}
-          </div>
-          
-          {/* Passenger Information */}
-          <div className="mb-8">
-            <h2 className="text-xl font-medium text-sw-gray-800 mb-4">Passenger Information</h2>
-            
-            <Card>
-              <CardContent className="p-6">
-                <Tabs defaultValue="passenger-1" className="w-full">
-                  <TabsList className="mb-4 flex flex-wrap overflow-x-auto">
-                    {passengerDetails.map((passenger, index) => (
-                      <TabsTrigger 
-                        key={index} 
-                        value={`passenger-${index + 1}`}
-                        className="flex items-center"
-                      >
-                        {passenger.type === 'adult' ? (
-                          <UserCircle className="h-4 w-4 mr-1" />
-                        ) : passenger.type === 'child' ? (
-                          <Users className="h-4 w-4 mr-1" />
-                        ) : (
-                          <Baby className="h-4 w-4 mr-1" />
-                        )}
-                        {passenger.firstName || passenger.lastName 
-                          ? `${passenger.firstName} ${passenger.lastName}`
-                          : `${passenger.type.charAt(0).toUpperCase() + passenger.type.slice(1)} ${index + 1}`
-                        }
-                      </TabsTrigger>
-                    ))}
-                  </TabsList>
-                  
-                  {passengerDetails.map((passenger, index) => (
-                    <TabsContent key={index} value={`passenger-${index + 1}`} className="mt-2">
-                      <div className="space-y-6">
-                        <div className="flex items-center mb-3">
-                          <Badge className={`mr-2 ${
-                            passenger.type === 'adult' ? 'bg-blue-100 text-blue-800' : 
-                            passenger.type === 'child' ? 'bg-green-100 text-green-800' : 
-                            'bg-purple-100 text-purple-800'
-                          }`}>
-                            {passenger.type.charAt(0).toUpperCase() + passenger.type.slice(1)}
-                          </Badge>
-                          {index === 0 && passenger.type === 'adult' && (
-                            <span className="text-sm text-sw-gray-600 flex items-center">
-                              <Info className="h-4 w-4 mr-1" />
-                              Primary Contact
-                            </span>
-                          )}
+              
+              {/* Return flight would go here if round trip */}
+              {returnDate && (
+                <Card className="mt-6">
+                  <CardContent className="p-0">
+                    <div className="p-4 border-b border-gray-200">
+                      <div className="flex justify-between items-center mb-2">
+                        <h3 className="font-bold text-sw-gray-800">Return Flight</h3>
+                        <Badge variant="outline" className="bg-green-50 text-green-600 hover:bg-green-50">Confirmed</Badge>
+                      </div>
+                      <div className="text-sm text-sw-gray-600">
+                        {returnDate} · Southwest Airlines · {flightNumber}
+                      </div>
+                    </div>
+                    
+                    <div className="p-4">
+                      <div className="flex items-start justify-between mb-6">
+                        <div className="text-center">
+                          <div className="text-xl font-bold">{departureTime}</div>
+                          <div className="text-sm text-sw-gray-600">{returnDate}</div>
+                          <div className="text-sm font-medium">{destination}</div>
                         </div>
                         
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          {/* First Name */}
-                          <div>
-                            <Label htmlFor={`first-name-${index}`} className="mb-1 block">
-                              First Name <span className="text-red-500">*</span>
-                            </Label>
-                            <Input 
-                              id={`first-name-${index}`}
-                              value={passenger.firstName}
-                              onChange={(e) => updatePassenger(index, 'firstName', e.target.value)}
-                              className="w-full"
-                            />
-                          </div>
-                          
-                          {/* Last Name */}
-                          <div>
-                            <Label htmlFor={`last-name-${index}`} className="mb-1 block">
-                              Last Name <span className="text-red-500">*</span>
-                            </Label>
-                            <Input 
-                              id={`last-name-${index}`}
-                              value={passenger.lastName}
-                              onChange={(e) => updatePassenger(index, 'lastName', e.target.value)}
-                              className="w-full"
-                            />
-                          </div>
-                          
-                          {/* Date of Birth */}
-                          <div>
-                            <Label htmlFor={`dob-${index}`} className="mb-1 block">
-                              Date of Birth <span className="text-red-500">*</span>
-                            </Label>
-                            <div className="flex items-center">
-                              <CalendarDays className="h-4 w-4 mr-2 text-sw-gray-400" />
-                              <Input 
-                                id={`dob-${index}`}
-                                type="date"
-                                value={passenger.dob}
-                                onChange={(e) => updatePassenger(index, 'dob', e.target.value)}
-                                className="w-full"
-                              />
-                            </div>
-                          </div>
-                          
-                          {/* Email - only for primary passenger */}
-                          {index === 0 && passenger.type === 'adult' && (
-                            <div>
-                              <Label htmlFor="email" className="mb-1 block">
-                                Email <span className="text-red-500">*</span>
-                              </Label>
-                              <div className="flex items-center">
-                                <Mail className="h-4 w-4 mr-2 text-sw-gray-400" />
-                                <Input 
-                                  id="email"
-                                  type="email"
-                                  value={passenger.email || ""}
-                                  onChange={(e) => updatePassenger(index, 'email', e.target.value)}
-                                  className="w-full"
-                                />
-                              </div>
-                            </div>
-                          )}
-                          
-                          {/* Phone - only for primary passenger */}
-                          {index === 0 && passenger.type === 'adult' && (
-                            <div className={index === 0 ? "md:col-span-2" : ""}>
-                              <Label htmlFor="phone" className="mb-1 block">
-                                Phone Number <span className="text-red-500">*</span>
-                              </Label>
-                              <div className="flex items-center">
-                                <Phone className="h-4 w-4 mr-2 text-sw-gray-400" />
-                                <Input 
-                                  id="phone"
-                                  type="tel"
-                                  value={passenger.phone || ""}
-                                  onChange={(e) => updatePassenger(index, 'phone', e.target.value)}
-                                  className="w-full"
-                                />
-                              </div>
-                            </div>
-                          )}
+                        <div className="flex flex-col items-center mx-4 pt-2">
+                          <div className="text-xs text-sw-gray-500">{duration}</div>
+                          <div className="w-20 md:w-28 h-0.5 bg-sw-gray-300 my-1 relative"></div>
+                          <div className="text-xs text-sw-gray-500">Nonstop</div>
                         </div>
                         
-                        <div className="text-sm text-sw-gray-500 mt-4">
-                          <div className="flex items-start">
-                            <Info className="h-4 w-4 mr-2 mt-0.5 text-sw-blue" />
-                            <p>
-                              {passenger.type === 'infant' 
-                                ? 'Infants must be under 2 years of age at the time of travel.' 
-                                : passenger.type === 'child' 
-                                  ? 'Children must be between 2-11 years of age at the time of travel.'
-                                  : 'Adults must be 12 years or older at the time of travel.'}
-                            </p>
+                        <div className="text-center">
+                          <div className="text-xl font-bold">{arrivalTime}</div>
+                          <div className="text-sm text-sw-gray-600">{returnDate}</div>
+                          <div className="text-sm font-medium">{origin}</div>
+                        </div>
+                      </div>
+                      
+                      {/* Return flight details would mirror outbound */}
+                      <Separator className="my-4" />
+                      
+                      <div className="space-y-3">
+                        <div className="flex items-start">
+                          <PlaneTakeoff className="h-5 w-5 text-sw-gray-500 mr-3 mt-0.5" />
+                          <div>
+                            <div className="font-medium text-sw-gray-800">Departure</div>
+                            <div className="text-sm text-sw-gray-600">Terminal B, Gate 15</div>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-start">
+                          <PlaneLanding className="h-5 w-5 text-sw-gray-500 mr-3 mt-0.5" />
+                          <div>
+                            <div className="font-medium text-sw-gray-800">Arrival</div>
+                            <div className="text-sm text-sw-gray-600">Terminal 1, Gate B8</div>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-start">
+                          <Clock className="h-5 w-5 text-sw-gray-500 mr-3 mt-0.5" />
+                          <div>
+                            <div className="font-medium text-sw-gray-800">Flight Duration</div>
+                            <div className="text-sm text-sw-gray-600">{duration}</div>
                           </div>
                         </div>
                       </div>
-                    </TabsContent>
-                  ))}
-                </Tabs>
-              </CardContent>
-            </Card>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
+            
+            {/* Passenger Information - Now placed directly under flight details */}
+            <div>
+              <h2 className="text-xl font-medium text-sw-gray-800 mb-4">Passenger Information</h2>
+              
+              <Card>
+                <CardContent className="p-6">
+                  <Tabs defaultValue="passenger-1" className="w-full">
+                    <TabsList className="mb-4 flex flex-wrap overflow-x-auto">
+                      {passengerDetails.map((passenger, index) => (
+                        <TabsTrigger 
+                          key={index} 
+                          value={`passenger-${index + 1}`}
+                          className="flex items-center"
+                        >
+                          {passenger.type === 'adult' ? (
+                            <UserCircle className="h-4 w-4 mr-1" />
+                          ) : passenger.type === 'child' ? (
+                            <Users className="h-4 w-4 mr-1" />
+                          ) : (
+                            <Baby className="h-4 w-4 mr-1" />
+                          )}
+                          {passenger.firstName || passenger.lastName 
+                            ? `${passenger.firstName} ${passenger.lastName}`
+                            : `${passenger.type.charAt(0).toUpperCase() + passenger.type.slice(1)} ${index + 1}`
+                          }
+                        </TabsTrigger>
+                      ))}
+                    </TabsList>
+                    
+                    {passengerDetails.map((passenger, index) => (
+                      <TabsContent key={index} value={`passenger-${index + 1}`} className="mt-2">
+                        <div className="space-y-6">
+                          <div className="flex items-center mb-3">
+                            <Badge className={`mr-2 ${
+                              passenger.type === 'adult' ? 'bg-blue-100 text-blue-800' : 
+                              passenger.type === 'child' ? 'bg-green-100 text-green-800' : 
+                              'bg-purple-100 text-purple-800'
+                            }`}>
+                              {passenger.type.charAt(0).toUpperCase() + passenger.type.slice(1)}
+                            </Badge>
+                            {index === 0 && passenger.type === 'adult' && (
+                              <span className="text-sm text-sw-gray-600 flex items-center">
+                                <Info className="h-4 w-4 mr-1" />
+                                Primary Contact
+                              </span>
+                            )}
+                          </div>
+                          
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {/* First Name */}
+                            <div>
+                              <Label htmlFor={`first-name-${index}`} className="mb-1 block">
+                                First Name <span className="text-red-500">*</span>
+                              </Label>
+                              <Input 
+                                id={`first-name-${index}`}
+                                value={passenger.firstName}
+                                onChange={(e) => updatePassenger(index, 'firstName', e.target.value)}
+                                className="w-full"
+                              />
+                            </div>
+                            
+                            {/* Last Name */}
+                            <div>
+                              <Label htmlFor={`last-name-${index}`} className="mb-1 block">
+                                Last Name <span className="text-red-500">*</span>
+                              </Label>
+                              <Input 
+                                id={`last-name-${index}`}
+                                value={passenger.lastName}
+                                onChange={(e) => updatePassenger(index, 'lastName', e.target.value)}
+                                className="w-full"
+                              />
+                            </div>
+                            
+                            {/* Date of Birth */}
+                            <div>
+                              <Label htmlFor={`dob-${index}`} className="mb-1 block">
+                                Date of Birth <span className="text-red-500">*</span>
+                              </Label>
+                              <div className="flex items-center">
+                                <CalendarDays className="h-4 w-4 mr-2 text-sw-gray-400" />
+                                <Input 
+                                  id={`dob-${index}`}
+                                  type="date"
+                                  value={passenger.dob}
+                                  onChange={(e) => updatePassenger(index, 'dob', e.target.value)}
+                                  className="w-full"
+                                />
+                              </div>
+                            </div>
+                            
+                            {/* Email - only for primary passenger */}
+                            {index === 0 && passenger.type === 'adult' && (
+                              <div>
+                                <Label htmlFor="email" className="mb-1 block">
+                                  Email <span className="text-red-500">*</span>
+                                </Label>
+                                <div className="flex items-center">
+                                  <Mail className="h-4 w-4 mr-2 text-sw-gray-400" />
+                                  <Input 
+                                    id="email"
+                                    type="email"
+                                    value={passenger.email || ""}
+                                    onChange={(e) => updatePassenger(index, 'email', e.target.value)}
+                                    className="w-full"
+                                  />
+                                </div>
+                              </div>
+                            )}
+                            
+                            {/* Phone - only for primary passenger */}
+                            {index === 0 && passenger.type === 'adult' && (
+                              <div className={index === 0 ? "md:col-span-2" : ""}>
+                                <Label htmlFor="phone" className="mb-1 block">
+                                  Phone Number <span className="text-red-500">*</span>
+                                </Label>
+                                <div className="flex items-center">
+                                  <Phone className="h-4 w-4 mr-2 text-sw-gray-400" />
+                                  <Input 
+                                    id="phone"
+                                    type="tel"
+                                    value={passenger.phone || ""}
+                                    onChange={(e) => updatePassenger(index, 'phone', e.target.value)}
+                                    className="w-full"
+                                  />
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                          
+                          <div className="text-sm text-sw-gray-500 mt-4">
+                            <div className="flex items-start">
+                              <Info className="h-4 w-4 mr-2 mt-0.5 text-sw-blue" />
+                              <p>
+                                {passenger.type === 'infant' 
+                                  ? 'Infants must be under 2 years of age at the time of travel.' 
+                                  : passenger.type === 'child' 
+                                    ? 'Children must be between 2-11 years of age at the time of travel.'
+                                    : 'Adults must be 12 years or older at the time of travel.'}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </TabsContent>
+                    ))}
+                  </Tabs>
+                </CardContent>
+              </Card>
+            </div>
           </div>
           
-          {/* Price Summary */}
+          {/* Right column for Price Summary (1 column) */}
           <div>
-            <Card>
-              <CardContent className="p-4">
-                <h3 className="font-bold text-sw-gray-800 mb-4">Price Summary</h3>
-                
-                <div className="space-y-2 mb-4">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-sw-gray-600">Base fare ({cabin})</span>
-                    <span>{formatPrice(price)} × {passengers}</span>
+            <div className="sticky top-6">
+              <h2 className="text-xl font-medium text-sw-gray-800 mb-4">Price Summary</h2>
+              <Card>
+                <CardContent className="p-4">
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <div className="text-sm text-sw-gray-600">Fare ({passengers} Passenger{passengers !== 1 ? 's' : ''})</div>
+                      <div className="text-sm font-medium">{formatPrice(price)} × {passengers}</div>
+                    </div>
+                    
+                    <div className="flex justify-between items-center">
+                      <div className="text-sm text-sw-gray-600">Taxes and Fees</div>
+                      <div className="text-sm font-medium">{formatPrice(price * 0.15 * passengers)}</div>
+                    </div>
+                    
+                    <Separator />
+                    
+                    <div className="flex justify-between items-center pt-2">
+                      <div className="font-medium">Total</div>
+                      <div className="font-bold text-xl text-sw-blue">{formatPrice(price * passengers * 1.15)}</div>
+                    </div>
                   </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-sw-gray-600">Taxes & fees</span>
-                    <span>Included</span>
+                  
+                  <Button 
+                    className="w-full bg-sw-yellow text-sw-gray-800 hover:bg-yellow-500 transition-colors mt-6"
+                    onClick={handleProceedToPayment}
+                  >
+                    Proceed to Payment
+                  </Button>
+                  
+                  <div className="mt-4 text-xs text-sw-gray-500">
+                    <div className="flex items-start">
+                      <Check className="h-4 w-4 mr-1 text-green-500 shrink-0" />
+                      <div>No change fees</div>
+                    </div>
+                    <div className="flex items-start mt-2">
+                      <Check className="h-4 w-4 mr-1 text-green-500 shrink-0" />
+                      <div>Two checked bags included per passenger</div>
+                    </div>
                   </div>
-                </div>
-                
-                <Separator className="my-4" />
-                
-                <div className="flex justify-between font-bold mb-6">
-                  <span>Total</span>
-                  <span className="text-lg">{formatPrice(totalPrice)}</span>
-                </div>
-                
-                <Button 
-                  className="w-full bg-sw-yellow text-sw-gray-800 hover:bg-yellow-500 transition-colors"
-                  onClick={handleProceedToPayment}
-                >
-                  Proceed to Payment
-                </Button>
-                
-                <div className="mt-4 space-y-2">
-                  <div className="flex items-start text-xs text-sw-gray-600">
-                    <Check className="h-4 w-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                    <span>Free date changes up to 24 hours before departure</span>
-                  </div>
-                  <div className="flex items-start text-xs text-sw-gray-600">
-                    <Check className="h-4 w-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                    <span>Two checked bags included for each passenger</span>
-                  </div>
-                  <div className="flex items-start text-xs text-sw-gray-600">
-                    <AlertCircle className="h-4 w-4 text-sw-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>Group bookings require full payment at time of booking</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <div className="mt-4 text-center">
-              <span className="text-xs text-sw-gray-500">Have questions about your booking?</span>
-              <div className="text-sm font-medium text-sw-blue mt-1">Call 1-800-435-9792</div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>
