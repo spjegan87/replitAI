@@ -51,26 +51,18 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
 
   // Filter airports when origin query changes
   useEffect(() => {
-    if (originQuery.length >= 2) {
-      const filtered = filterAirports(originQuery);
-      setOriginAirports(filtered);
-      setOpenOrigin(true);
-    } else {
-      setOriginAirports([]);
-      setOpenOrigin(false);
-    }
+    // Always filter airports, even with empty query
+    const filtered = filterAirports(originQuery);
+    setOriginAirports(filtered);
+    setOpenOrigin(true);
   }, [originQuery]);
 
   // Filter airports when destination query changes
   useEffect(() => {
-    if (destinationQuery.length >= 2) {
-      const filtered = filterAirports(destinationQuery);
-      setDestinationAirports(filtered);
-      setOpenDestination(true);
-    } else {
-      setDestinationAirports([]);
-      setOpenDestination(false);
-    }
+    // Always filter airports, even with empty query
+    const filtered = filterAirports(destinationQuery);
+    setDestinationAirports(filtered);
+    setOpenDestination(true);
   }, [destinationQuery]);
 
   // Handle airport selection for origin
@@ -159,6 +151,16 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                         setOriginQuery("");
                         setOrigin("");
                       }
+                      // Show dropdown when field is clicked
+                      setOpenOrigin(true);
+                    }}
+                    onFocus={() => {
+                      // Show dropdown when field is focused
+                      setOpenOrigin(true);
+                      if (!originAirports.length) {
+                        const filtered = filterAirports("");
+                        setOriginAirports(filtered);
+                      }
                     }}
                     required
                   />
@@ -220,6 +222,16 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                       if (destination) {
                         setDestinationQuery("");
                         setDestination("");
+                      }
+                      // Show dropdown when field is clicked
+                      setOpenDestination(true);
+                    }}
+                    onFocus={() => {
+                      // Show dropdown when field is focused
+                      setOpenDestination(true);
+                      if (!destinationAirports.length) {
+                        const filtered = filterAirports("");
+                        setDestinationAirports(filtered);
                       }
                     }}
                     required

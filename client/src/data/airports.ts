@@ -432,7 +432,15 @@ export const airports: Airport[] = [
 
 // Function to filter airports based on search text
 export function filterAirports(searchText: string): Airport[] {
-  if (!searchText || searchText.length < 2) return [];
+  // If no search text, show all Indian airports first, then a few popular international airports
+  if (!searchText) {
+    const indianAirports = airports.filter(airport => airport.country === "India");
+    const popularAirports = airports.filter(airport => 
+      ["United States", "United Kingdom", "United Arab Emirates", "Singapore"].includes(airport.country)
+    ).slice(0, 5);
+    
+    return [...indianAirports, ...popularAirports].slice(0, 15);
+  }
   
   const lowerCaseSearch = searchText.toLowerCase();
   
