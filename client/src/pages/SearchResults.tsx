@@ -81,7 +81,7 @@ export default function SearchResults() {
   
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const flightsPerPage = 15;
+  const flightsPerPage = 20; // Increased from 15 to 20
   
   // Load flights data
   useEffect(() => {
@@ -90,22 +90,83 @@ export default function SearchResults() {
       const originCode = origin.match(/\(([^)]+)\)/) ? origin.match(/\(([^)]+)\)/)![1] : origin;
       const destinationCode = destination.match(/\(([^)]+)\)/) ? destination.match(/\(([^)]+)\)/)![1] : destination;
       
+      console.log("Searching flights from", originCode, "to", destinationCode);
+      
       // Filter flights based on origin and destination
-      const matchedFlights = filterFlights({
+      let matchedFlights = filterFlights({
         origin: originCode,
         destination: destinationCode
       });
       
-      // If no exact matches, show all flights
-      const flightsToShow = matchedFlights.length > 0 ? matchedFlights : flightResults;
+      // If no exact matches for the city pair, create flights between these cities
+      if (matchedFlights.length === 0) {
+        // Generate at least 20 flights between the selected cities
+        matchedFlights = generateFlightsBetweenCities(originCode, destinationCode, 20);
+      }
       
-      setFlights(flightsToShow);
-      setFilteredFlights(flightsToShow);
+      setFlights(matchedFlights);
+      setFilteredFlights(matchedFlights);
       setLoading(false);
     }, 1000);
     
     return () => clearTimeout(timer);
   }, [origin, destination]);
+  
+  // Function to generate flights between two cities if none exist
+  const generateFlightsBetweenCities = (originCode: string, destinationCode: string, count: number): FlightResult[] => {
+    const generatedFlights: FlightResult[] = [];
+    
+    // Check if international or domestic
+    const isDomestic = 
+      (originCode.length === 3 && destinationCode.length === 3) && 
+      (originCode.includes("LAX") || originCode.includes("SFO") || originCode.includes("JFK") || 
+      destinationCode.includes("LAX") || destinationCode.includes("SFO") || destinationCode.includes("JFK"));
+      
+    const flightType = isDomestic ? 'domestic' : 'international';
+    const basePrices = isDomestic ? 
+      { min: 120, max: 450 } : 
+      { min: 500, max: 1200 };
+    
+    // Generate requested number of flights
+    for (let i = 0; i < count; i++) {
+      // Generate reasonable departure times throughout the day
+      const hour = Math.floor(5 + (i % 15));
+      const minute = (i % 2) === 0 ? 0 : 30;
+      const ampm = hour >= 12 ? "PM" : "AM";
+      const displayHour = hour > 12 ? hour - 12 : (hour === 0 ? 12 : hour);
+      const departureTime = `${displayHour}:${minute === 0 ? "00" : minute} ${ampm}`;
+      
+      // Duration based on flight type
+      const durationHours = isDomestic ? 2 + (i % 4) : 6 + (i % 10);
+      const durationMinutes = 15 + (i % 4) * 15;
+      
+      // Calculate arrival time
+      const arrivalHour = (hour + durationHours + Math.floor((minute + durationMinutes) / 60)) % 24;
+      const arrivalMinute = (minute + durationMinutes) % 60;
+      const arrivalAmpm = arrivalHour >= 12 ? "PM" : "AM";
+      const displayArrivalHour = arrivalHour > 12 ? arrivalHour - 12 : (arrivalHour === 0 ? 12 : arrivalHour);
+      const arrivalTime = `${displayArrivalHour}:${arrivalMinute === 0 ? "00" : arrivalMinute} ${arrivalAmpm}`;
+      
+      // Generate flight details
+      generatedFlights.push({
+        id: 1000 + i,
+        airline: "Southwest",
+        departureTime: departureTime,
+        arrivalTime: arrivalTime,
+        duration: `${durationHours}h ${durationMinutes}m`,
+        origin: originCode,
+        destination: destinationCode,
+        price: Math.round((basePrices.min + Math.random() * (basePrices.max - basePrices.min)) * 100) / 100,
+        stops: i % 4 === 0 ? 0 : (i % 4 === 1 ? 0 : (i % 4 === 2 ? 1 : 2)),
+        flightNumber: `SW ${1000 + i}`,
+        type: flightType,
+        aircraft: isDomestic ? "Boeing 737-800" : "Boeing 777-200",
+        amenities: ["Wi-Fi", "Power outlets", ...(isDomestic ? ["Snacks"] : ["Meal service", "Entertainment"])]
+      });
+    }
+    
+    return generatedFlights;
+  };
   
   // Apply filters when filter options change
   useEffect(() => {
