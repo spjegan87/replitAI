@@ -75,7 +75,11 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
 
   // Handle airport selection for origin
   const handleOriginSelect = (airport: Airport) => {
+    // Set origin with city name and code
     setOrigin(`${airport.city} (${airport.code})`);
+    // Auto-populate destination query with origin city
+    setDestinationQuery(airport.city);
+    setOpenDestination(true);
     setOriginQuery("");
     setOpenOrigin(false);
   };
@@ -275,6 +279,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                     selected={departureDate}
                     onSelect={setDepartureDate}
                     initialFocus
+                    disabled={(date) => 
+                      date < new Date(new Date().setHours(0, 0, 0, 0)) // Disable past dates
+                    }
                   />
                 </PopoverContent>
               </Popover>
