@@ -46,6 +46,15 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
   const [adultCount, setAdultCount] = useState<number>(8);
   const [childCount, setChildCount] = useState<number>(2);
   const [infantCount, setInfantCount] = useState<number>(0);
+  
+  // Form validation errors
+  const [errors, setErrors] = useState<{
+    origin?: string;
+    destination?: string;
+    departureDate?: string;
+    returnDate?: string;
+    passengers?: string;
+  }>({});
 
   const [, setLocation] = useLocation();
 
