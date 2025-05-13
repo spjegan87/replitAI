@@ -17,11 +17,26 @@ import {
   Sliders,
   Users,
   Tag,
-  Heart
+  Heart,
+  Calendar,
+  Info,
+  MoreHorizontal,
+  X,
+  AlertCircle,
+  Plane
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { 
+  Dialog, 
+  DialogContent,
+  DialogHeader, 
+  DialogTitle, 
+  DialogDescription,
+  DialogFooter,
+  DialogClose
+} from "@/components/ui/dialog";
 import { 
   Select, 
   SelectContent, 
@@ -82,6 +97,10 @@ export default function SearchResults() {
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const flightsPerPage = 20; // Increased from 15 to 20
+  
+  // Flight details dialog
+  const [showFlightDetails, setShowFlightDetails] = useState(false);
+  const [selectedFlight, setSelectedFlight] = useState<FlightResult | null>(null);
   
   // Load flights data
   useEffect(() => {
@@ -601,9 +620,17 @@ export default function SearchResults() {
                       
                       <div className="border-t border-gray-200 p-3 flex justify-between items-center bg-gray-50 text-sm">
                         <span className="text-sw-gray-600">Flight operated by Southwest Airlines</span>
-                        <Button variant="ghost" size="sm" className="text-sw-blue flex items-center">
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="text-sw-blue flex items-center"
+                          onClick={() => {
+                            setSelectedFlight(flight);
+                            setShowFlightDetails(true);
+                          }}
+                        >
                           Flight Details
-                          <ChevronDown className="h-4 w-4 ml-1" />
+                          <Info className="h-4 w-4 ml-1" />
                         </Button>
                       </div>
                     </CardContent>
@@ -655,6 +682,126 @@ export default function SearchResults() {
           </div>
         </div>
       </main>
+      
+      {/* Flight Details Dialog */}
+      <Dialog open={showFlightDetails} onOpenChange={setShowFlightDetails}>
+        <DialogContent className="sm:max-w-[600px]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center">
+              <Plane className="h-5 w-5 mr-2 text-sw-blue" />
+              Flight Details
+            </DialogTitle>
+            <DialogDescription>
+              {selectedFlight && `${selectedFlight.airline} Flight ${selectedFlight.flightNumber}`}
+            </DialogDescription>
+          </DialogHeader>
+          
+          {selectedFlight && (
+            <div className="py-4">
+              {/* Route Information */}
+              <div className="mb-6 bg-sky-50 p-4 rounded-lg">
+                <div className="flex justify-between items-center mb-4">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold">{selectedFlight.departureTime}</div>
+                    <div className="font-medium">{selectedFlight.origin}</div>
+                  </div>
+                  
+                  <div className="flex-1 mx-4">
+                    <div className="relative">
+                      <div className="border-t-2 border-sw-gray-300 border-dashed my-4"></div>
+                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sky-100 text-sw-blue px-2 py-1 rounded-full text-xs">
+                        {selectedFlight.duration}
+                      </div>
+                      <div className="absolute -top-1 -left-1 w-3 h-3 rounded-full bg-sw-blue"></div>
+                      <div className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-sw-blue"></div>
+                    </div>
+                    <div className="text-center text-sm text-sw-gray-500">
+                      {selectedFlight.stops === 0 ? 'Nonstop' : 
+                       selectedFlight.stops === 1 ? '1 Stop' : 
+                       `${selectedFlight.stops} Stops`}
+                    </div>
+                  </div>
+                  
+                  <div className="text-center">
+                    <div className="text-2xl font-bold">{selectedFlight.arrivalTime}</div>
+                    <div className="font-medium">{selectedFlight.destination}</div>
+                  </div>
+                </div>
+                
+                <div className="text-center">
+                  <Badge className={`${selectedFlight.type === 'domestic' ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'}`}>
+                    {selectedFlight.type === 'domestic' ? 'Domestic Flight' : 'International Flight'}
+                  </Badge>
+                </div>
+              </div>
+              
+              {/* Flight Information */}
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <h3 className="text-sm font-medium text-sw-gray-700 mb-1">Aircraft</h3>
+                    <p className="text-sm text-sw-gray-900">{selectedFlight.aircraft}</p>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-medium text-sw-gray-700 mb-1">Flight Number</h3>
+                    <p className="text-sm text-sw-gray-900">{selectedFlight.flightNumber}</p>
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 className="text-sm font-medium text-sw-gray-700 mb-1">Onboard Amenities</h3>
+                  <div className="flex flex-wrap gap-2 mt-1">
+                    {selectedFlight.amenities.map((amenity, index) => (
+                      <Badge key={index} variant="outline" className="bg-gray-50">
+                        {amenity === 'Wi-Fi' && <Wifi className="h-3 w-3 mr-1" />}
+                        {amenity === 'Power outlets' && <BatteryMedium className="h-3 w-3 mr-1" />}
+                        {amenity === 'Meal service' && <Coffee className="h-3 w-3 mr-1" />}
+                        {amenity === 'Entertainment' && <ScreenShare className="h-3 w-3 mr-1" />}
+                        {amenity}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 className="text-sm font-medium text-sw-gray-700 mb-1">Baggage Allowance</h3>
+                  <div className="flex items-center text-sm">
+                    <Luggage className="h-4 w-4 mr-2 text-sw-blue" />
+                    <span>2 checked bags included for group bookings</span>
+                  </div>
+                </div>
+                
+                <div className="bg-yellow-50 p-3 rounded-lg border border-yellow-100">
+                  <div className="flex items-start">
+                    <AlertCircle className="h-5 w-5 text-yellow-500 mr-2 mt-0.5" />
+                    <div>
+                      <h3 className="text-sm font-medium text-sw-gray-800">Group Travel Information</h3>
+                      <p className="text-sm text-sw-gray-600 mt-1">
+                        Group boarding begins 30 minutes prior to departure. Please arrive at the gate at least 45 minutes before departure time.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+          
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="outline">Close</Button>
+            </DialogClose>
+            <Button 
+              className="bg-sw-blue hover:bg-blue-700 text-white"
+              onClick={() => {
+                setShowFlightDetails(false);
+                // Add booking logic here if needed
+              }}
+            >
+              Select This Flight
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
       
       <Footer />
     </div>
