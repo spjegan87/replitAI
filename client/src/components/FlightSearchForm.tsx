@@ -178,11 +178,14 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                       <CommandItem
                         key={airport.code}
                         onSelect={() => handleOriginSelect(airport)}
-                        className="cursor-pointer"
+                        className={`cursor-pointer ${airport.country === "India" ? "bg-blue-50" : ""}`}
                       >
                         <div className="flex items-center">
                           <span className="font-bold text-sm mr-2">{airport.code}</span>
                           <span className="text-sm">{airport.city}, {airport.country}</span>
+                          {airport.country === "India" && (
+                            <span className="ml-2 text-xs bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded-full">India</span>
+                          )}
                         </div>
                         <span className="text-xs text-sw-gray-500 ml-6">{airport.name}</span>
                       </CommandItem>
@@ -237,11 +240,14 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                       <CommandItem
                         key={airport.code}
                         onSelect={() => handleDestinationSelect(airport)}
-                        className="cursor-pointer"
+                        className={`cursor-pointer ${airport.country === "India" ? "bg-blue-50" : ""}`}
                       >
                         <div className="flex items-center">
                           <span className="font-bold text-sm mr-2">{airport.code}</span>
                           <span className="text-sm">{airport.city}, {airport.country}</span>
+                          {airport.country === "India" && (
+                            <span className="ml-2 text-xs bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded-full">India</span>
+                          )}
                         </div>
                         <span className="text-xs text-sw-gray-500 ml-6">{airport.name}</span>
                       </CommandItem>
