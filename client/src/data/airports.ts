@@ -306,6 +306,127 @@ export const airports: Airport[] = [
     name: "Cairo International Airport",
     city: "Cairo",
     country: "Egypt"
+  },
+  // Indian Airports
+  {
+    code: "BOM",
+    name: "Chhatrapati Shivaji Maharaj International Airport",
+    city: "Mumbai",
+    country: "India"
+  },
+  {
+    code: "MAA",
+    name: "Chennai International Airport",
+    city: "Chennai",
+    country: "India"
+  },
+  {
+    code: "BLR",
+    name: "Kempegowda International Airport",
+    city: "Bangalore",
+    country: "India"
+  },
+  {
+    code: "HYD",
+    name: "Rajiv Gandhi International Airport",
+    city: "Hyderabad",
+    country: "India"
+  },
+  {
+    code: "CCU",
+    name: "Netaji Subhas Chandra Bose International Airport",
+    city: "Kolkata",
+    country: "India"
+  },
+  {
+    code: "COK",
+    name: "Cochin International Airport",
+    city: "Kochi",
+    country: "India"
+  },
+  {
+    code: "PNQ",
+    name: "Pune International Airport",
+    city: "Pune",
+    country: "India"
+  },
+  {
+    code: "AMD",
+    name: "Sardar Vallabhbhai Patel International Airport",
+    city: "Ahmedabad",
+    country: "India"
+  },
+  {
+    code: "GOI",
+    name: "Goa International Airport",
+    city: "Goa",
+    country: "India"
+  },
+  {
+    code: "JAI",
+    name: "Jaipur International Airport",
+    city: "Jaipur",
+    country: "India"
+  },
+  {
+    code: "LKO",
+    name: "Chaudhary Charan Singh International Airport",
+    city: "Lucknow",
+    country: "India"
+  },
+  {
+    code: "IXC",
+    name: "Chandigarh International Airport",
+    city: "Chandigarh",
+    country: "India"
+  },
+  {
+    code: "IXR",
+    name: "Birsa Munda Airport",
+    city: "Ranchi",
+    country: "India"
+  },
+  {
+    code: "ATQ",
+    name: "Sri Guru Ram Dass Jee International Airport",
+    city: "Amritsar",
+    country: "India"
+  },
+  {
+    code: "PAT",
+    name: "Jay Prakash Narayan International Airport",
+    city: "Patna",
+    country: "India"
+  },
+  {
+    code: "VTZ",
+    name: "Visakhapatnam International Airport",
+    city: "Visakhapatnam",
+    country: "India"
+  },
+  {
+    code: "IDR",
+    name: "Devi Ahilya Bai Holkar Airport",
+    city: "Indore",
+    country: "India"
+  },
+  {
+    code: "TRV",
+    name: "Trivandrum International Airport",
+    city: "Thiruvananthapuram",
+    country: "India"
+  },
+  {
+    code: "IXB",
+    name: "Bagdogra International Airport", 
+    city: "Siliguri",
+    country: "India"
+  },
+  {
+    code: "IXZ",
+    name: "Veer Savarkar International Airport",
+    city: "Port Blair",
+    country: "India"
   }
 ];
 
@@ -315,10 +436,18 @@ export function filterAirports(searchText: string): Airport[] {
   
   const lowerCaseSearch = searchText.toLowerCase();
   
-  return airports.filter(airport => 
+  // Get matching airports
+  const matchingAirports = airports.filter(airport => 
     airport.code.toLowerCase().includes(lowerCaseSearch) ||
     airport.name.toLowerCase().includes(lowerCaseSearch) ||
     airport.city.toLowerCase().includes(lowerCaseSearch) ||
     airport.country.toLowerCase().includes(lowerCaseSearch)
-  ).slice(0, 10); // Limit to 10 results
+  );
+  
+  // First, prioritize Indian airports
+  const indianAirports = matchingAirports.filter(airport => airport.country === "India");
+  const otherAirports = matchingAirports.filter(airport => airport.country !== "India");
+  
+  // Combine with Indian airports first, then other airports
+  return [...indianAirports, ...otherAirports].slice(0, 15); // Increased to 15 results with Indian airports prioritized
 }
