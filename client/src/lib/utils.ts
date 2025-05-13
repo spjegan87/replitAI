@@ -23,11 +23,14 @@ export type FlightDeal = {
   image: string;
 };
 
-// Format price as currency (USD)
+// Format price as currency (INR)
 export function formatPrice(price: number): string {
-  return new Intl.NumberFormat('en-US', {
+  // Convert USD to INR (approximate exchange rate)
+  const inrPrice = price * 83; // 1 USD ≈ 83 INR
+  
+  return new Intl.NumberFormat('en-IN', {
     style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 2
-  }).format(price);
+    currency: 'INR',
+    maximumFractionDigits: 0 // No decimal places for INR
+  }).format(inrPrice);
 }
