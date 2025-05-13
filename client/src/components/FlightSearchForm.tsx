@@ -269,6 +269,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                 </Command>
               </PopoverContent>
             </Popover>
+            {errors.origin && (
+              <p className="text-red-500 text-sm mt-1">{errors.origin}</p>
+            )}
           </div>
           
           {/* Destination Field */}
@@ -285,11 +288,15 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                   <Input 
                     type="text" 
                     placeholder="Enter Destination City or Airport" 
-                    className="pl-10 pr-3 py-2.5 w-full border border-sw-gray-300 rounded-md"
+                    className={`pl-10 pr-3 py-2.5 w-full border ${errors.destination ? 'border-red-500' : 'border-sw-gray-300'} rounded-md`}
                     value={destination || destinationQuery}
                     onChange={(e) => {
                       if (destination) setDestination("");
                       setDestinationQuery(e.target.value);
+                      // Clear error when typing
+                      if (errors.destination) {
+                        setErrors(prev => ({ ...prev, destination: undefined }));
+                      }
                     }}
                     onClick={() => {
                       if (destination) {
@@ -341,6 +348,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                 </Command>
               </PopoverContent>
             </Popover>
+            {errors.destination && (
+              <p className="text-red-500 text-sm mt-1">{errors.destination}</p>
+            )}
           </div>
           
           {/* Departure Date */}
@@ -354,9 +364,15 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                   <Button
                     variant={"outline"}
                     className={cn(
-                      "w-full pl-10 pr-3 py-2.5 border border-sw-gray-300 rounded-md text-left font-normal",
+                      "w-full pl-10 pr-3 py-2.5 border rounded-md text-left font-normal",
+                      errors.departureDate ? "border-red-500" : "border-sw-gray-300",
                       !departureDate && "text-muted-foreground"
                     )}
+                    onClick={() => {
+                      if (errors.departureDate) {
+                        setErrors(prev => ({ ...prev, departureDate: undefined }));
+                      }
+                    }}
                   >
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                       <CalendarIcon className="h-4 w-4 text-sw-gray-400" />
