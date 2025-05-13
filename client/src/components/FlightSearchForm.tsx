@@ -83,6 +83,8 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
     setOpenDestination(true);
     setOriginQuery("");
     setOpenOrigin(false);
+    // Clear any error related to origin
+    setErrors(prev => ({ ...prev, origin: undefined }));
   };
 
   // Handle airport selection for destination
@@ -90,10 +92,68 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
     setDestination(`${airport.city} (${airport.code})`);
     setDestinationQuery("");
     setOpenDestination(false);
+    // Clear any error related to destination
+    setErrors(prev => ({ ...prev, destination: undefined }));
+  };
+
+  // Validate form inputs
+  const validateForm = (): boolean => {
+    const newErrors: {
+      origin?: string;
+      destination?: string;
+      departureDate?: string;
+      returnDate?: string;
+      passengers?: string;
+    } = {};
+    
+    // Validate origin
+    if (!origin) {
+      newErrors.origin = "Origin is required";
+    }
+    
+    // Validate destination
+    if (!destination) {
+      newErrors.destination = "Destination is required";
+    } else if (origin === destination) {
+      newErrors.destination = "Origin and destination cannot be the same";
+    }
+    
+    // Validate departure date
+    if (!departureDate) {
+      newErrors.departureDate = "Departure date is required";
+    }
+    
+    // Validate return date for round trips
+    if (tripType === 'round-trip' && !returnDate) {
+      newErrors.returnDate = "Return date is required";
+    }
+    
+    // Validate return date is after departure date
+    if (departureDate && returnDate && tripType === 'round-trip') {
+      if (returnDate < departureDate) {
+        newErrors.returnDate = "Return date must be after departure date";
+      }
+    }
+    
+    // Validate passenger count
+    const totalPassengers = adultCount + childCount + infantCount;
+    if (totalPassengers <= 0) {
+      newErrors.passengers = "At least one passenger is required";
+    } else if (totalPassengers > 100) {
+      newErrors.passengers = "Maximum 100 passengers allowed";
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate form before submission
+    if (!validateForm()) {
+      return;
+    }
     
     // Format dates to string representation
     const departureDateStr = departureDate ? format(departureDate, "dd MMM yyyy") : "";
@@ -149,11 +209,15 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                   <Input 
                     type="text" 
                     placeholder="Enter Origin City or Airport" 
-                    className="pl-10 pr-3 py-2.5 w-full border border-sw-gray-300 rounded-md"
+                    className={`pl-10 pr-3 py-2.5 w-full border ${errors.origin ? 'border-red-500' : 'border-sw-gray-300'} rounded-md`}
                     value={origin || originQuery}
                     onChange={(e) => {
                       if (origin) setOrigin("");
                       setOriginQuery(e.target.value);
+                      // Clear error when typing
+                      if (errors.origin) {
+                        setErrors(prev => ({ ...prev, origin: undefined }));
+                      }
                     }}
                     onClick={() => {
                       if (origin) {
