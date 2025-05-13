@@ -135,16 +135,134 @@ export default function SearchResults() {
   const generateFlightsBetweenCities = (originCode: string, destinationCode: string, count: number): FlightResult[] => {
     const generatedFlights: FlightResult[] = [];
     
+    // List of airlines to randomly choose from
+    const airlines = [
+      { name: "IndiGo", code: "6E", domestic: true, international: false },
+      { name: "Air India", code: "AI", domestic: true, international: true },
+      { name: "Vistara", code: "UK", domestic: true, international: true },
+      { name: "SpiceJet", code: "SG", domestic: true, international: false },
+      { name: "GoAir", code: "G8", domestic: true, international: false },
+      { name: "AirAsia India", code: "I5", domestic: true, international: false },
+      { name: "Southwest", code: "SW", domestic: true, international: true },
+      { name: "Emirates", code: "EK", domestic: false, international: true },
+      { name: "Lufthansa", code: "LH", domestic: false, international: true },
+      { name: "British Airways", code: "BA", domestic: false, international: true },
+      { name: "Singapore Airlines", code: "SQ", domestic: false, international: true }
+    ];
+    
+    // Aircraft by airline and flight type
+    const aircraftByAirline: Record<string, Record<string, string[]>> = {
+      "IndiGo": { 
+        domestic: ["Airbus A320", "Airbus A321neo"],
+        international: ["Airbus A320"]
+      },
+      "Air India": {
+        domestic: ["Airbus A320", "Boeing 787-8"],
+        international: ["Boeing 777-300ER", "Boeing 787-9 Dreamliner"]
+      },
+      "Vistara": {
+        domestic: ["Airbus A320neo", "Boeing 737-800"],
+        international: ["Boeing 787-9", "Airbus A321neo"]
+      },
+      "SpiceJet": {
+        domestic: ["Boeing 737-800", "Bombardier Q400"],
+        international: ["Boeing 737-800"]
+      },
+      "GoAir": {
+        domestic: ["Airbus A320neo"],
+        international: ["Airbus A320neo"]
+      },
+      "AirAsia India": {
+        domestic: ["Airbus A320"],
+        international: ["Airbus A320"]
+      },
+      "Southwest": {
+        domestic: ["Boeing 737-700", "Boeing 737-800"],
+        international: ["Boeing 737-800", "Boeing 737 MAX 8"]
+      },
+      "Emirates": {
+        domestic: ["Boeing 777-300ER"],
+        international: ["Airbus A380", "Boeing 777-300ER"]
+      },
+      "Lufthansa": {
+        domestic: ["Airbus A319"],
+        international: ["Boeing 747-8", "Airbus A350-900"]
+      },
+      "British Airways": {
+        domestic: ["Airbus A320"],
+        international: ["Boeing 777-300ER", "Airbus A350-1000"]
+      },
+      "Singapore Airlines": {
+        domestic: ["Boeing 787-10"],
+        international: ["Airbus A350-900", "Boeing 777-300ER"]
+      }
+    };
+    
+    // Amenities by airline and flight type
+    const amenitiesByAirline: Record<string, Record<string, string[]>> = {
+      "IndiGo": { 
+        domestic: ["Wi-Fi", "Snacks for purchase"],
+        international: ["Wi-Fi", "Meal service", "Power outlets"]
+      },
+      "Air India": {
+        domestic: ["Meal service", "Entertainment"],
+        international: ["Wi-Fi", "Meal service", "Entertainment", "Power outlets", "USB ports"]
+      },
+      "Vistara": {
+        domestic: ["Meal service", "Wi-Fi", "Power outlets"],
+        international: ["Wi-Fi", "Meal service", "Entertainment", "Power outlets", "Premium Economy"]
+      },
+      "SpiceJet": {
+        domestic: ["Snacks for purchase"],
+        international: ["Meal service", "Entertainment"]
+      },
+      "GoAir": {
+        domestic: ["Snacks for purchase"],
+        international: ["Meal service"]
+      },
+      "AirAsia India": {
+        domestic: ["Snacks for purchase"],
+        international: ["Meal service"]
+      },
+      "Southwest": {
+        domestic: ["Wi-Fi", "Power outlets", "Snacks"],
+        international: ["Wi-Fi", "Meal service", "Entertainment", "Power outlets"]
+      },
+      "Emirates": {
+        domestic: ["Wi-Fi", "Meal service", "Entertainment"],
+        international: ["Wi-Fi", "Meal service", "Entertainment", "Power outlets", "Premium service"]
+      },
+      "Lufthansa": {
+        domestic: ["Wi-Fi", "Snacks"],
+        international: ["Wi-Fi", "Meal service", "Entertainment", "Power outlets", "USB ports"]
+      },
+      "British Airways": {
+        domestic: ["Wi-Fi", "Snacks"],
+        international: ["Wi-Fi", "Meal service", "Entertainment", "Power outlets", "USB ports"]
+      },
+      "Singapore Airlines": {
+        domestic: ["Wi-Fi", "Meal service"],
+        international: ["Wi-Fi", "Meal service", "Entertainment", "Power outlets", "Premium service"]
+      }
+    };
+    
     // Check if international or domestic
+    // If either airport code is from India, it's likely domestic for Indian carriers
+    const indiaAirportCodes = ["DEL", "BOM", "MAA", "BLR", "HYD", "CCU", "COK", "PNQ", "AMD", "GOI"];
+    const isIndia = indiaAirportCodes.includes(originCode) || indiaAirportCodes.includes(destinationCode);
+    
     const isDomestic = 
       (originCode.length === 3 && destinationCode.length === 3) && 
+      ((indiaAirportCodes.includes(originCode) && indiaAirportCodes.includes(destinationCode)) ||
       (originCode.includes("LAX") || originCode.includes("SFO") || originCode.includes("JFK") || 
-      destinationCode.includes("LAX") || destinationCode.includes("SFO") || destinationCode.includes("JFK"));
+      destinationCode.includes("LAX") || destinationCode.includes("SFO") || destinationCode.includes("JFK")));
       
     const flightType = isDomestic ? 'domestic' : 'international';
+    
+    // Higher prices for Indian market (in USD, will be converted to INR later)
     const basePrices = isDomestic ? 
-      { min: 120, max: 450 } : 
-      { min: 500, max: 1200 };
+      { min: 150, max: 600 } : 
+      { min: 700, max: 1500 };
     
     // Generate requested number of flights
     for (let i = 0; i < count; i++) {
@@ -166,10 +284,45 @@ export default function SearchResults() {
       const displayArrivalHour = arrivalHour > 12 ? arrivalHour - 12 : (arrivalHour === 0 ? 12 : arrivalHour);
       const arrivalTime = `${displayArrivalHour}:${arrivalMinute === 0 ? "00" : arrivalMinute} ${arrivalAmpm}`;
       
+      // Pick an appropriate airline based on the route
+      let filteredAirlines = airlines;
+      
+      // For domestic India routes, prefer Indian carriers
+      if (isDomestic && isIndia) {
+        filteredAirlines = airlines.filter(a => 
+          a.domestic && ["IndiGo", "Air India", "Vistara", "SpiceJet", "GoAir", "AirAsia India"].includes(a.name)
+        );
+      } 
+      // For international routes to/from India, use carriers that do international
+      else if (!isDomestic && isIndia) {
+        filteredAirlines = airlines.filter(a => 
+          a.international && ["Air India", "Vistara", "Emirates", "Lufthansa", "British Airways", "Singapore Airlines"].includes(a.name)
+        );
+      }
+      // For other routes, use any appropriate carrier
+      else {
+        filteredAirlines = airlines.filter(a => 
+          (isDomestic && a.domestic) || (!isDomestic && a.international)
+        );
+      }
+      
+      // Randomly select an airline
+      const airline = filteredAirlines[Math.floor(Math.random() * filteredAirlines.length)];
+      
+      // Select an appropriate aircraft for this airline and flight type
+      const aircraftOptions = aircraftByAirline[airline.name][flightType];
+      const aircraft = aircraftOptions[Math.floor(Math.random() * aircraftOptions.length)];
+      
+      // Select appropriate amenities for this airline and flight type
+      const amenities = amenitiesByAirline[airline.name][flightType];
+      
+      // Generate flight number
+      const flightNumber = `${airline.code} ${1000 + i}`;
+      
       // Generate flight details
       generatedFlights.push({
         id: 1000 + i,
-        airline: "Southwest",
+        airline: airline.name,
         departureTime: departureTime,
         arrivalTime: arrivalTime,
         duration: `${durationHours}h ${durationMinutes}m`,
@@ -177,10 +330,10 @@ export default function SearchResults() {
         destination: destinationCode,
         price: Math.round((basePrices.min + Math.random() * (basePrices.max - basePrices.min)) * 100) / 100,
         stops: i % 4 === 0 ? 0 : (i % 4 === 1 ? 0 : (i % 4 === 2 ? 1 : 2)),
-        flightNumber: `SW ${1000 + i}`,
+        flightNumber: flightNumber,
         type: flightType,
-        aircraft: isDomestic ? "Boeing 737-800" : "Boeing 777-200",
-        amenities: ["Wi-Fi", "Power outlets", ...(isDomestic ? ["Snacks"] : ["Meal service", "Entertainment"])]
+        aircraft: aircraft,
+        amenities: amenities
       });
     }
     

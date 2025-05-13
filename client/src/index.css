@@ -131,3 +131,14 @@
   border-color: hsl(var(--sw-blue));
   box-shadow: 0 0 0 3px rgba(48, 76, 178, 0.2);
 }
+
+/* Form validation error messages */
+.form-error, 
+p[id$="-error"],
+.error-message,
+[id$="-error"] {
+  color: hsl(var(--destructive));
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-top: 0.25rem;
+}
