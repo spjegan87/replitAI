@@ -71,7 +71,34 @@
   }
 }
 
-/* Custom classes for Southwest Airlines interface */
+/* Custom classes for Southwest Airlines interface with contrast modes */
+:root[data-contrast="blue"] {
+  --background: 220 84% 98%;
+  --foreground: 220 84% 10%;
+  --primary: 220 84% 49%;
+  --primary-foreground: 211 100% 99%;
+  --sw-blue: 220 84% 49%;
+  --sw-yellow: 45 100% 50%;
+}
+
+:root[data-contrast="black"] {
+  --background: 0 0% 100%;
+  --foreground: 0 0% 0%;
+  --primary: 0 0% 0%;
+  --primary-foreground: 0 0% 100%;
+  --sw-blue: 0 0% 0%;
+  --sw-yellow: 0 0% 0%;
+}
+
+:root[data-contrast="yellow"] {
+  --background: 45 100% 98%;
+  --foreground: 45 100% 10%;
+  --primary: 45 100% 50%;
+  --primary-foreground: 0 0% 0%;
+  --sw-blue: 45 100% 50%;
+  --sw-yellow: 45 100% 50%;
+}
+
 .sw-blue {
   color: hsl(var(--sw-blue));
 }

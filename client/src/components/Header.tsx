@@ -9,8 +9,11 @@ export default function Header() {
 
   const handleContrastChange = (mode: ContrastMode) => {
     setContrastMode(mode);
-    // In a real application, this would apply accessibility changes
-    // to the entire site
+    if (mode === "normal") {
+      document.documentElement.removeAttribute("data-contrast");
+    } else {
+      document.documentElement.setAttribute("data-contrast", mode);
+    }
   };
 
   return (
