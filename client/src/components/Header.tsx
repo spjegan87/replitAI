@@ -4,7 +4,6 @@ import i18n from "@/i18n";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
@@ -12,7 +11,6 @@ import { cn } from "@/lib/utils";
 type ContrastMode = "blue" | "black" | "normal" | "yellow";
 
 export default function Header() {
-  const { t } = useTranslation();
   const [contrastMode, setContrastMode] = useState<ContrastMode>("normal");
 
   const handleContrastChange = (mode: ContrastMode) => {
@@ -31,7 +29,7 @@ export default function Header() {
           {/* Southwest Logo */}
           <a href="#" className="sw-blue font-bold text-2xl flex items-center">
             Southwest<span className="sw-yellow">®</span>
-            <span className="ml-2 text-sm font-normal text-sw-gray-700">{t('header.groupBookings')}</span>
+            <span className="ml-2 text-sm font-normal text-sw-gray-700">Group Bookings</span>
           </a>
         </div>
         
