@@ -117,7 +117,7 @@ export default function Header() {
             
             <Dialog>
               <DialogTrigger asChild>
-                <Button variant="outline" className="border-sw-blue text-sw-blue hover:bg-sw-blue hover:text-white transition-colors">
+                <Button variant="outline" className="border-sw-blue text-sw-blue hover:bg-sw-blue/10 hover:border-sw-blue/80 transition-colors">
                   Login/Signup
                 </Button>
               </DialogTrigger>
