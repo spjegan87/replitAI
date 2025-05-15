@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -20,6 +21,12 @@ export default function Header() {
     }
   };
 
+  const { t, i18n } = useTranslation();
+  
+  const handleLanguageChange = (lang: string) => {
+    i18n.changeLanguage(lang);
+  };
+
   return (
     <header className="border-b border-gray-200">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
@@ -27,7 +34,7 @@ export default function Header() {
           {/* Southwest Logo */}
           <a href="#" className="sw-blue font-bold text-2xl flex items-center">
             Southwest<span className="sw-yellow">®</span>
-            <span className="ml-2 text-sm font-normal text-sw-gray-700">Group Bookings</span>
+            <span className="ml-2 text-sm font-normal text-sw-gray-700">{t('groupBookings')}</span>
           </a>
         </div>
         
@@ -102,7 +109,10 @@ export default function Header() {
                   <img src="https://cdn.countryflags.com/thumbs/saudi-arabia/flag-400.png" alt="Saudi Flag" className="w-6 h-4 mr-2" />
                   <span>العربية</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="flex items-center">
+                <DropdownMenuItem 
+                  className="flex items-center" 
+                  onClick={() => handleLanguageChange('id')}
+                >
                   <img src="https://cdn.countryflags.com/thumbs/indonesia/flag-400.png" alt="Indonesia Flag" className="w-6 h-4 mr-2" />
                   <span>Bahasa Indonesia</span>
                 </DropdownMenuItem>
