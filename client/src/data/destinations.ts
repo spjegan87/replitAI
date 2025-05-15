@@ -61,14 +61,79 @@ export const specialOffers: Destination[] = [
 ];
 
 export const bestFlightDeals: FlightDeal[] = [
+  // Domestic Indian Flights
   {
     id: 1,
-    destination: "Vienna",
-    price: 760.00,
-    origin: "LAX",
-    destCode: "VIE",
-    date: "09 Nov 2022",
-    image: "https://images.unsplash.com/photo-1516550893923-42d28e5677af?auto=format&fit=crop&w=500&h=300&q=80"
+    destination: "Mumbai",
+    price: 149.00,
+    origin: "DEL",
+    destCode: "BOM",
+    date: "15 Dec 2023",
+    image: "https://images.unsplash.com/photo-1566552881560-0be862a7c445?auto=format&fit=crop&w=500&h=300&q=80"
+  },
+  {
+    id: 2,
+    destination: "Bangalore",
+    price: 129.00,
+    origin: "DEL",
+    destCode: "BLR",
+    date: "16 Dec 2023",
+    image: "https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=500&h=300&q=80"
+  },
+  {
+    id: 3,
+    destination: "Chennai",
+    price: 159.00,
+    origin: "BOM",
+    destCode: "MAA",
+    date: "17 Dec 2023",
+    image: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=500&h=300&q=80"
+  },
+  {
+    id: 4,
+    destination: "Kolkata",
+    price: 179.00,
+    origin: "DEL",
+    destCode: "CCU",
+    date: "18 Dec 2023",
+    image: "https://images.unsplash.com/photo-1558431382-27e303142255?auto=format&fit=crop&w=500&h=300&q=80"
+  },
+  // International Flights
+  {
+    id: 5,
+    destination: "Dubai",
+    price: 850.00,
+    origin: "DEL",
+    destCode: "DXB",
+    date: "20 Dec 2023",
+    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=500&h=300&q=80"
+  },
+  {
+    id: 6,
+    destination: "Singapore",
+    price: 799.00,
+    origin: "BOM",
+    destCode: "SIN",
+    date: "21 Dec 2023",
+    image: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=500&h=300&q=80"
+  },
+  {
+    id: 7,
+    destination: "London",
+    price: 1299.00,
+    origin: "DEL",
+    destCode: "LHR",
+    date: "22 Dec 2023",
+    image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=500&h=300&q=80"
+  },
+  {
+    id: 8,
+    destination: "Bangkok",
+    price: 599.00,
+    origin: "BLR",
+    destCode: "BKK",
+    date: "23 Dec 2023",
+    image: "https://images.unsplash.com/photo-1563492065599-3520f775eeed?auto=format&fit=crop&w=500&h=300&q=80"
   },
   {
     id: 2,
