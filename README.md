@@ -1,44 +1,102 @@
 
-# ReplitAI Flight  - Group Bookings Web Application
+# ReplitAI Flight - Group Bookings Web Application
 
-A modern React-based web application for group travel bookings with ReplitAI Airlines.
+A modern React-based web application for group travel bookings with ReplitAI Airlines, built with TypeScript, Express, and Tailwind CSS.
 
-## Project Structure
+## Architecture Overview
 
+### Frontend Architecture
 ```
 client/
 ├── src/
-│   ├── components/      # UI and feature components
+│   ├── components/      # Reusable UI components
+│   │   ├── ui/         # Base UI components (buttons, cards, etc.)
+│   │   └── ...         # Feature-specific components
 │   ├── data/           # Static data and mock APIs
 │   ├── hooks/          # Custom React hooks
 │   ├── lib/            # Utility functions and configurations
-│   ├── pages/          # Page components
-│   └── App.tsx         # Root component
+│   └── pages/          # Page components and routing
+```
+
+### Backend Architecture
+```
 server/
 ├── routes.ts           # API route definitions
 ├── storage.ts          # Data storage interface
 └── index.ts           # Server entry point
 ```
 
-## Key Components
+### Shared Code
+```
+shared/
+└── schema.ts          # Shared type definitions and database schema
+```
+
+## Key Features
+
+### Frontend Components
+- **FlightSearchForm**: Main search interface for flights
+- **SpecialOffers**: Displays promotional deals and special rates
+- **TripTypeSelector**: Handles one-way/round-trip selection
+- **BestFlightDeals**: Shows current best deals
+- **Header/Footer**: Navigation and site structure
 
 ### Pages
-- `Home` - Landing page with flight search
-- `SearchResults` - Displays available flights
-- `Itinerary` - Trip details and passenger information
-- `Payment` - Payment processing interface
-- `Confirmation` - Booking confirmation
-- `ETicket` - Electronic ticket display
+- **Home**: Landing page with search functionality
+- **SearchResults**: Flight listing and filtering
+- **Itinerary**: Trip details and passenger information
+- **Payment**: Secure payment processing
+- **Confirmation**: Booking confirmation
+- **ETicket**: Electronic ticket generation
 
-### Feature Components
-- `FlightSearchForm` - Flight search interface
-- `TripTypeSelector` - Select between one-way/round-trip
-- `BestFlightDeals` - Displays promotional deals
-- `SpecialOffers` - Shows special group rates
-- `Header` - Navigation and branding
-- `Footer` - Site footer with links
+## Technology Stack
 
-## Setup and Development
+### Frontend
+- React 18
+- TypeScript
+- Tailwind CSS
+- Radix UI Components
+- React Hook Form
+- TanStack Query
+
+### Backend
+- Express.js
+- Drizzle ORM
+- PostgreSQL Database
+- Node.js
+
+### Development Tools
+- Vite
+- ESBuild
+- TypeScript
+- PostCSS
+
+## Data Flow
+
+1. **User Input** → Flight search parameters entered
+2. **API Request** → Server processes search criteria
+3. **Data Processing** → Flight filtering and sorting
+4. **Response** → Available flights displayed
+5. **Booking Flow** → User selects flight → Enters details → Makes payment
+6. **Confirmation** → Booking confirmed → E-ticket generated
+
+## Security Features
+
+- Session-based authentication
+- Secure payment processing
+- Input validation and sanitization
+- CSRF protection
+- Rate limiting
+
+## Performance Optimizations
+
+- Client-side caching
+- Lazy loading of components
+- Image optimization
+- Bundle size optimization
+- Server-side pagination
+
+## Development Setup
 
 1. Install dependencies:
 ```bash
@@ -52,24 +110,24 @@ npm run dev
 
 The application will be available at `http://localhost:5000`
 
-## Technology Stack
+## Deployment
 
-- React 18
-- TypeScript
-- Tailwind CSS
-- Radix UI Components
-- Express.js Backend
-- Drizzle ORM
+The application is configured for deployment on Replit with:
+- Automated builds
+- Production optimization
+- Environment variable management
+- Database connection pooling
+
+## Contributing
+
+1. Create a new branch for features
+2. Follow TypeScript best practices
+3. Maintain component documentation
+4. Test thoroughly before merging
 
 ## Environment Variables
 
-The following environment variables are required:
-- `NODE_ENV` - Development/production environment
-- `DATABASE_URL` - Database connection string
-
-## API Routes
-
-The server exposes the following API endpoints:
-- `GET /api/flights` - Search available flights
-- `POST /api/bookings` - Create new booking
-- `GET /api/offers` - Get special offers
+Required environment variables:
+- `NODE_ENV`: Development/production environment
+- `DATABASE_URL`: Database connection string
+- `SESSION_SECRET`: Session encryption key
