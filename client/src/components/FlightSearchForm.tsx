@@ -364,7 +364,7 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                   <Button
                     variant={"outline"}
                     className={cn(
-                      "w-full pl-10 pr-3 py-2.5 border rounded-md text-left font-normal",
+                      "w-full pl-8 pr-3 py-2 border rounded-md text-left font-normal h-10",
                       errors.departureDate ? "border-red-500" : "border-sw-gray-300",
                       !departureDate && "text-muted-foreground"
                     )}
@@ -374,7 +374,7 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                       }
                     }}
                   >
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <div className="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
                       <CalendarIcon className="h-4 w-4 text-sw-gray-400" />
                     </div>
                     {departureDate ? format(departureDate, "PPP") : <span>Select Departure Date</span>}
