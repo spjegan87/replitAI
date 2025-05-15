@@ -21,7 +21,7 @@ export default function Home() {
 
       <main className="container mx-auto px-4 py-6 flex-grow">
         <h1 className="text-2xl font-medium text-sw-gray-900 mb-6">
-          Instant quote request Meenachi sundaram
+          Instant quote request
         </h1>
 
         {/* Trip Type Selection */}
