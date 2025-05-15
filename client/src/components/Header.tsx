@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -78,17 +79,37 @@ export default function Header() {
           </div>
           
           <div className="flex items-center space-x-2">
-            <div className="flex items-center border rounded px-2 py-1">
-              <img 
-                src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" 
-                alt="US Flag" 
-                className="w-6 h-4 mr-1" 
-              />
-              <span className="text-sm">English</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-1 text-sw-gray-500">
-                <path d="m6 9 6 6 6-6"/>
-              </svg>
-            </div>
+            <Select onValueChange={(value) => i18n.changeLanguage(value)}>
+              <SelectTrigger className="w-[140px]">
+                <SelectValue placeholder="Language" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="en">
+                  <div className="flex items-center">
+                    <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" alt="English" className="w-5 h-3 mr-2" />
+                    English
+                  </div>
+                </SelectItem>
+                <SelectItem value="ar">
+                  <div className="flex items-center">
+                    <img src="https://cdn.countryflags.com/thumbs/saudi-arabia/flag-400.png" alt="Arabic" className="w-5 h-3 mr-2" />
+                    العربية
+                  </div>
+                </SelectItem>
+                <SelectItem value="ta">
+                  <div className="flex items-center">
+                    <img src="https://cdn.countryflags.com/thumbs/india/flag-400.png" alt="Tamil" className="w-5 h-3 mr-2" />
+                    தமிழ்
+                  </div>
+                </SelectItem>
+                <SelectItem value="id">
+                  <div className="flex items-center">
+                    <img src="https://cdn.countryflags.com/thumbs/indonesia/flag-400.png" alt="Bahasa" className="w-5 h-3 mr-2" />
+                    Bahasa
+                  </div>
+                </SelectItem>
+              </SelectContent>
+            </Select>
             
             <Dialog>
               <DialogTrigger asChild>
