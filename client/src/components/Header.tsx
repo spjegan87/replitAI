@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 
 type ContrastMode = "blue" | "black" | "normal" | "yellow";
@@ -87,9 +90,63 @@ export default function Header() {
               </svg>
             </div>
             
-            <Button variant="outline" className="border-sw-blue text-sw-blue hover:bg-sw-blue hover:text-white transition-colors">
-              Login/Signup
-            </Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="outline" className="border-sw-blue text-sw-blue hover:bg-sw-blue hover:text-white transition-colors">
+                  Login/Signup
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Login or Sign up</DialogTitle>
+                  <DialogDescription>
+                    Choose your preferred sign in method
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <Button 
+                    variant="outline" 
+                    className="w-full flex items-center justify-center gap-2"
+                    onClick={() => window.location.href = "/__repl-auth"}
+                  >
+                    <img src="https://replit.com/public/images/favicon.ico" alt="Replit" className="w-5 h-5" />
+                    Continue with Replit
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    className="w-full flex items-center justify-center gap-2"
+                    onClick={() => {/* Add your SSO handler */}}
+                  >
+                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm0 22c-5.5 0-10-4.5-10-10S6.5 2 12 2s10 4.5 10 10-4.5 10-10 10z"/>
+                      <path d="M12 6c-3.3 0-6 2.7-6 6s2.7 6 6 6 6-2.7 6-6-2.7-6-6-6zm0 10c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4z"/>
+                    </svg>
+                    Continue with SSO
+                  </Button>
+                  <div className="relative">
+                    <div className="absolute inset-0 flex items-center">
+                      <span className="w-full border-t" />
+                    </div>
+                    <div className="relative flex justify-center text-xs uppercase">
+                      <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+                    </div>
+                  </div>
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Email</Label>
+                      <Input id="email" type="email" placeholder="Enter your email" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="password">Password</Label>
+                      <Input id="password" type="password" placeholder="Enter your password" />
+                    </div>
+                    <Button className="w-full bg-sw-blue hover:bg-sw-blue/90">
+                      Sign in
+                    </Button>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </div>
