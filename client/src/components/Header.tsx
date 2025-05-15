@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
@@ -78,17 +79,39 @@ export default function Header() {
           </div>
           
           <div className="flex items-center space-x-2">
-            <div className="flex items-center border rounded px-2 py-1">
-              <img 
-                src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" 
-                alt="US Flag" 
-                className="w-6 h-4 mr-1" 
-              />
-              <span className="text-sm">English</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-1 text-sw-gray-500">
-                <path d="m6 9 6 6 6-6"/>
-              </svg>
-            </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <div className="flex items-center border rounded px-2 py-1 cursor-pointer">
+                  <img 
+                    src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" 
+                    alt="US Flag" 
+                    className="w-6 h-4 mr-1" 
+                  />
+                  <span className="text-sm">English</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-1 text-sw-gray-500">
+                    <path d="m6 9 6 6 6-6"/>
+                  </svg>
+                </div>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem className="flex items-center">
+                  <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" alt="US Flag" className="w-6 h-4 mr-2" />
+                  <span>English</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="flex items-center">
+                  <img src="https://cdn.countryflags.com/thumbs/saudi-arabia/flag-400.png" alt="Saudi Flag" className="w-6 h-4 mr-2" />
+                  <span>العربية</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="flex items-center">
+                  <img src="https://cdn.countryflags.com/thumbs/indonesia/flag-400.png" alt="Indonesia Flag" className="w-6 h-4 mr-2" />
+                  <span>Bahasa Indonesia</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="flex items-center">
+                  <img src="https://cdn.countryflags.com/thumbs/india/flag-400.png" alt="India Flag" className="w-6 h-4 mr-2" />
+                  <span>தமிழ்</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
             
             <Dialog>
               <DialogTrigger asChild>
