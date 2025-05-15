@@ -14,7 +14,11 @@
     "search": "Cari Penerbangan",
     "preference": "Preferensi",
     "cabin": "Kabin",
-    "groupCategory": "Kategori Grup"
+    "groupCategory": "Kategori Grup",
+    "flexible": "Fleksibel pada Tanggal",
+    "addRemarks": "Tambah Catatan",
+    "remarks": "Catatan",
+    "getFares": "Dapatkan Harga"
   },
   "header": {
     "groupBookings": "Pemesanan Grup",
@@ -22,5 +26,32 @@
     "contrast": "KONTRAS",
     "callUs": "Hubungi kami di",
     "loginSignup": "Masuk/Daftar"
+  },
+  "tripType": {
+    "oneWay": "Sekali Jalan",
+    "roundTrip": "Pulang Pergi",
+    "multiCity": "Multi Kota"
+  },
+  "passenger": {
+    "adult": "Dewasa",
+    "child": "Anak",
+    "infant": "Bayi"
+  },
+  "cabin": {
+    "economy": "Ekonomi",
+    "business": "Bisnis",
+    "first": "Kelas Utama"
+  },
+  "common": {
+    "next": "Selanjutnya",
+    "back": "Kembali",
+    "confirm": "Konfirmasi",
+    "cancel": "Batal",
+    "save": "Simpan",
+    "edit": "Ubah",
+    "delete": "Hapus",
+    "loading": "Memuat",
+    "error": "Kesalahan",
+    "success": "Berhasil"
   }
 }
