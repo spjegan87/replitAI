@@ -41,12 +41,12 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
   const [isFlexible, setIsFlexible] = useState<boolean>(false);
   const [showRemarks, setShowRemarks] = useState<boolean>(false);
   const [remarks, setRemarks] = useState<string>("");
-  
+
   // Passenger counts
   const [adultCount, setAdultCount] = useState<number>(8);
   const [childCount, setChildCount] = useState<number>(2);
   const [infantCount, setInfantCount] = useState<number>(0);
-  
+
   // Form validation errors
   const [errors, setErrors] = useState<{
     origin?: string;
@@ -105,36 +105,36 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
       returnDate?: string;
       passengers?: string;
     } = {};
-    
+
     // Validate origin
     if (!origin) {
       newErrors.origin = "Origin is required";
     }
-    
+
     // Validate destination
     if (!destination) {
       newErrors.destination = "Destination is required";
     } else if (origin === destination) {
       newErrors.destination = "Origin and destination cannot be the same";
     }
-    
+
     // Validate departure date
     if (!departureDate) {
       newErrors.departureDate = "Departure date is required";
     }
-    
+
     // Validate return date for round trips
     if (tripType === 'round-trip' && !returnDate) {
       newErrors.returnDate = "Return date is required";
     }
-    
+
     // Validate return date is after departure date
     if (departureDate && returnDate && tripType === 'round-trip') {
       if (returnDate < departureDate) {
         newErrors.returnDate = "Return date must be after departure date";
       }
     }
-    
+
     // Validate passenger count
     const totalPassengers = adultCount + childCount + infantCount;
     if (totalPassengers <= 0) {
@@ -142,26 +142,26 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
     } else if (totalPassengers > 100) {
       newErrors.passengers = "Maximum 100 passengers allowed";
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate form before submission
     if (!validateForm()) {
       return;
     }
-    
+
     // Format dates to string representation
     const departureDateStr = departureDate ? format(departureDate, "dd MMM yyyy") : "";
     const returnDateStr = returnDate ? format(returnDate, "dd MMM yyyy") : "";
-    
+
     // Calculate total passenger count
     const totalPassengers = adultCount + childCount + infantCount;
-    
+
     // Create search params to pass all flight details data to the search results page
     const searchParams = new URLSearchParams({
       // Trip information
@@ -170,23 +170,23 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
       destination: destination || "",
       departureDate: departureDateStr,
       returnDate: returnDateStr,
-      
+
       // Passenger information
       passengers: totalPassengers.toString(),
       adultCount: adultCount.toString(),
       childCount: childCount.toString(),
       infantCount: infantCount.toString(),
-      
+
       // Flight preferences
       cabin: cabin || "economy",
       groupCategory: groupCategory || "Adhoc",
       isFlexible: isFlexible.toString(),
-      
+
       // Additional information
       preference: preference || "",
       remarks: remarks || ""
     }).toString();
-    
+
     // Navigate to search results page with the search parameters
     setLocation(`/search-results?${searchParams}`);
   };
@@ -273,7 +273,7 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
               <p className="text-red-500 text-sm mt-1">{errors.origin}</p>
             )}
           </div>
-          
+
           {/* Destination Field */}
           <div>
             <Label className="text-sm font-medium text-sw-gray-700 mb-1">
@@ -352,7 +352,7 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
               <p className="text-red-500 text-sm mt-1">{errors.destination}</p>
             )}
           </div>
-          
+
           {/* Departure Date */}
           <div>
             <Label className="text-sm font-medium text-sw-gray-700 mb-1">
@@ -394,7 +394,7 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
               </Popover>
             </div>
           </div>
-          
+
           {/* Return Date */}
           {tripType !== 'one-way' && (
             <div>
@@ -432,14 +432,14 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
               </div>
             </div>
           )}
-          
+
           {/* Preference */}
-          <div className={tripType === 'one-way' ? "md:col-span-2 lg:col-span-1" : ""}>
+          <div>
             <Label className="text-sm font-medium text-sw-gray-700 mb-1">
               Preference
             </Label>
             <Select value={preference} onValueChange={setPreference}>
-              <SelectTrigger className="w-full border border-sw-gray-300 rounded-md">
+              <SelectTrigger className="w-full h-10 border border-sw-gray-300 rounded-md">
                 <SelectValue placeholder="Preference" />
               </SelectTrigger>
               <SelectContent>
@@ -449,9 +449,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
               </SelectContent>
             </Select>
           </div>
-          
+
           {/* No of Passengers */}
-          <div className="md:col-span-2 lg:col-span-1">
+          <div>
             <Label className="text-sm font-medium text-sw-gray-700 mb-1">
               No Of Passengers <span className="text-red-500">*</span>
             </Label>
@@ -461,10 +461,10 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                   <User className="h-4 w-4 text-sw-gray-400 mr-1" />
                   Adult
                 </Label>
-                <div className="flex items-center border border-sw-gray-300 rounded-md">
+                <div className="flex items-center border border-sw-gray-300 rounded-md h-10">
                   <button
                     type="button"
-                    className="px-2 py-1 text-sw-gray-500 hover:text-sw-gray-700"
+                    className="px-2 py-1 text-sw-gray-500 hover:text-sw-gray-700 h-full"
                     onClick={() => setAdultCount(Math.max(1, adultCount - 1))}
                   >
                     -
@@ -476,18 +476,18 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                     max="100"
                     value={adultCount}
                     onChange={(e) => setAdultCount(parseInt(e.target.value) || 1)}
-                    className="border-0 text-center w-10 p-0"
+                    className="border-0 text-center w-10 p-0 h-full"
                   />
                   <button
                     type="button"
-                    className="px-2 py-1 text-sw-gray-500 hover:text-sw-gray-700"
+                    className="px-2 py-1 text-sw-gray-500 hover:text-sw-gray-700 h-full"
                     onClick={() => setAdultCount(adultCount + 1)}
                   >
                     +
                   </button>
                 </div>
               </div>
-              
+
               <div className="space-y-1">
                 <Label htmlFor="childCount" className="text-xs text-sw-gray-600 flex items-center">
                   <User className="h-3 w-3 text-sw-gray-400 mr-1" />
@@ -519,7 +519,7 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                   </button>
                 </div>
               </div>
-              
+
               <div className="space-y-1">
                 <Label htmlFor="infantCount" className="text-xs text-sw-gray-600 flex items-center">
                   <Baby className="h-4 w-4 text-sw-gray-400 mr-1" />
@@ -553,7 +553,7 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
               </div>
             </div>
           </div>
-          
+
           {/* Cabin */}
           <div>
             <Label className="text-sm font-medium text-sw-gray-700 mb-1">
@@ -570,7 +570,7 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
               </SelectContent>
             </Select>
           </div>
-          
+
           {/* Group Category */}
           <div>
             <Label className="text-sm font-medium text-sw-gray-700 mb-1">
@@ -586,7 +586,7 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
             />
           </div>
         </div>
-        
+
         {/* Additional Options */}
         <div className="flex items-center mt-4 mb-6">
           <div 
@@ -598,7 +598,7 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
               Flexible On Dates
             </span>
           </div>
-          
+
           <div 
             className="text-sw-blue text-sm font-medium cursor-pointer"
             onClick={() => setShowRemarks(!showRemarks)}
@@ -607,7 +607,7 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
             Add Remarks
           </div>
         </div>
-        
+
         {showRemarks && (
           <div className="mb-4">
             <Label className="text-sm font-medium text-sw-gray-700 mb-1">
@@ -622,7 +622,7 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
             />
           </div>
         )}
-        
+
         {/* Search Button */}
         <div className="flex justify-center">
           <Button 
