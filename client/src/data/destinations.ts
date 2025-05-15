@@ -67,7 +67,7 @@ export const bestFlightDeals: FlightDeal[] = [
     origin: "LAX",
     destCode: "VIE",
     date: "09 Nov 2022",
-    image: "https://images.unsplash.com/photo-1573599852326-2d4da0bbe613?auto=format&fit=crop&w=500&h=300&q=80"
+    image: "https://images.unsplash.com/photo-1609856878074-cf31e21ccb6b?auto=format&fit=crop&w=500&h=300&q=80"
   },
   {
     id: 2,
@@ -76,7 +76,7 @@ export const bestFlightDeals: FlightDeal[] = [
     origin: "MIA",
     destCode: "NAS",
     date: "12 Nov 2022",
-    image: "https://images.unsplash.com/photo-1578675200774-836aa57d8fc3?auto=format&fit=crop&w=500&h=300&q=80"
+    image: "https://images.unsplash.com/photo-1599861543714-d15e4f6785e3?auto=format&fit=crop&w=500&h=300&q=80"
   },
   {
     id: 3,
@@ -85,7 +85,7 @@ export const bestFlightDeals: FlightDeal[] = [
     origin: "HOU",
     destCode: "CZM",
     date: "15 Nov 2022",
-    image: "https://images.unsplash.com/photo-1564852694965-91873368ac97?auto=format&fit=crop&w=500&h=300&q=80"
+    image: "https://images.unsplash.com/photo-1617170788899-62f5df1c7566?auto=format&fit=crop&w=500&h=300&q=80"
   },
   {
     id: 4,
@@ -94,7 +94,7 @@ export const bestFlightDeals: FlightDeal[] = [
     origin: "LAS",
     destCode: "OAK",
     date: "10 Nov 2022",
-    image: "https://images.unsplash.com/photo-1422246358533-95dcd3d48961?auto=format&fit=crop&w=500&h=300&q=80"
+    image: "https://images.unsplash.com/photo-1542049943447-da857c4ba76e?auto=format&fit=crop&w=500&h=300&q=80"
   },
   {
     id: 5,
@@ -103,7 +103,7 @@ export const bestFlightDeals: FlightDeal[] = [
     origin: "JFK",
     destCode: "LHR",
     date: "14 Nov 2022",
-    image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=500&h=300&q=80"
+    image: "https://images.unsplash.com/photo-1529655683826-aba9b3e77383?auto=format&fit=crop&w=500&h=300&q=80"
   },
   {
     id: 6,
@@ -112,7 +112,7 @@ export const bestFlightDeals: FlightDeal[] = [
     origin: "SFO",
     destCode: "HND",
     date: "20 Nov 2022",
-    image: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=500&h=300&q=80"
+    image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=500&h=300&q=80"
   },
   {
     id: 7,
@@ -121,7 +121,7 @@ export const bestFlightDeals: FlightDeal[] = [
     origin: "ATL",
     destCode: "CDG",
     date: "16 Nov 2022",
-    image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=300&q=80"
+    image: "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=500&h=300&q=80"
   },
   {
     id: 8,
@@ -130,7 +130,7 @@ export const bestFlightDeals: FlightDeal[] = [
     origin: "BOS",
     destCode: "FCO",
     date: "22 Nov 2022",
-    image: "https://images.unsplash.com/photo-1525874684015-58379d421a52?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=300&q=80"
+    image: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=500&h=300&q=80"
   },
   {
     id: 9,
@@ -139,7 +139,7 @@ export const bestFlightDeals: FlightDeal[] = [
     origin: "LAX",
     destCode: "SYD",
     date: "25 Nov 2022",
-    image: "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=300&q=80"
+    image: "https://images.unsplash.com/photo-1523428096881-5bd79d043006?auto=format&fit=crop&w=500&h=300&q=80"
   },
   {
     id: 10,
@@ -148,7 +148,7 @@ export const bestFlightDeals: FlightDeal[] = [
     origin: "JFK",
     destCode: "DXB",
     date: "18 Nov 2022",
-    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=300&q=80"
+    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=500&h=300&q=80"
   },
   {
     id: 11,
@@ -157,7 +157,7 @@ export const bestFlightDeals: FlightDeal[] = [
     origin: "SEA",
     destCode: "BKK",
     date: "21 Nov 2022",
-    image: "https://images.unsplash.com/photo-1508009603885-9056e3c7c052?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=300&q=80"
+    image: "https://images.unsplash.com/photo-1563492065599-3520f775eeed?auto=format&fit=crop&w=500&h=300&q=80"
   },
   {
     id: 12,
@@ -166,6 +166,6 @@ export const bestFlightDeals: FlightDeal[] = [
     origin: "ORD",
     destCode: "AMS",
     date: "19 Nov 2022",
-    image: "https://images.unsplash.com/photo-1534351590666-13e3e96b5017?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=300&q=80"
+    image: "https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?auto=format&fit=crop&w=500&h=300&q=80"
   }
 ];
