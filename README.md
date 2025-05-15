@@ -1,4 +1,3 @@
-
 # ReplitAI Flight - Group Bookings Web Application
 
 A modern React-based web application for group travel bookings with ReplitAI Airlines, built with TypeScript, Express, and Tailwind CSS.
@@ -131,3 +130,9 @@ Required environment variables:
 - `NODE_ENV`: Development/production environment
 - `DATABASE_URL`: Database connection string
 - `SESSION_SECRET`: Session encryption key
+
+## Project Details
+
+Author name: Jegan SP
+Created By: ----
+Project Name: ReplitAI Testing Projects
