@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { bestFlightDeals } from "@/data/destinations";
-import { ChevronLeft, ChevronRight, ArrowRight, Plane } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowRight, Plane, CalendarDays, Check } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 
@@ -126,19 +126,45 @@ export default function BestFlightDeals() {
         </div>
         
         <div>
-          <h3 className="text-lg font-medium text-sw-gray-800 mb-3 border-b pb-2">International Flight Deals</h3>
-          <div className="space-y-2">
-            {internationalFlights.slice(0, 5).map(deal => (
-              <div key={`international-${deal.id}`} className="flex justify-between items-center py-2 border-b border-gray-100">
-                <div>
-                  <div className="font-medium">{deal.destination}</div>
-                  <div className="text-xs text-sw-gray-500">From {deal.origin}</div>
+            <h3 className="text-lg font-medium text-sw-gray-800 mb-3 border-b pb-2">International Flight Deals</h3>
+            <div className="space-y-4">
+              {internationalFlights.slice(0, 5).map(deal => (
+                <div key={`international-${deal.id}`} className="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
+                  <div className="flex justify-between items-start mb-2">
+                    <div>
+                      <div className="font-medium text-lg">{deal.destination}</div>
+                      <div className="text-sm text-sw-gray-600 flex items-center mt-1">
+                        <Plane className="h-4 w-4 mr-1" />
+                        {deal.origin} → {deal.destCode}
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-sw-blue font-bold text-lg">{formatPrice(deal.price)}</div>
+                      <div className="text-xs text-sw-gray-500">Round Trip</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between mt-3 text-sm">
+                    <div className="flex items-center text-sw-gray-600">
+                      <CalendarDays className="h-4 w-4 mr-1" />
+                      {deal.date}
+                    </div>
+                    <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">
+                      International
+                    </Badge>
+                  </div>
+                  <div className="mt-3 pt-3 border-t border-gray-100 flex justify-between items-center">
+                    <div className="text-xs text-green-600 flex items-center">
+                      <Check className="h-3 w-3 mr-1" />
+                      Direct Flight Available
+                    </div>
+                    <Button variant="link" className="text-sw-blue hover:text-sw-blue/80 p-0 h-auto text-sm">
+                      View Details →
+                    </Button>
+                  </div>
                 </div>
-                <div className="text-sw-blue font-bold">{formatPrice(deal.price)}</div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
       </div>
     </div>
   );
