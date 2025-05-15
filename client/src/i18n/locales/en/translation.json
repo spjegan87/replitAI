@@ -1,0 +1,16 @@
+
+{
+  "navigation": {
+    "home": "Home",
+    "contact": "Contact",
+    "login": "Login/Signup"
+  },
+  "search": {
+    "origin": "Origin",
+    "destination": "Destination",
+    "departureDate": "Departure Date",
+    "returnDate": "Return Date",
+    "passengers": "Passengers",
+    "search": "Search Flights"
+  }
+}

@@ -1,0 +1,16 @@
+
+{
+  "navigation": {
+    "home": "الرئيسية",
+    "contact": "اتصل بنا",
+    "login": "تسجيل الدخول/التسجيل"
+  },
+  "search": {
+    "origin": "المغادرة",
+    "destination": "الوجهة",
+    "departureDate": "تاريخ المغادرة",
+    "returnDate": "تاريخ العودة",
+    "passengers": "المسافرون",
+    "search": "البحث عن الرحلات"
+  }
+}

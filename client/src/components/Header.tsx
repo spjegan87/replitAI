@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -94,19 +95,19 @@ export default function Header() {
                 </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuItem className="flex items-center">
+                <DropdownMenuItem className="flex items-center" onClick={() => i18n.changeLanguage('en')}>
                   <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" alt="US Flag" className="w-6 h-4 mr-2" />
                   <span>English</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="flex items-center">
+                <DropdownMenuItem className="flex items-center" onClick={() => i18n.changeLanguage('ar')}>
                   <img src="https://cdn.countryflags.com/thumbs/saudi-arabia/flag-400.png" alt="Saudi Flag" className="w-6 h-4 mr-2" />
                   <span>العربية</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="flex items-center">
+                <DropdownMenuItem className="flex items-center" onClick={() => i18n.changeLanguage('id')}>
                   <img src="https://cdn.countryflags.com/thumbs/indonesia/flag-400.png" alt="Indonesia Flag" className="w-6 h-4 mr-2" />
                   <span>Bahasa Indonesia</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="flex items-center">
+                <DropdownMenuItem className="flex items-center" onClick={() => i18n.changeLanguage('ta')}>
                   <img src="https://cdn.countryflags.com/thumbs/india/flag-400.png" alt="India Flag" className="w-6 h-4 mr-2" />
                   <span>தமிழ்</span>
                 </DropdownMenuItem>

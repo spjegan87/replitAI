@@ -1,0 +1,16 @@
+
+{
+  "navigation": {
+    "home": "முகப்பு",
+    "contact": "தொடர்பு",
+    "login": "உள்நுழைய/பதிவு"
+  },
+  "search": {
+    "origin": "புறப்படும் இடம்",
+    "destination": "சேரும் இடம்",
+    "departureDate": "புறப்படும் தேதி",
+    "returnDate": "திரும்பும் தேதி",
+    "passengers": "பயணிகள்",
+    "search": "விமானங்களைத் தேடு"
+  }
+}

@@ -1,0 +1,16 @@
+
+{
+  "navigation": {
+    "home": "Beranda",
+    "contact": "Kontak",
+    "login": "Masuk/Daftar"
+  },
+  "search": {
+    "origin": "Asal",
+    "destination": "Tujuan",
+    "departureDate": "Tanggal Keberangkatan",
+    "returnDate": "Tanggal Kembali",
+    "passengers": "Penumpang",
+    "search": "Cari Penerbangan"
+  }
+}
