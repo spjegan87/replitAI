@@ -6,49 +6,49 @@ export const specialOffers: Destination[] = [
     name: "Cancun",
     dates: "10 Oct 2022 - 18 Oct 2022",
     price: 1200.00,
-    image: "https://images.unsplash.com/photo-1552074284-5e85c037285f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=300&q=80"
+    image: "https://images.unsplash.com/photo-1501446690852-da55df7bfe07?auto=format&fit=crop&w=500&h=300&q=80"
   },
   {
     id: 2,
     name: "Miami",
     dates: "10 Oct 2022 - 18 Oct 2022",
     price: 580.00,
-    image: "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=300&q=80"
+    image: "https://images.unsplash.com/photo-1503891450247-ee5f8ec46dc3?auto=format&fit=crop&w=500&h=300&q=80"
   },
   {
     id: 3,
     name: "Palm Springs",
     dates: "10 Oct 2022 - 18 Oct 2022",
     price: 680.00,
-    image: "https://images.unsplash.com/photo-1596662931009-4cc06b21d7ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=300&q=80"
+    image: "https://images.unsplash.com/photo-1540321975033-2fff3a5a3945?auto=format&fit=crop&w=500&h=300&q=80"
   },
   {
     id: 4,
     name: "Colorado Springs",
     dates: "10 Oct 2022 - 18 Oct 2022",
     price: 787.00,
-    image: "https://images.unsplash.com/photo-1618944847828-82e943c3bdb7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=300&q=80"
+    image: "https://images.unsplash.com/photo-1605833556294-ea5c7a74f57d?auto=format&fit=crop&w=500&h=300&q=80"
   },
   {
     id: 5,
     name: "San Diego",
     dates: "15 Oct 2022 - 22 Oct 2022",
     price: 649.00,
-    image: "https://images.unsplash.com/photo-1517861018508-818668ed76d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=300&q=80"
+    image: "https://images.unsplash.com/photo-1538330627166-33d1908c210d?auto=format&fit=crop&w=500&h=300&q=80"
   },
   {
     id: 6,
     name: "New Orleans",
     dates: "20 Oct 2022 - 27 Oct 2022",
     price: 562.00,
-    image: "https://images.unsplash.com/photo-1549965738-e1aaf1168943?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=300&q=80"
+    image: "https://images.unsplash.com/photo-1571893544028-06b07af6dade?auto=format&fit=crop&w=500&h=300&q=80"
   },
   {
     id: 7,
     name: "Nashville",
     dates: "18 Oct 2022 - 25 Oct 2022",
     price: 519.00,
-    image: "https://images.unsplash.com/photo-1545147986-a9d6f2ab03b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=300&q=80"
+    image: "https://images.unsplash.com/photo-1545973392-f1e7b956b827?auto=format&fit=crop&w=500&h=300&q=80"
   },
   {
     id: 8,
@@ -67,7 +67,7 @@ export const bestFlightDeals: FlightDeal[] = [
     origin: "LAX",
     destCode: "VIE",
     date: "09 Nov 2022",
-    image: "https://images.unsplash.com/photo-1516550893885-9857d8feb1ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=300&q=80"
+    image: "https://images.unsplash.com/photo-1573599852326-2d4da0bbe613?auto=format&fit=crop&w=500&h=300&q=80"
   },
   {
     id: 2,
@@ -76,7 +76,7 @@ export const bestFlightDeals: FlightDeal[] = [
     origin: "MIA",
     destCode: "NAS",
     date: "12 Nov 2022",
-    image: "https://images.unsplash.com/photo-1548574505-5e239809ee19?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=300&q=80"
+    image: "https://images.unsplash.com/photo-1578675200774-836aa57d8fc3?auto=format&fit=crop&w=500&h=300&q=80"
   },
   {
     id: 3,
@@ -85,7 +85,7 @@ export const bestFlightDeals: FlightDeal[] = [
     origin: "HOU",
     destCode: "CZM",
     date: "15 Nov 2022",
-    image: "https://images.unsplash.com/photo-1562095241-8c6714fd4178?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=300&q=80"
+    image: "https://images.unsplash.com/photo-1564852694965-91873368ac97?auto=format&fit=crop&w=500&h=300&q=80"
   },
   {
     id: 4,
@@ -94,7 +94,7 @@ export const bestFlightDeals: FlightDeal[] = [
     origin: "LAS",
     destCode: "OAK",
     date: "10 Nov 2022",
-    image: "https://images.unsplash.com/photo-1570936556790-2a0068f94caa?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=300&q=80"
+    image: "https://images.unsplash.com/photo-1422246358533-95dcd3d48961?auto=format&fit=crop&w=500&h=300&q=80"
   },
   {
     id: 5,
@@ -103,7 +103,7 @@ export const bestFlightDeals: FlightDeal[] = [
     origin: "JFK",
     destCode: "LHR",
     date: "14 Nov 2022",
-    image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=300&q=80"
+    image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=500&h=300&q=80"
   },
   {
     id: 6,
@@ -112,7 +112,7 @@ export const bestFlightDeals: FlightDeal[] = [
     origin: "SFO",
     destCode: "HND",
     date: "20 Nov 2022",
-    image: "https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=300&q=80"
+    image: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=500&h=300&q=80"
   },
   {
     id: 7,
