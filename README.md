@@ -1,7 +1,7 @@
 
-# Southwest Airlines - Group Bookings Web Application
+# ReplitAI Flight  - Group Bookings Web Application
 
-A modern React-based web application for group travel bookings with Southwest Airlines.
+A modern React-based web application for group travel bookings with ReplitAI Airlines.
 
 ## Project Structure
 
