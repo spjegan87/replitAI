@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 type ContrastMode = "blue" | "black" | "normal" | "yellow";
 
 export default function Header() {
+  const { t } = useTranslation();
   const [contrastMode, setContrastMode] = useState<ContrastMode>("normal");
 
   const handleContrastChange = (mode: ContrastMode) => {
@@ -29,7 +30,7 @@ export default function Header() {
           {/* Southwest Logo */}
           <a href="#" className="sw-blue font-bold text-2xl flex items-center">
             Southwest<span className="sw-yellow">®</span>
-            <span className="ml-2 text-sm font-normal text-sw-gray-700">Group Bookings</span>
+            <span className="ml-2 text-sm font-normal text-sw-gray-700">{t('header.groupBookings')}</span>
           </a>
         </div>
         

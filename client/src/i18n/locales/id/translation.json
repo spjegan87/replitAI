@@ -11,6 +11,16 @@
     "departureDate": "Tanggal Keberangkatan",
     "returnDate": "Tanggal Kembali",
     "passengers": "Penumpang",
-    "search": "Cari Penerbangan"
+    "search": "Cari Penerbangan",
+    "preference": "Preferensi",
+    "cabin": "Kabin",
+    "groupCategory": "Kategori Grup"
+  },
+  "header": {
+    "groupBookings": "Pemesanan Grup",
+    "accessibility": "AKSESIBILITAS",
+    "contrast": "KONTRAS",
+    "callUs": "Hubungi kami di",
+    "loginSignup": "Masuk/Daftar"
   }
 }
