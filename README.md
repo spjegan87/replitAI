@@ -133,6 +133,6 @@ Required environment variables:
 
 ## Project Details
 
-Author name: Jegan SP
-Created By: ----
+Author name: Jegan SP   
+Created By: ----  
 Project Name: ReplitAI Testing Projects
