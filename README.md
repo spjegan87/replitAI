@@ -10,11 +10,27 @@ client/
 ├── src/
 │   ├── components/      # Reusable UI components
 │   │   ├── ui/         # Base UI components (buttons, cards, etc.)
-│   │   └── ...         # Feature-specific components
+│   │   ├── Header      # Navigation and language selection
+│   │   ├── Footer      # Site footer
+│   │   ├── FlightSearchForm  # Flight search interface
+│   │   ├── TripTypeSelector  # Trip type selection
+│   │   ├── SpecialOffers    # Promotional deals
+│   │   └── BestFlightDeals  # Featured flight deals
 │   ├── data/           # Static data and mock APIs
+│   │   ├── airports    # Airport data
+│   │   ├── flights     # Flight information
+│   │   └── destinations # Destination details
 │   ├── hooks/          # Custom React hooks
-│   ├── lib/            # Utility functions and configurations
-│   └── pages/          # Page components and routing
+│   ├── i18n/           # Internationalization
+│   │   └── locales/    # Language translations
+│   ├── lib/            # Utility functions
+│   └── pages/          # Page components
+│       ├── Home        # Landing page
+│       ├── SearchResults # Flight listings
+│       ├── Itinerary   # Trip details
+│       ├── Payment     # Payment processing
+│       ├── Confirmation # Booking confirmation
+│       └── ETicket     # Electronic ticket
 ```
 
 ### Backend Architecture
@@ -22,13 +38,14 @@ client/
 server/
 ├── routes.ts           # API route definitions
 ├── storage.ts          # Data storage interface
+├── vite.ts            # Vite configuration
 └── index.ts           # Server entry point
 ```
 
 ### Shared Code
 ```
 shared/
-└── schema.ts          # Shared type definitions and database schema
+└── schema.ts          # Database schema and types
 ```
 
 ## Key Features
