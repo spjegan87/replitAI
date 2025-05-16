@@ -4,38 +4,6 @@ A modern React-based web application for group travel bookings with ReplitAI Air
 
 ## Architecture Overview
 
-```mermaid
-graph TD
-    A[Client] --> B[Components]
-    B --> C[UI Components]
-    B --> D[Feature Components]
-    A --> E[Pages]
-    A --> F[Data Layer]
-    
-    D --> D1[Header]
-    D --> D2[FlightSearchForm]
-    D --> D3[TripTypeSelector]
-    D --> D4[SpecialOffers]
-    D --> D5[BestFlightDeals]
-    
-    E --> E1[Home]
-    E --> E2[SearchResults]
-    E --> E3[Itinerary]
-    E --> E4[Payment]
-    E --> E5[Confirmation]
-    E --> E6[ETicket]
-    
-    F --> F1[Static Data]
-    F --> F2[API Integration]
-    F --> F3[i18n]
-    
-    G[Server] --> H[Routes]
-    G --> I[Storage]
-    G --> J[Vite Config]
-    
-    K[Shared] --> L[Schema]
-```
-
 ### Frontend Architecture
 ```
 client/
