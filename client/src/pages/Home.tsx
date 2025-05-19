@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ChatBot from "@/components/ChatBot";
 import Header from "@/components/Header";
 import TripTypeSelector from "@/components/TripTypeSelector";
 import FlightSearchForm from "@/components/FlightSearchForm";
@@ -38,6 +39,7 @@ export default function Home() {
       </main>
 
       <Footer />
+      <ChatBot />
     </div>
   );
 }
