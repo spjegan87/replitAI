@@ -17,19 +17,43 @@ export default function ChatBot() {
   const [input, setInput] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
+  const generateResponse = (userInput: string) => {
+    const lowercaseInput = userInput.toLowerCase();
+    
+    if (lowercaseInput.includes("flight") && lowercaseInput.includes("book")) {
+      return "To book a flight, please use our flight search form above. You can select your trip type, enter your destinations, and choose your dates.";
+    }
+    
+    if (lowercaseInput.includes("cancel")) {
+      return "For flight cancellations, please contact our support team with your booking reference. We'll help you process the cancellation.";
+    }
+    
+    if (lowercaseInput.includes("price") || lowercaseInput.includes("cost")) {
+      return "Flight prices vary based on destinations and dates. You can check current prices using our search form. We also have special offers available!";
+    }
+    
+    if (lowercaseInput.includes("help") || lowercaseInput.includes("support")) {
+      return "I can help you with flight bookings, cancellations, pricing information, and general inquiries. What would you like to know?";
+    }
+
+    if (lowercaseInput.includes("thank")) {
+      return "You're welcome! Is there anything else I can help you with?";
+    }
+
+    return "I understand your message. Could you please provide more details about what you're looking for? I can help with flight bookings, cancellations, and general inquiries.";
+  };
+
   const handleSend = () => {
     if (!input.trim()) return;
 
     // Add user message
     setMessages((prev) => [...prev, { text: input, isBot: false }]);
 
-    // Simulate bot response
+    // Generate and add bot response
     setTimeout(() => {
-      setMessages((prev) => [
-        ...prev,
-        { text: "Thanks for your message! Our team will get back to you soon.", isBot: true },
-      ]);
-    }, 1000);
+      const response = generateResponse(input);
+      setMessages((prev) => [...prev, { text: response, isBot: true }]);
+    }, 500);
 
     setInput("");
   };
