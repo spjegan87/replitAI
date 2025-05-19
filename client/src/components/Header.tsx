@@ -96,19 +96,31 @@ export default function Header() {
                 </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuItem className="flex items-center" onClick={() => i18n.changeLanguage('en')}>
+                <DropdownMenuItem className="flex items-center" onClick={() => {
+                  i18n.changeLanguage('en');
+                  document.documentElement.dir = 'ltr';
+                }}>
                   <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" alt="US Flag" className="w-6 h-4 mr-2" />
                   <span>English</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="flex items-center" onClick={() => i18n.changeLanguage('ar')}>
+                <DropdownMenuItem className="flex items-center" onClick={() => {
+                  i18n.changeLanguage('ar');
+                  document.documentElement.dir = 'rtl';
+                }}>
                   <img src="https://cdn.countryflags.com/thumbs/saudi-arabia/flag-400.png" alt="Saudi Flag" className="w-6 h-4 mr-2" />
                   <span>العربية</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="flex items-center" onClick={() => i18n.changeLanguage('id')}>
+                <DropdownMenuItem className="flex items-center" onClick={() => {
+                  i18n.changeLanguage('id');
+                  document.documentElement.dir = 'ltr';
+                }}>
                   <img src="https://cdn.countryflags.com/thumbs/indonesia/flag-400.png" alt="Indonesia Flag" className="w-6 h-4 mr-2" />
                   <span>Bahasa Indonesia</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="flex items-center" onClick={() => i18n.changeLanguage('ta')}>
+                <DropdownMenuItem className="flex items-center" onClick={() => {
+                  i18n.changeLanguage('ta');
+                  document.documentElement.dir = 'ltr';
+                }}>
                   <img src="https://cdn.countryflags.com/thumbs/india/flag-400.png" alt="India Flag" className="w-6 h-4 mr-2" />
                   <span>தமிழ்</span>
                 </DropdownMenuItem>
