@@ -3,14 +3,23 @@
   "navigation": {
     "home": "முகப்பு",
     "contact": "தொடர்பு",
-    "login": "உள்நுழைய/பதிவு"
+    "login": "உள்நுழைய/பதிவு செய்ய"
   },
   "search": {
-    "origin": "புறப்படும் இடம்",
-    "destination": "சேரும் இடம்",
+    "origin": "தொடக்கம்",
+    "destination": "இலக்கு",
     "departureDate": "புறப்படும் தேதி",
     "returnDate": "திரும்பும் தேதி",
     "passengers": "பயணிகள்",
-    "search": "விமானங்களைத் தேடு"
+    "search": "விமானங்களைத் தேடுங்கள்"
+  },
+  "common": {
+    "flightDetails": "விமான விவரங்கள்",
+    "tripDetails": "பயண விவரங்கள்",
+    "price": "விலை",
+    "book": "முன்பதிவு செய்",
+    "next": "அடுத்து",
+    "back": "பின்",
+    "confirm": "உறுதிப்படுத்து"
   }
 }
