@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import i18n from "@/i18n";
 import { Button } from "@/components/ui/button";
@@ -11,6 +12,7 @@ import { cn } from "@/lib/utils";
 type ContrastMode = "blue" | "black" | "normal" | "yellow";
 
 export default function Header() {
+  const [, setLocation] = useLocation();
   const [contrastMode, setContrastMode] = useState<ContrastMode>("normal");
 
   const handleContrastChange = (mode: ContrastMode) => {
@@ -27,7 +29,10 @@ export default function Header() {
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         <div className="flex items-center space-x-4">
           {/* Southwest Logo */}
-          <a href="#" className="sw-blue font-bold text-2xl flex items-center">
+          <a href="/" onClick={(e) => {
+            e.preventDefault();
+            setLocation("/");
+          }} className="sw-blue font-bold text-2xl flex items-center cursor-pointer">
             Southwest<span className="sw-yellow">®</span>
             <span className="ml-2 text-sm font-normal text-sw-gray-700">Group Bookings</span>
           </a>
