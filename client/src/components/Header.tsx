@@ -85,11 +85,19 @@ export default function Header() {
               <DropdownMenuTrigger asChild>
                 <div className="flex items-center border rounded px-2 py-1 cursor-pointer">
                   <img 
-                    src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" 
-                    alt="US Flag" 
+                    src={i18n.language === 'ta' ? "https://cdn.countryflags.com/thumbs/india/flag-400.png" : 
+                         i18n.language === 'ar' ? "https://cdn.countryflags.com/thumbs/saudi-arabia/flag-400.png" :
+                         i18n.language === 'id' ? "https://cdn.countryflags.com/thumbs/indonesia/flag-400.png" :
+                         "https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png"} 
+                    alt="Language Flag" 
                     className="w-6 h-4 mr-1" 
                   />
-                  <span className="text-sm">English</span>
+                  <span className="text-sm">
+                    {i18n.language === 'ta' ? 'தமிழ்' :
+                     i18n.language === 'ar' ? 'العربية' :
+                     i18n.language === 'id' ? 'Bahasa Indonesia' :
+                     'English'}
+                  </span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-1 text-sw-gray-500">
                     <path d="m6 9 6 6 6-6"/>
                   </svg>
