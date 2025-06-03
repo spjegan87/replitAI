@@ -155,55 +155,75 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
 
   const removeMultiCitySector = (sectorId: string) => {
     if (multiCitySectors.length > 2) {
-      setMultiCitySectors(multiCitySectors.filter(sector => sector.id !== sectorId));
+      setMultiCitySectors(
+        multiCitySectors.filter((sector) => sector.id !== sectorId),
+      );
     }
   };
 
-  const updateMultiCitySector = (sectorId: string, field: keyof FlightSector, value: any) => {
-    setMultiCitySectors(sectors => 
-      sectors.map(sector => 
-        sector.id === sectorId ? { ...sector, [field]: value } : sector
-      )
+  const updateMultiCitySector = (
+    sectorId: string,
+    field: keyof FlightSector,
+    value: any,
+  ) => {
+    setMultiCitySectors((sectors) =>
+      sectors.map((sector) =>
+        sector.id === sectorId ? { ...sector, [field]: value } : sector,
+      ),
     );
   };
 
   const handleMultiCityOriginSelect = (sectorId: string, airport: Airport) => {
-    updateMultiCitySector(sectorId, 'origin', `${airport.city} (${airport.code})`);
-    updateMultiCitySector(sectorId, 'originQuery', '');
-    updateMultiCitySector(sectorId, 'openOrigin', false);
-    
+    updateMultiCitySector(
+      sectorId,
+      "origin",
+      `${airport.city} (${airport.code})`,
+    );
+    updateMultiCitySector(sectorId, "originQuery", "");
+    updateMultiCitySector(sectorId, "openOrigin", false);
+
     // Auto-populate destination query for the same sector
-    updateMultiCitySector(sectorId, 'destinationQuery', airport.city);
-    updateMultiCitySector(sectorId, 'openDestination', true);
+    updateMultiCitySector(sectorId, "destinationQuery", airport.city);
+    updateMultiCitySector(sectorId, "openDestination", true);
   };
 
-  const handleMultiCityDestinationSelect = (sectorId: string, airport: Airport) => {
-    updateMultiCitySector(sectorId, 'destination', `${airport.city} (${airport.code})`);
-    updateMultiCitySector(sectorId, 'destinationQuery', '');
-    updateMultiCitySector(sectorId, 'openDestination', false);
-    
+  const handleMultiCityDestinationSelect = (
+    sectorId: string,
+    airport: Airport,
+  ) => {
+    updateMultiCitySector(
+      sectorId,
+      "destination",
+      `${airport.city} (${airport.code})`,
+    );
+    updateMultiCitySector(sectorId, "destinationQuery", "");
+    updateMultiCitySector(sectorId, "openDestination", false);
+
     // Auto-populate next sector's origin if it exists
-    const currentIndex = multiCitySectors.findIndex(s => s.id === sectorId);
+    const currentIndex = multiCitySectors.findIndex((s) => s.id === sectorId);
     if (currentIndex < multiCitySectors.length - 1) {
       const nextSectorId = multiCitySectors[currentIndex + 1].id;
-      updateMultiCitySector(nextSectorId, 'originQuery', airport.city);
-      updateMultiCitySector(nextSectorId, 'openOrigin', true);
+      updateMultiCitySector(nextSectorId, "originQuery", airport.city);
+      updateMultiCitySector(nextSectorId, "openOrigin", true);
     }
   };
 
   // Filter airports for multi-city sectors
   useEffect(() => {
-    multiCitySectors.forEach(sector => {
+    multiCitySectors.forEach((sector) => {
       if (sector.originQuery !== undefined) {
         const filtered = filterAirports(sector.originQuery);
-        updateMultiCitySector(sector.id, 'originAirports', filtered);
+        updateMultiCitySector(sector.id, "originAirports", filtered);
       }
       if (sector.destinationQuery !== undefined) {
         const filtered = filterAirports(sector.destinationQuery);
-        updateMultiCitySector(sector.id, 'destinationAirports', filtered);
+        updateMultiCitySector(sector.id, "destinationAirports", filtered);
       }
     });
-  }, [multiCitySectors.map(s => s.originQuery).join(','), multiCitySectors.map(s => s.destinationQuery).join(',')]);
+  }, [
+    multiCitySectors.map((s) => s.originQuery).join(","),
+    multiCitySectors.map((s) => s.destinationQuery).join(","),
+  ]);
 
   // Handle airport selection for origin
   const handleOriginSelect = (airport: Airport) => {
@@ -240,7 +260,8 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
       for (let i = 0; i < multiCitySectors.length; i++) {
         const sector = multiCitySectors[i];
         if (!sector.origin || !sector.destination || !sector.departureDate) {
-          if (i < 2) { // First two sectors are required
+          if (i < 2) {
+            // First two sectors are required
             newErrors.multiCity = `Sector ${i + 1}: Origin, destination, and departure date are required`;
             break;
           }
@@ -253,7 +274,7 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
           }
         }
       }
-      
+
       if (!hasValidSector && !newErrors.multiCity) {
         newErrors.multiCity = "At least one complete sector is required";
       }
@@ -313,8 +334,8 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
 
     if (tripType === "multi-city") {
       // Handle multi-city form submission
-      const validSectors = multiCitySectors.filter(sector => 
-        sector.origin && sector.destination && sector.departureDate
+      const validSectors = multiCitySectors.filter(
+        (sector) => sector.origin && sector.destination && sector.departureDate,
       );
 
       const multiCityData = {
@@ -396,7 +417,10 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
           // Multi-city form layout
           <div className="space-y-6">
             {multiCitySectors.map((sector, index) => (
-              <div key={sector.id} className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+              <div
+                key={sector.id}
+                className="border border-gray-200 rounded-lg p-4 bg-gray-50"
+              >
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-sm font-medium text-sw-gray-700">
                     Sector {index + 1}
@@ -413,16 +437,18 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                     </Button>
                   )}
                 </div>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {/* Origin Field for Multi-city */}
                   <div>
                     <Label className="text-sm font-medium text-sw-gray-700 mb-1">
                       Origin <span className="text-red-500">*</span>
                     </Label>
-                    <Popover 
-                      open={sector.openOrigin} 
-                      onOpenChange={(open) => updateMultiCitySector(sector.id, 'openOrigin', open)}
+                    <Popover
+                      open={sector.openOrigin}
+                      onOpenChange={(open) =>
+                        updateMultiCitySector(sector.id, "openOrigin", open)
+                      }
                     >
                       <PopoverTrigger asChild>
                         <div className="relative">
@@ -435,21 +461,42 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                             className="pl-10 pr-3 py-2.5 w-full border border-sw-gray-300 rounded-md"
                             value={sector.origin || sector.originQuery}
                             onChange={(e) => {
-                              if (sector.origin) updateMultiCitySector(sector.id, 'origin', '');
-                              updateMultiCitySector(sector.id, 'originQuery', e.target.value);
+                              if (sector.origin)
+                                updateMultiCitySector(sector.id, "origin", "");
+                              updateMultiCitySector(
+                                sector.id,
+                                "originQuery",
+                                e.target.value,
+                              );
                             }}
                             onClick={() => {
                               if (sector.origin) {
-                                updateMultiCitySector(sector.id, 'originQuery', '');
-                                updateMultiCitySector(sector.id, 'origin', '');
+                                updateMultiCitySector(
+                                  sector.id,
+                                  "originQuery",
+                                  "",
+                                );
+                                updateMultiCitySector(sector.id, "origin", "");
                               }
-                              updateMultiCitySector(sector.id, 'openOrigin', true);
+                              updateMultiCitySector(
+                                sector.id,
+                                "openOrigin",
+                                true,
+                              );
                             }}
                             onFocus={() => {
-                              updateMultiCitySector(sector.id, 'openOrigin', true);
+                              updateMultiCitySector(
+                                sector.id,
+                                "openOrigin",
+                                true,
+                              );
                               if (!sector.originAirports.length) {
                                 const filtered = filterAirports("");
-                                updateMultiCitySector(sector.id, 'originAirports', filtered);
+                                updateMultiCitySector(
+                                  sector.id,
+                                  "originAirports",
+                                  filtered,
+                                );
                               }
                             }}
                           />
@@ -460,7 +507,13 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                           <CommandInput
                             placeholder="Search airports..."
                             value={sector.originQuery}
-                            onValueChange={(value) => updateMultiCitySector(sector.id, 'originQuery', value)}
+                            onValueChange={(value) =>
+                              updateMultiCitySector(
+                                sector.id,
+                                "originQuery",
+                                value,
+                              )
+                            }
                             className="h-9"
                           />
                           <CommandEmpty>No airports found.</CommandEmpty>
@@ -468,7 +521,12 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                             {sector.originAirports.map((airport) => (
                               <CommandItem
                                 key={airport.code}
-                                onSelect={() => handleMultiCityOriginSelect(sector.id, airport)}
+                                onSelect={() =>
+                                  handleMultiCityOriginSelect(
+                                    sector.id,
+                                    airport,
+                                  )
+                                }
                                 className={`cursor-pointer ${airport.country === "India" ? "bg-blue-50" : ""}`}
                               >
                                 <div className="flex items-center">
@@ -500,9 +558,15 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                     <Label className="text-sm font-medium text-sw-gray-700 mb-1">
                       Destination <span className="text-red-500">*</span>
                     </Label>
-                    <Popover 
-                      open={sector.openDestination} 
-                      onOpenChange={(open) => updateMultiCitySector(sector.id, 'openDestination', open)}
+                    <Popover
+                      open={sector.openDestination}
+                      onOpenChange={(open) =>
+                        updateMultiCitySector(
+                          sector.id,
+                          "openDestination",
+                          open,
+                        )
+                      }
                     >
                       <PopoverTrigger asChild>
                         <div className="relative">
@@ -513,23 +577,54 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                             type="text"
                             placeholder="Enter Destination City or Airport"
                             className="pl-10 pr-3 py-2.5 w-full border border-sw-gray-300 rounded-md"
-                            value={sector.destination || sector.destinationQuery}
+                            value={
+                              sector.destination || sector.destinationQuery
+                            }
                             onChange={(e) => {
-                              if (sector.destination) updateMultiCitySector(sector.id, 'destination', '');
-                              updateMultiCitySector(sector.id, 'destinationQuery', e.target.value);
+                              if (sector.destination)
+                                updateMultiCitySector(
+                                  sector.id,
+                                  "destination",
+                                  "",
+                                );
+                              updateMultiCitySector(
+                                sector.id,
+                                "destinationQuery",
+                                e.target.value,
+                              );
                             }}
                             onClick={() => {
                               if (sector.destination) {
-                                updateMultiCitySector(sector.id, 'destinationQuery', '');
-                                updateMultiCitySector(sector.id, 'destination', '');
+                                updateMultiCitySector(
+                                  sector.id,
+                                  "destinationQuery",
+                                  "",
+                                );
+                                updateMultiCitySector(
+                                  sector.id,
+                                  "destination",
+                                  "",
+                                );
                               }
-                              updateMultiCitySector(sector.id, 'openDestination', true);
+                              updateMultiCitySector(
+                                sector.id,
+                                "openDestination",
+                                true,
+                              );
                             }}
                             onFocus={() => {
-                              updateMultiCitySector(sector.id, 'openDestination', true);
+                              updateMultiCitySector(
+                                sector.id,
+                                "openDestination",
+                                true,
+                              );
                               if (!sector.destinationAirports.length) {
                                 const filtered = filterAirports("");
-                                updateMultiCitySector(sector.id, 'destinationAirports', filtered);
+                                updateMultiCitySector(
+                                  sector.id,
+                                  "destinationAirports",
+                                  filtered,
+                                );
                               }
                             }}
                           />
@@ -540,7 +635,13 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                           <CommandInput
                             placeholder="Search airports..."
                             value={sector.destinationQuery}
-                            onValueChange={(value) => updateMultiCitySector(sector.id, 'destinationQuery', value)}
+                            onValueChange={(value) =>
+                              updateMultiCitySector(
+                                sector.id,
+                                "destinationQuery",
+                                value,
+                              )
+                            }
                             className="h-9"
                           />
                           <CommandEmpty>No airports found.</CommandEmpty>
@@ -548,7 +649,12 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                             {sector.destinationAirports.map((airport) => (
                               <CommandItem
                                 key={airport.code}
-                                onSelect={() => handleMultiCityDestinationSelect(sector.id, airport)}
+                                onSelect={() =>
+                                  handleMultiCityDestinationSelect(
+                                    sector.id,
+                                    airport,
+                                  )
+                                }
                                 className={`cursor-pointer ${airport.country === "India" ? "bg-blue-50" : ""}`}
                               >
                                 <div className="flex items-center">
@@ -586,7 +692,7 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                           variant="outline"
                           className={cn(
                             "w-full pl-3 text-left font-normal",
-                            !sector.departureDate && "text-muted-foreground"
+                            !sector.departureDate && "text-muted-foreground",
                           )}
                         >
                           <CalendarIcon className="mr-2 h-4 w-4" />
@@ -601,7 +707,13 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                         <Calendar
                           mode="single"
                           selected={sector.departureDate}
-                          onSelect={(date) => updateMultiCitySector(sector.id, 'departureDate', date)}
+                          onSelect={(date) =>
+                            updateMultiCitySector(
+                              sector.id,
+                              "departureDate",
+                              date,
+                            )
+                          }
                           disabled={(date) => date < new Date()}
                           initialFocus
                         />
@@ -611,7 +723,7 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                 </div>
               </div>
             ))}
-            
+
             {/* Add Sector Button */}
             {multiCitySectors.length < 6 && (
               <Button
@@ -624,7 +736,7 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                 Add Another Sector
               </Button>
             )}
-            
+
             {/* Multi-city validation error */}
             {errors.multiCity && (
               <p className="text-red-500 text-sm">{errors.multiCity}</p>
@@ -650,7 +762,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                       <button
                         type="button"
                         className="px-2 py-1 text-sw-gray-500 hover:text-sw-gray-700"
-                        onClick={() => setAdultCount(Math.max(1, adultCount - 1))}
+                        onClick={() =>
+                          setAdultCount(Math.max(1, adultCount - 1))
+                        }
                       >
                         -
                       </button>
@@ -687,7 +801,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                       <button
                         type="button"
                         className="px-2 py-1 text-sw-gray-500 hover:text-sw-gray-700"
-                        onClick={() => setChildCount(Math.max(0, childCount - 1))}
+                        onClick={() =>
+                          setChildCount(Math.max(0, childCount - 1))
+                        }
                       >
                         -
                       </button>
@@ -724,7 +840,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                       <button
                         type="button"
                         className="px-2 py-1 text-sw-gray-500 hover:text-sw-gray-700"
-                        onClick={() => setInfantCount(Math.max(0, infantCount - 1))}
+                        onClick={() =>
+                          setInfantCount(Math.max(0, infantCount - 1))
+                        }
                       >
                         -
                       </button>
@@ -749,6 +867,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                     </div>
                   </div>
                 </div>
+                {errors.passengers && (
+                  <p className="text-red-500 text-sm mt-1">{errors.passengers}</p>
+                )}
               </div>
 
               {/* Cabin */}
@@ -891,7 +1012,10 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                         if (destination) setDestination("");
                         setDestinationQuery(e.target.value);
                         if (errors.destination) {
-                          setErrors((prev) => ({ ...prev, destination: undefined }));
+                          setErrors((prev) => ({
+                            ...prev,
+                            destination: undefined,
+                          }));
                         }
                       }}
                       onClick={() => {
@@ -951,7 +1075,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                 </PopoverContent>
               </Popover>
               {errors.destination && (
-                <p className="text-red-500 text-sm mt-1">{errors.destination}</p>
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.destination}
+                </p>
               )}
             </div>
 
@@ -967,7 +1093,7 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                     className={cn(
                       "w-full pl-3 text-left font-normal",
                       !departureDate && "text-muted-foreground",
-                      errors.departureDate && "border-red-500"
+                      errors.departureDate && "border-red-500",
                     )}
                   >
                     <CalendarIcon className="mr-2 h-4 w-4" />
@@ -985,7 +1111,10 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                     onSelect={(date) => {
                       setDepartureDate(date);
                       if (errors.departureDate) {
-                        setErrors((prev) => ({ ...prev, departureDate: undefined }));
+                        setErrors((prev) => ({
+                          ...prev,
+                          departureDate: undefined,
+                        }));
                       }
                     }}
                     disabled={(date) => date < new Date()}
@@ -994,7 +1123,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                 </PopoverContent>
               </Popover>
               {errors.departureDate && (
-                <p className="text-red-500 text-sm mt-1">{errors.departureDate}</p>
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.departureDate}
+                </p>
               )}
             </div>
 
@@ -1011,7 +1142,7 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                       className={cn(
                         "w-full pl-3 text-left font-normal",
                         !returnDate && "text-muted-foreground",
-                        errors.returnDate && "border-red-500"
+                        errors.returnDate && "border-red-500",
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
@@ -1029,7 +1160,10 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                       onSelect={(date) => {
                         setReturnDate(date);
                         if (errors.returnDate) {
-                          setErrors((prev) => ({ ...prev, returnDate: undefined }));
+                          setErrors((prev) => ({
+                            ...prev,
+                            returnDate: undefined,
+                          }));
                         }
                       }}
                       disabled={(date) => date < new Date()}
@@ -1038,7 +1172,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                   </PopoverContent>
                 </Popover>
                 {errors.returnDate && (
-                  <p className="text-red-500 text-sm mt-1">{errors.returnDate}</p>
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.returnDate}
+                  </p>
                 )}
               </div>
             )}
@@ -1135,7 +1271,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                     <button
                       type="button"
                       className="px-2 py-1 text-sw-gray-500 hover:text-sw-gray-700"
-                      onClick={() => setInfantCount(Math.max(0, infantCount - 1))}
+                      onClick={() =>
+                        setInfantCount(Math.max(0, infantCount - 1))
+                      }
                     >
                       -
                     </button>
