@@ -746,125 +746,75 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {/* Passengers */}
               <div>
-                <Label className="text-sm font-medium text-sw-gray-700 mb-3">
-                  Passengers <span className="text-red-500">*</span>
+                <Label className="text-sm font-medium text-sw-gray-700 mb-1">
+                  No Of Passengers <span className="text-red-500">*</span>
                 </Label>
-                <div className="space-y-2">
-                  <div className="space-y-1">
-                    <Label
-                      htmlFor="adultCount"
-                      className="text-xs text-sw-gray-600 flex items-center"
+                <div className="flex items-center space-x-2 border border-sw-gray-300 rounded-md p-2 bg-white">
+                  {/* Adult */}
+                  <div className="flex items-center space-x-1">
+                    <User className="h-4 w-4 text-sw-gray-400" />
+                    <span className="text-xs text-sw-gray-600">Adult</span>
+                    <button
+                      type="button"
+                      className="w-6 h-6 flex items-center justify-center text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
+                      onClick={() => setAdultCount(Math.max(1, adultCount - 1))}
                     >
-                      <User className="h-4 w-4 text-sw-gray-400 mr-1" />
-                      Adult
-                    </Label>
-                    <div className="flex items-center border border-sw-gray-300 rounded-md">
-                      <button
-                        type="button"
-                        className="px-2 py-1 text-sw-gray-500 hover:text-sw-gray-700"
-                        onClick={() =>
-                          setAdultCount(Math.max(1, adultCount - 1))
-                        }
-                      >
-                        -
-                      </button>
-                      <Input
-                        id="adultCount"
-                        type="number"
-                        min="1"
-                        max="100"
-                        value={adultCount}
-                        onChange={(e) =>
-                          setAdultCount(parseInt(e.target.value) || 1)
-                        }
-                        className="border-0 text-center w-10 p-0"
-                      />
-                      <button
-                        type="button"
-                        className="px-2 py-1 text-sw-gray-500 hover:text-sw-gray-700"
-                        onClick={() => setAdultCount(adultCount + 1)}
-                      >
-                        +
-                      </button>
-                    </div>
+                      -
+                    </button>
+                    <span className="w-6 text-center text-sm font-medium">{adultCount}</span>
+                    <button
+                      type="button"
+                      className="w-6 h-6 flex items-center justify-center text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
+                      onClick={() => setAdultCount(adultCount + 1)}
+                    >
+                      +
+                    </button>
                   </div>
 
-                  <div className="space-y-1">
-                    <Label
-                      htmlFor="childCount"
-                      className="text-xs text-sw-gray-600 flex items-center"
+                  <div className="h-4 w-px bg-sw-gray-300"></div>
+
+                  {/* Child */}
+                  <div className="flex items-center space-x-1">
+                    <User className="h-4 w-4 text-sw-gray-400" />
+                    <span className="text-xs text-sw-gray-600">Child</span>
+                    <button
+                      type="button"
+                      className="w-6 h-6 flex items-center justify-center text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
+                      onClick={() => setChildCount(Math.max(0, childCount - 1))}
                     >
-                      <User className="h-4 w-4 text-sw-gray-400 mr-1" />
-                      Child
-                    </Label>
-                    <div className="flex items-center border border-sw-gray-300 rounded-md">
-                      <button
-                        type="button"
-                        className="px-2 py-1 text-sw-gray-500 hover:text-sw-gray-700"
-                        onClick={() =>
-                          setChildCount(Math.max(0, childCount - 1))
-                        }
-                      >
-                        -
-                      </button>
-                      <Input
-                        id="childCount"
-                        type="number"
-                        min="0"
-                        max="100"
-                        value={childCount}
-                        onChange={(e) =>
-                          setChildCount(parseInt(e.target.value) || 0)
-                        }
-                        className="border-0 text-center w-10 p-0"
-                      />
-                      <button
-                        type="button"
-                        className="px-2 py-1 text-sw-gray-500 hover:text-sw-gray-700"
-                        onClick={() => setChildCount(childCount + 1)}
-                      >
-                        +
-                      </button>
-                    </div>
+                      -
+                    </button>
+                    <span className="w-6 text-center text-sm font-medium">{childCount}</span>
+                    <button
+                      type="button"
+                      className="w-6 h-6 flex items-center justify-center text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
+                      onClick={() => setChildCount(childCount + 1)}
+                    >
+                      +
+                    </button>
                   </div>
 
-                  <div className="space-y-1">
-                    <Label
-                      htmlFor="infantCount"
-                      className="text-xs text-sw-gray-600 flex items-center"
+                  <div className="h-4 w-px bg-sw-gray-300"></div>
+
+                  {/* Infant */}
+                  <div className="flex items-center space-x-1">
+                    <Baby className="h-4 w-4 text-sw-gray-400" />
+                    <span className="text-xs text-sw-gray-600">Infant</span>
+                    <button
+                      type="button"
+                      className="w-6 h-6 flex items-center justify-center text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
+                      onClick={() => setInfantCount(Math.max(0, infantCount - 1))}
                     >
-                      <Baby className="h-4 w-4 text-sw-gray-400 mr-1" />
-                      Infant
-                    </Label>
-                    <div className="flex items-center border border-sw-gray-300 rounded-md">
-                      <button
-                        type="button"
-                        className="px-2 py-1 text-sw-gray-500 hover:text-sw-gray-700"
-                        onClick={() =>
-                          setInfantCount(Math.max(0, infantCount - 1))
-                        }
-                      >
-                        -
-                      </button>
-                      <Input
-                        id="infantCount"
-                        type="number"
-                        min="0"
-                        max="100"
-                        value={infantCount}
-                        onChange={(e) =>
-                          setInfantCount(parseInt(e.target.value) || 0)
-                        }
-                        className="border-0 text-center w-10 p-0"
-                      />
-                      <button
-                        type="button"
-                        className="px-2 py-1 text-sw-gray-500 hover:text-sw-gray-700"
-                        onClick={() => setInfantCount(infantCount + 1)}
-                      >
-                        +
-                      </button>
-                    </div>
+                      -
+                    </button>
+                    <span className="w-6 text-center text-sm font-medium">{infantCount}</span>
+                    <button
+                      type="button"
+                      className="w-6 h-6 flex items-center justify-center text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
+                      onClick={() => setInfantCount(infantCount + 1)}
+                    >
+                      +
+                    </button>
                   </div>
                 </div>
                 {errors.passengers && (
@@ -1181,121 +1131,75 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
 
             {/* Passengers */}
             <div>
-              <Label className="text-sm font-medium text-sw-gray-700 mb-3">
-                Passengers <span className="text-red-500">*</span>
+              <Label className="text-sm font-medium text-sw-gray-700 mb-1">
+                No Of Passengers <span className="text-red-500">*</span>
               </Label>
-              <div className="space-y-2">
-                <div className="space-y-1">
-                  <Label
-                    htmlFor="adultCount"
-                    className="text-xs text-sw-gray-600 flex items-center"
+              <div className="flex items-center space-x-2 border border-sw-gray-300 rounded-md p-2 bg-white">
+                {/* Adult */}
+                <div className="flex items-center space-x-1">
+                  <User className="h-4 w-4 text-sw-gray-400" />
+                  <span className="text-xs text-sw-gray-600">Adult</span>
+                  <button
+                    type="button"
+                    className="w-6 h-6 flex items-center justify-center text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
+                    onClick={() => setAdultCount(Math.max(1, adultCount - 1))}
                   >
-                    <User className="h-4 w-4 text-sw-gray-400 mr-1" />
-                    Adult
-                  </Label>
-                  <div className="flex items-center border border-sw-gray-300 rounded-md">
-                    <button
-                      type="button"
-                      className="px-2 py-1 text-sw-gray-500 hover:text-sw-gray-700"
-                      onClick={() => setAdultCount(Math.max(1, adultCount - 1))}
-                    >
-                      -
-                    </button>
-                    <Input
-                      id="adultCount"
-                      type="number"
-                      min="1"
-                      max="100"
-                      value={adultCount}
-                      onChange={(e) =>
-                        setAdultCount(parseInt(e.target.value) || 1)
-                      }
-                      className="border-0 text-center w-10 p-0"
-                    />
-                    <button
-                      type="button"
-                      className="px-2 py-1 text-sw-gray-500 hover:text-sw-gray-700"
-                      onClick={() => setAdultCount(adultCount + 1)}
-                    >
-                      +
-                    </button>
-                  </div>
+                    -
+                  </button>
+                  <span className="w-6 text-center text-sm font-medium">{adultCount}</span>
+                  <button
+                    type="button"
+                    className="w-6 h-6 flex items-center justify-center text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
+                    onClick={() => setAdultCount(adultCount + 1)}
+                  >
+                    +
+                  </button>
                 </div>
 
-                <div className="space-y-1">
-                  <Label
-                    htmlFor="childCount"
-                    className="text-xs text-sw-gray-600 flex items-center"
+                <div className="h-4 w-px bg-sw-gray-300"></div>
+
+                {/* Child */}
+                <div className="flex items-center space-x-1">
+                  <User className="h-4 w-4 text-sw-gray-400" />
+                  <span className="text-xs text-sw-gray-600">Child</span>
+                  <button
+                    type="button"
+                    className="w-6 h-6 flex items-center justify-center text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
+                    onClick={() => setChildCount(Math.max(0, childCount - 1))}
                   >
-                    <User className="h-4 w-4 text-sw-gray-400 mr-1" />
-                    Child
-                  </Label>
-                  <div className="flex items-center border border-sw-gray-300 rounded-md">
-                    <button
-                      type="button"
-                      className="px-2 py-1 text-sw-gray-500 hover:text-sw-gray-700"
-                      onClick={() => setChildCount(Math.max(0, childCount - 1))}
-                    >
-                      -
-                    </button>
-                    <Input
-                      id="childCount"
-                      type="number"
-                      min="0"
-                      max="100"
-                      value={childCount}
-                      onChange={(e) =>
-                        setChildCount(parseInt(e.target.value) || 0)
-                      }
-                      className="border-0 text-center w-10 p-0"
-                    />
-                    <button
-                      type="button"
-                      className="px-2 py-1 text-sw-gray-500 hover:text-sw-gray-700"
-                      onClick={() => setChildCount(childCount + 1)}
-                    >
-                      +
-                    </button>
-                  </div>
+                    -
+                  </button>
+                  <span className="w-6 text-center text-sm font-medium">{childCount}</span>
+                  <button
+                    type="button"
+                    className="w-6 h-6 flex items-center justify-center text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
+                    onClick={() => setChildCount(childCount + 1)}
+                  >
+                    +
+                  </button>
                 </div>
 
-                <div className="space-y-1">
-                  <Label
-                    htmlFor="infantCount"
-                    className="text-xs text-sw-gray-600 flex items-center"
+                <div className="h-4 w-px bg-sw-gray-300"></div>
+
+                {/* Infant */}
+                <div className="flex items-center space-x-1">
+                  <Baby className="h-4 w-4 text-sw-gray-400" />
+                  <span className="text-xs text-sw-gray-600">Infant</span>
+                  <button
+                    type="button"
+                    className="w-6 h-6 flex items-center justify-center text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
+                    onClick={() => setInfantCount(Math.max(0, infantCount - 1))}
                   >
-                    <Baby className="h-4 w-4 text-sw-gray-400 mr-1" />
-                    Infant
-                  </Label>
-                  <div className="flex items-center border border-sw-gray-300 rounded-md">
-                    <button
-                      type="button"
-                      className="px-2 py-1 text-sw-gray-500 hover:text-sw-gray-700"
-                      onClick={() =>
-                        setInfantCount(Math.max(0, infantCount - 1))
-                      }
-                    >
-                      -
-                    </button>
-                    <Input
-                      id="infantCount"
-                      type="number"
-                      min="0"
-                      max="100"
-                      value={infantCount}
-                      onChange={(e) =>
-                        setInfantCount(parseInt(e.target.value) || 0)
-                      }
-                      className="border-0 text-center w-10 p-0"
-                    />
-                    <button
-                      type="button"
-                      className="px-2 py-1 text-sw-gray-500 hover:text-sw-gray-700"
-                      onClick={() => setInfantCount(infantCount + 1)}
-                    >
-                      +
-                    </button>
-                  </div>
+                    -
+                  </button>
+                  <span className="w-6 text-center text-sm font-medium">{infantCount}</span>
+                  <button
+                    type="button"
+                    className="w-6 h-6 flex items-center justify-center text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
+                    onClick={() => setInfantCount(infantCount + 1)}
+                  >
+                    +
+                  </button>
                 </div>
               </div>
               {errors.passengers && (
