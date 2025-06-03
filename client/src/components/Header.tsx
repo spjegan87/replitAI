@@ -47,13 +47,9 @@ export default function Header() {
               e.preventDefault();
               setLocation("/");
             }}
-            className="sw-blue font-bold text-2xl flex items-center cursor-pointer cls-logo"
+            className="sw-blue font-bold text-2xl flex items-center cursor-pointer"
           >
-            <img
-              src="/src/images/Infiniti-logo.png"
-              alt="Infiniti"
-              className="h-8 w-8 mr-2"
-            />
+            <span className="text-2xl font-bold text-sw-blue">INFINITI</span>
             <span className="ml-2 text-sm font-normal text-sw-gray-700">
               Group Bookings
             </span>
