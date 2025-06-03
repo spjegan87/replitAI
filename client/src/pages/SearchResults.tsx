@@ -143,7 +143,7 @@ export default function SearchResults() {
       { name: "SpiceJet", code: "SG", domestic: true, international: false },
       { name: "GoAir", code: "G8", domestic: true, international: false },
       { name: "AirAsia India", code: "I5", domestic: true, international: false },
-      { name: "Southwest", code: "SW", domestic: true, international: true },
+      { name: "Infiniti", code: "IN", domestic: true, international: true },
       { name: "Emirates", code: "EK", domestic: false, international: true },
       { name: "Lufthansa", code: "LH", domestic: false, international: true },
       { name: "British Airways", code: "BA", domestic: false, international: true },
@@ -176,7 +176,7 @@ export default function SearchResults() {
         domestic: ["Airbus A320"],
         international: ["Airbus A320"]
       },
-      "Southwest": {
+      "Infiniti": {
         domestic: ["Boeing 737-700", "Boeing 737-800"],
         international: ["Boeing 737-800", "Boeing 737 MAX 8"]
       },
@@ -224,7 +224,7 @@ export default function SearchResults() {
         domestic: ["Snacks for purchase"],
         international: ["Meal service"]
       },
-      "Southwest": {
+      "Infiniti": {
         domestic: ["Wi-Fi", "Power outlets", "Snacks"],
         international: ["Wi-Fi", "Meal service", "Entertainment", "Power outlets"]
       },
@@ -772,7 +772,7 @@ export default function SearchResults() {
                       </div>
                       
                       <div className="border-t border-gray-200 p-3 flex justify-between items-center bg-gray-50 text-sm">
-                        <span className="text-sw-gray-600">Flight operated by Southwest Airlines</span>
+                        <span className="text-sw-gray-600">Flight operated by Infiniti Airlines</span>
                         <Button 
                           variant="ghost" 
                           size="sm" 
@@ -828,7 +828,7 @@ export default function SearchResults() {
                 )}
                 
                 <div className="text-center mt-6 text-sm text-sw-gray-500">
-                  Group bookings may qualify for special rates and services. Contact the Southwest Group Desk at 1-800-433-5368 for more information.
+                  Group bookings may qualify for special rates and services. Contact the Infiniti Group Desk at 1-800-433-5368 for more information.
                 </div>
               </div>
             )}
