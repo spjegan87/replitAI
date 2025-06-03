@@ -49,7 +49,7 @@ export default function Header() {
             }}
             className="sw-blue font-bold text-2xl flex items-center cursor-pointer"
           >
-            <span className="text-2xl font-bold text-sw-blue">INFINITI</span>
+            <span className="text-2xl font-bold text-sw-blue cls-logo">INFINITI</span>
             <span className="ml-2 text-sm font-normal text-sw-gray-700">
               Group Bookings
             </span>
