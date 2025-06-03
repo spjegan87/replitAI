@@ -3,22 +3,41 @@ import { useLocation } from "wouter";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { 
-  Select, 
-  SelectContent, 
-  SelectItem, 
-  SelectTrigger, 
-  SelectValue 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Command, CommandInput, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+  Command,
+  CommandInput,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+} from "@/components/ui/command";
 import { format } from "date-fns";
-import { Calendar as CalendarIcon, ChevronDown, PlaneTakeoff, PlaneLanding, CalendarDays, Plus, User, Baby } from "lucide-react";
+import {
+  Calendar as CalendarIcon,
+  ChevronDown,
+  PlaneTakeoff,
+  PlaneLanding,
+  CalendarDays,
+  Plus,
+  User,
+  Baby,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { airports, filterAirports, Airport } from "@/data/airports";
 
-type TripType = 'one-way' | 'round-trip' | 'multi-city';
+type TripType = "one-way" | "round-trip" | "multi-city";
 
 interface FlightSearchFormProps {
   tripType: TripType;
@@ -84,7 +103,7 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
     setOriginQuery("");
     setOpenOrigin(false);
     // Clear any error related to origin
-    setErrors(prev => ({ ...prev, origin: undefined }));
+    setErrors((prev) => ({ ...prev, origin: undefined }));
   };
 
   // Handle airport selection for destination
@@ -93,7 +112,7 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
     setDestinationQuery("");
     setOpenDestination(false);
     // Clear any error related to destination
-    setErrors(prev => ({ ...prev, destination: undefined }));
+    setErrors((prev) => ({ ...prev, destination: undefined }));
   };
 
   // Validate form inputs
@@ -124,12 +143,12 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
     }
 
     // Validate return date for round trips
-    if (tripType === 'round-trip' && !returnDate) {
+    if (tripType === "round-trip" && !returnDate) {
       newErrors.returnDate = "Return date is required";
     }
 
     // Validate return date is after departure date
-    if (departureDate && returnDate && tripType === 'round-trip') {
+    if (departureDate && returnDate && tripType === "round-trip") {
       if (returnDate < departureDate) {
         newErrors.returnDate = "Return date must be after departure date";
       }
@@ -156,7 +175,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
     }
 
     // Format dates to string representation
-    const departureDateStr = departureDate ? format(departureDate, "dd MMM yyyy") : "";
+    const departureDateStr = departureDate
+      ? format(departureDate, "dd MMM yyyy")
+      : "";
     const returnDateStr = returnDate ? format(returnDate, "dd MMM yyyy") : "";
 
     // Calculate total passenger count
@@ -184,7 +205,7 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
 
       // Additional information
       preference: preference || "",
-      remarks: remarks || ""
+      remarks: remarks || "",
     }).toString();
 
     // Navigate to search results page with the search parameters
@@ -206,17 +227,17 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
                     <PlaneTakeoff className="h-4 w-4 text-sw-gray-400" />
                   </div>
-                  <Input 
-                    type="text" 
-                    placeholder="Enter Origin City or Airport" 
-                    className={`pl-10 pr-3 py-2.5 w-full border ${errors.origin ? 'border-red-500' : 'border-sw-gray-300'} rounded-md`}
+                  <Input
+                    type="text"
+                    placeholder="Enter Origin City or Airport"
+                    className={`pl-10 pr-3 py-2.5 w-full border ${errors.origin ? "border-red-500" : "border-sw-gray-300"} rounded-md`}
                     value={origin || originQuery}
                     onChange={(e) => {
                       if (origin) setOrigin("");
                       setOriginQuery(e.target.value);
                       // Clear error when typing
                       if (errors.origin) {
-                        setErrors(prev => ({ ...prev, origin: undefined }));
+                        setErrors((prev) => ({ ...prev, origin: undefined }));
                       }
                     }}
                     onClick={() => {
@@ -241,8 +262,8 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
               </PopoverTrigger>
               <PopoverContent className="p-0 w-full" align="start">
                 <Command>
-                  <CommandInput 
-                    placeholder="Search airports..." 
+                  <CommandInput
+                    placeholder="Search airports..."
                     value={originQuery}
                     onValueChange={setOriginQuery}
                     className="h-9"
@@ -256,13 +277,21 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                         className={`cursor-pointer ${airport.country === "India" ? "bg-blue-50" : ""}`}
                       >
                         <div className="flex items-center">
-                          <span className="font-bold text-sm mr-2">{airport.code}</span>
-                          <span className="text-sm">{airport.city}, {airport.country}</span>
+                          <span className="font-bold text-sm mr-2">
+                            {airport.code}
+                          </span>
+                          <span className="text-sm">
+                            {airport.city}, {airport.country}
+                          </span>
                           {airport.country === "India" && (
-                            <span className="ml-2 text-xs bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded-full">India</span>
+                            <span className="ml-2 text-xs bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded-full">
+                              India
+                            </span>
                           )}
                         </div>
-                        <span className="text-xs text-sw-gray-500 ml-6">{airport.name}</span>
+                        <span className="text-xs text-sw-gray-500 ml-6">
+                          {airport.name}
+                        </span>
                       </CommandItem>
                     ))}
                   </CommandGroup>
@@ -285,17 +314,20 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
                     <PlaneLanding className="h-4 w-4 text-sw-gray-400" />
                   </div>
-                  <Input 
-                    type="text" 
-                    placeholder="Enter Destination City or Airport" 
-                    className={`pl-10 pr-3 py-2.5 w-full border ${errors.destination ? 'border-red-500' : 'border-sw-gray-300'} rounded-md`}
+                  <Input
+                    type="text"
+                    placeholder="Enter Destination City or Airport"
+                    className={`pl-10 pr-3 py-2.5 w-full border ${errors.destination ? "border-red-500" : "border-sw-gray-300"} rounded-md`}
                     value={destination || destinationQuery}
                     onChange={(e) => {
                       if (destination) setDestination("");
                       setDestinationQuery(e.target.value);
                       // Clear error when typing
                       if (errors.destination) {
-                        setErrors(prev => ({ ...prev, destination: undefined }));
+                        setErrors((prev) => ({
+                          ...prev,
+                          destination: undefined,
+                        }));
                       }
                     }}
                     onClick={() => {
@@ -320,8 +352,8 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
               </PopoverTrigger>
               <PopoverContent className="p-0 w-full" align="start">
                 <Command>
-                  <CommandInput 
-                    placeholder="Search airports..." 
+                  <CommandInput
+                    placeholder="Search airports..."
                     value={destinationQuery}
                     onValueChange={setDestinationQuery}
                     className="h-9"
@@ -335,13 +367,21 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                         className={`cursor-pointer ${airport.country === "India" ? "bg-blue-50" : ""}`}
                       >
                         <div className="flex items-center">
-                          <span className="font-bold text-sm mr-2">{airport.code}</span>
-                          <span className="text-sm">{airport.city}, {airport.country}</span>
+                          <span className="font-bold text-sm mr-2">
+                            {airport.code}
+                          </span>
+                          <span className="text-sm">
+                            {airport.city}, {airport.country}
+                          </span>
                           {airport.country === "India" && (
-                            <span className="ml-2 text-xs bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded-full">India</span>
+                            <span className="ml-2 text-xs bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded-full">
+                              India
+                            </span>
                           )}
                         </div>
-                        <span className="text-xs text-sw-gray-500 ml-6">{airport.name}</span>
+                        <span className="text-xs text-sw-gray-500 ml-6">
+                          {airport.name}
+                        </span>
                       </CommandItem>
                     ))}
                   </CommandGroup>
@@ -365,19 +405,28 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                     variant={"outline"}
                     className={cn(
                       "w-full pl-8 pr-3 py-2 border rounded-md text-left font-normal h-10",
-                      errors.departureDate ? "border-red-500" : "border-sw-gray-300",
-                      !departureDate && "text-muted-foreground"
+                      errors.departureDate
+                        ? "border-red-500"
+                        : "border-sw-gray-300",
+                      !departureDate && "text-muted-foreground",
                     )}
                     onClick={() => {
                       if (errors.departureDate) {
-                        setErrors(prev => ({ ...prev, departureDate: undefined }));
+                        setErrors((prev) => ({
+                          ...prev,
+                          departureDate: undefined,
+                        }));
                       }
                     }}
                   >
                     <div className="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
                       <CalendarIcon className="h-4 w-4 text-sw-gray-400" />
                     </div>
-                    {departureDate ? format(departureDate, "PPP") : <span>Select Departure Date</span>}
+                    {departureDate ? (
+                      format(departureDate, "PPP")
+                    ) : (
+                      <span>Select Departure Date</span>
+                    )}
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">
@@ -386,8 +435,8 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                     selected={departureDate}
                     onSelect={setDepartureDate}
                     initialFocus
-                    disabled={(date) => 
-                      date < new Date(new Date().setHours(0, 0, 0, 0)) // Disable past dates
+                    disabled={
+                      (date) => date < new Date(new Date().setHours(0, 0, 0, 0)) // Disable past dates
                     }
                   />
                 </PopoverContent>
@@ -396,7 +445,7 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
           </div>
 
           {/* Return Date */}
-          {tripType !== 'one-way' && (
+          {tripType !== "one-way" && (
             <div>
               <Label className="text-sm font-medium text-sw-gray-700 mb-1">
                 Return Date <span className="text-red-500">*</span>
@@ -408,13 +457,17 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                       variant={"outline"}
                       className={cn(
                         "w-full pl-10 pr-3 py-2.5 border border-sw-gray-300 rounded-md text-left font-normal",
-                        !returnDate && "text-muted-foreground"
+                        !returnDate && "text-muted-foreground",
                       )}
                     >
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <CalendarIcon className="h-4 w-4 text-sw-gray-400" />
                       </div>
-                      {returnDate ? format(returnDate, "PPP") : <span>Select Return Date</span>}
+                      {returnDate ? (
+                        format(returnDate, "PPP")
+                      ) : (
+                        <span>Select Return Date</span>
+                      )}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0" align="start">
@@ -423,7 +476,7 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                       selected={returnDate}
                       onSelect={setReturnDate}
                       initialFocus
-                      disabled={(date) => 
+                      disabled={(date) =>
                         departureDate ? date < departureDate : false
                       }
                     />
@@ -452,12 +505,15 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
 
           {/* No of Passengers */}
           <div>
-            <Label className="text-sm font-medium text-sw-gray-700 mb-1">
+            <Label className="text-sm font-medium text-sw-gray-700 mb-1 hidden">
               No Of Passengers <span className="text-red-500">*</span>
             </Label>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-3 gap-2 cls-top-3">
               <div className="space-y-1">
-                <Label htmlFor="adultCount" className="text-xs text-sw-gray-600 flex items-center">
+                <Label
+                  htmlFor="adultCount"
+                  className="text-xs text-sw-gray-600 flex items-center"
+                >
                   <User className="h-4 w-4 text-sw-gray-400 mr-1" />
                   Adult
                 </Label>
@@ -475,7 +531,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                     min="1"
                     max="100"
                     value={adultCount}
-                    onChange={(e) => setAdultCount(parseInt(e.target.value) || 1)}
+                    onChange={(e) =>
+                      setAdultCount(parseInt(e.target.value) || 1)
+                    }
                     className="border-0 text-center w-10 p-0 h-full"
                   />
                   <button
@@ -489,7 +547,10 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
               </div>
 
               <div className="space-y-1">
-                <Label htmlFor="childCount" className="text-xs text-sw-gray-600 flex items-center">
+                <Label
+                  htmlFor="childCount"
+                  className="text-xs text-sw-gray-600 flex items-center"
+                >
                   <User className="h-3 w-3 text-sw-gray-400 mr-1" />
                   Child
                 </Label>
@@ -507,7 +568,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                     min="0"
                     max="100"
                     value={childCount}
-                    onChange={(e) => setChildCount(parseInt(e.target.value) || 0)}
+                    onChange={(e) =>
+                      setChildCount(parseInt(e.target.value) || 0)
+                    }
                     className="border-0 text-center w-10 p-0"
                   />
                   <button
@@ -521,7 +584,10 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
               </div>
 
               <div className="space-y-1">
-                <Label htmlFor="infantCount" className="text-xs text-sw-gray-600 flex items-center">
+                <Label
+                  htmlFor="infantCount"
+                  className="text-xs text-sw-gray-600 flex items-center"
+                >
                   <Baby className="h-4 w-4 text-sw-gray-400 mr-1" />
                   Infant
                 </Label>
@@ -539,7 +605,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                     min="0"
                     max="100"
                     value={infantCount}
-                    onChange={(e) => setInfantCount(parseInt(e.target.value) || 0)}
+                    onChange={(e) =>
+                      setInfantCount(parseInt(e.target.value) || 0)
+                    }
                     className="border-0 text-center w-10 p-0"
                   />
                   <button
@@ -576,9 +644,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
             <Label className="text-sm font-medium text-sw-gray-700 mb-1">
               Group Category <span className="text-red-500">*</span>
             </Label>
-            <Input 
-              type="text" 
-              placeholder="Adhoc" 
+            <Input
+              type="text"
+              placeholder="Adhoc"
               className="w-full border border-sw-gray-300 rounded-md"
               value={groupCategory}
               onChange={(e) => setGroupCategory(e.target.value)}
@@ -589,17 +657,21 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
 
         {/* Additional Options */}
         <div className="flex items-center mt-4 mb-6">
-          <div 
+          <div
             className="flex items-center mr-6 cursor-pointer"
             onClick={() => setIsFlexible(!isFlexible)}
           >
-            <CalendarDays className={`h-4 w-4 mr-2 ${isFlexible ? 'text-sw-blue' : 'text-sw-gray-400'}`} />
-            <span className={`text-sm font-medium ${isFlexible ? 'text-sw-blue' : 'text-sw-gray-700'}`}>
+            <CalendarDays
+              className={`h-4 w-4 mr-2 ${isFlexible ? "text-sw-blue" : "text-sw-gray-400"}`}
+            />
+            <span
+              className={`text-sm font-medium ${isFlexible ? "text-sw-blue" : "text-sw-gray-700"}`}
+            >
               Flexible On Dates
             </span>
           </div>
 
-          <div 
+          <div
             className="text-sw-blue text-sm font-medium cursor-pointer"
             onClick={() => setShowRemarks(!showRemarks)}
           >
@@ -613,9 +685,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
             <Label className="text-sm font-medium text-sw-gray-700 mb-1">
               Remarks
             </Label>
-            <Input 
-              type="text" 
-              placeholder="Add any special requests or notes" 
+            <Input
+              type="text"
+              placeholder="Add any special requests or notes"
               className="w-full border border-sw-gray-300 rounded-md"
               value={remarks}
               onChange={(e) => setRemarks(e.target.value)}
@@ -625,8 +697,8 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
 
         {/* Search Button */}
         <div className="flex justify-center">
-          <Button 
-            type="submit" 
+          <Button
+            type="submit"
             className="bg-sw-yellow text-sw-gray-800 px-8 py-3 rounded font-medium hover:bg-yellow-500 transition-colors"
           >
             Get Fares
