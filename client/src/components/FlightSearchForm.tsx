@@ -753,7 +753,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                   {/* Adult */}
                   <div className="flex items-center space-x-1 flex-shrink-0">
                     <User className="h-4 w-4 text-sw-gray-400" />
-                    <span className="text-xs text-sw-gray-600 whitespace-nowrap">Adult</span>
+                    <span className="text-xs text-sw-gray-600 whitespace-nowrap hidden">
+                      Adult
+                    </span>
                     <button
                       type="button"
                       className="w-5 h-5 flex items-center justify-center text-xs text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
@@ -761,7 +763,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                     >
                       -
                     </button>
-                    <span className="w-5 text-center text-xs font-medium">{adultCount}</span>
+                    <span className="w-5 text-center text-xs font-medium">
+                      {adultCount}
+                    </span>
                     <button
                       type="button"
                       className="w-5 h-5 flex items-center justify-center text-xs text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
@@ -776,7 +780,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                   {/* Child */}
                   <div className="flex items-center space-x-1 flex-shrink-0">
                     <User className="h-4 w-4 text-sw-gray-400" />
-                    <span className="text-xs text-sw-gray-600 whitespace-nowrap">Child</span>
+                    <span className="text-xs text-sw-gray-600 whitespace-nowrap hidden">
+                      Child
+                    </span>
                     <button
                       type="button"
                       className="w-5 h-5 flex items-center justify-center text-xs text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
@@ -784,7 +790,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                     >
                       -
                     </button>
-                    <span className="w-5 text-center text-xs font-medium">{childCount}</span>
+                    <span className="w-5 text-center text-xs font-medium">
+                      {childCount}
+                    </span>
                     <button
                       type="button"
                       className="w-5 h-5 flex items-center justify-center text-xs text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
@@ -799,15 +807,21 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                   {/* Infant */}
                   <div className="flex items-center space-x-1 flex-shrink-0">
                     <Baby className="h-4 w-4 text-sw-gray-400" />
-                    <span className="text-xs text-sw-gray-600 whitespace-nowrap">Infant</span>
+                    <span className="text-xs text-sw-gray-600 whitespace-nowrap hidden">
+                      Infant
+                    </span>
                     <button
                       type="button"
                       className="w-5 h-5 flex items-center justify-center text-xs text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
-                      onClick={() => setInfantCount(Math.max(0, infantCount - 1))}
+                      onClick={() =>
+                        setInfantCount(Math.max(0, infantCount - 1))
+                      }
                     >
                       -
                     </button>
-                    <span className="w-5 text-center text-xs font-medium">{infantCount}</span>
+                    <span className="w-5 text-center text-xs font-medium">
+                      {infantCount}
+                    </span>
                     <button
                       type="button"
                       className="w-5 h-5 flex items-center justify-center text-xs text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
@@ -818,7 +832,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                   </div>
                 </div>
                 {errors.passengers && (
-                  <p className="text-red-500 text-sm mt-1">{errors.passengers}</p>
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.passengers}
+                  </p>
                 )}
               </div>
 
@@ -1138,7 +1154,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                 {/* Adult */}
                 <div className="flex items-center space-x-1 flex-shrink-0">
                   <User className="h-4 w-4 text-sw-gray-400" />
-                  <span className="text-xs text-sw-gray-600 whitespace-nowrap">Adult</span>
+                  <span className="text-xs text-sw-gray-600 whitespace-nowrap">
+                    Adult
+                  </span>
                   <button
                     type="button"
                     className="w-5 h-5 flex items-center justify-center text-xs text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
@@ -1146,7 +1164,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                   >
                     -
                   </button>
-                  <span className="w-5 text-center text-xs font-medium">{adultCount}</span>
+                  <span className="w-5 text-center text-xs font-medium">
+                    {adultCount}
+                  </span>
                   <button
                     type="button"
                     className="w-5 h-5 flex items-center justify-center text-xs text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
@@ -1161,7 +1181,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                 {/* Child */}
                 <div className="flex items-center space-x-1 flex-shrink-0">
                   <User className="h-4 w-4 text-sw-gray-400" />
-                  <span className="text-xs text-sw-gray-600 whitespace-nowrap">Child</span>
+                  <span className="text-xs text-sw-gray-600 whitespace-nowrap">
+                    Child
+                  </span>
                   <button
                     type="button"
                     className="w-5 h-5 flex items-center justify-center text-xs text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
@@ -1169,7 +1191,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                   >
                     -
                   </button>
-                  <span className="w-5 text-center text-xs font-medium">{childCount}</span>
+                  <span className="w-5 text-center text-xs font-medium">
+                    {childCount}
+                  </span>
                   <button
                     type="button"
                     className="w-5 h-5 flex items-center justify-center text-xs text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
@@ -1184,7 +1208,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                 {/* Infant */}
                 <div className="flex items-center space-x-1 flex-shrink-0">
                   <Baby className="h-4 w-4 text-sw-gray-400" />
-                  <span className="text-xs text-sw-gray-600 whitespace-nowrap">Infant</span>
+                  <span className="text-xs text-sw-gray-600 whitespace-nowrap">
+                    Infant
+                  </span>
                   <button
                     type="button"
                     className="w-5 h-5 flex items-center justify-center text-xs text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
@@ -1192,7 +1218,9 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                   >
                     -
                   </button>
-                  <span className="w-5 text-center text-xs font-medium">{infantCount}</span>
+                  <span className="w-5 text-center text-xs font-medium">
+                    {infantCount}
+                  </span>
                   <button
                     type="button"
                     className="w-5 h-5 flex items-center justify-center text-xs text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
