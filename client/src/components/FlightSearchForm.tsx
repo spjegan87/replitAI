@@ -749,68 +749,68 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
                 <Label className="text-sm font-medium text-sw-gray-700 mb-1">
                   No Of Passengers <span className="text-red-500">*</span>
                 </Label>
-                <div className="flex items-center space-x-2 border border-sw-gray-300 rounded-md p-2 bg-white">
+                <div className="flex items-center justify-between border border-sw-gray-300 rounded-md p-3 bg-white min-w-0">
                   {/* Adult */}
-                  <div className="flex items-center space-x-1">
+                  <div className="flex items-center space-x-1 flex-shrink-0">
                     <User className="h-4 w-4 text-sw-gray-400" />
-                    <span className="text-xs text-sw-gray-600">Adult</span>
+                    <span className="text-xs text-sw-gray-600 whitespace-nowrap">Adult</span>
                     <button
                       type="button"
-                      className="w-6 h-6 flex items-center justify-center text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
+                      className="w-5 h-5 flex items-center justify-center text-xs text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
                       onClick={() => setAdultCount(Math.max(1, adultCount - 1))}
                     >
                       -
                     </button>
-                    <span className="w-6 text-center text-sm font-medium">{adultCount}</span>
+                    <span className="w-5 text-center text-xs font-medium">{adultCount}</span>
                     <button
                       type="button"
-                      className="w-6 h-6 flex items-center justify-center text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
+                      className="w-5 h-5 flex items-center justify-center text-xs text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
                       onClick={() => setAdultCount(adultCount + 1)}
                     >
                       +
                     </button>
                   </div>
 
-                  <div className="h-4 w-px bg-sw-gray-300"></div>
+                  <div className="h-4 w-px bg-sw-gray-300 mx-1"></div>
 
                   {/* Child */}
-                  <div className="flex items-center space-x-1">
+                  <div className="flex items-center space-x-1 flex-shrink-0">
                     <User className="h-4 w-4 text-sw-gray-400" />
-                    <span className="text-xs text-sw-gray-600">Child</span>
+                    <span className="text-xs text-sw-gray-600 whitespace-nowrap">Child</span>
                     <button
                       type="button"
-                      className="w-6 h-6 flex items-center justify-center text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
+                      className="w-5 h-5 flex items-center justify-center text-xs text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
                       onClick={() => setChildCount(Math.max(0, childCount - 1))}
                     >
                       -
                     </button>
-                    <span className="w-6 text-center text-sm font-medium">{childCount}</span>
+                    <span className="w-5 text-center text-xs font-medium">{childCount}</span>
                     <button
                       type="button"
-                      className="w-6 h-6 flex items-center justify-center text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
+                      className="w-5 h-5 flex items-center justify-center text-xs text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
                       onClick={() => setChildCount(childCount + 1)}
                     >
                       +
                     </button>
                   </div>
 
-                  <div className="h-4 w-px bg-sw-gray-300"></div>
+                  <div className="h-4 w-px bg-sw-gray-300 mx-1"></div>
 
                   {/* Infant */}
-                  <div className="flex items-center space-x-1">
+                  <div className="flex items-center space-x-1 flex-shrink-0">
                     <Baby className="h-4 w-4 text-sw-gray-400" />
-                    <span className="text-xs text-sw-gray-600">Infant</span>
+                    <span className="text-xs text-sw-gray-600 whitespace-nowrap">Infant</span>
                     <button
                       type="button"
-                      className="w-6 h-6 flex items-center justify-center text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
+                      className="w-5 h-5 flex items-center justify-center text-xs text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
                       onClick={() => setInfantCount(Math.max(0, infantCount - 1))}
                     >
                       -
                     </button>
-                    <span className="w-6 text-center text-sm font-medium">{infantCount}</span>
+                    <span className="w-5 text-center text-xs font-medium">{infantCount}</span>
                     <button
                       type="button"
-                      className="w-6 h-6 flex items-center justify-center text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
+                      className="w-5 h-5 flex items-center justify-center text-xs text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
                       onClick={() => setInfantCount(infantCount + 1)}
                     >
                       +
@@ -1134,68 +1134,68 @@ export default function FlightSearchForm({ tripType }: FlightSearchFormProps) {
               <Label className="text-sm font-medium text-sw-gray-700 mb-1">
                 No Of Passengers <span className="text-red-500">*</span>
               </Label>
-              <div className="flex items-center space-x-2 border border-sw-gray-300 rounded-md p-2 bg-white">
+              <div className="flex items-center justify-between border border-sw-gray-300 rounded-md p-3 bg-white min-w-0">
                 {/* Adult */}
-                <div className="flex items-center space-x-1">
+                <div className="flex items-center space-x-1 flex-shrink-0">
                   <User className="h-4 w-4 text-sw-gray-400" />
-                  <span className="text-xs text-sw-gray-600">Adult</span>
+                  <span className="text-xs text-sw-gray-600 whitespace-nowrap">Adult</span>
                   <button
                     type="button"
-                    className="w-6 h-6 flex items-center justify-center text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
+                    className="w-5 h-5 flex items-center justify-center text-xs text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
                     onClick={() => setAdultCount(Math.max(1, adultCount - 1))}
                   >
                     -
                   </button>
-                  <span className="w-6 text-center text-sm font-medium">{adultCount}</span>
+                  <span className="w-5 text-center text-xs font-medium">{adultCount}</span>
                   <button
                     type="button"
-                    className="w-6 h-6 flex items-center justify-center text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
+                    className="w-5 h-5 flex items-center justify-center text-xs text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
                     onClick={() => setAdultCount(adultCount + 1)}
                   >
                     +
                   </button>
                 </div>
 
-                <div className="h-4 w-px bg-sw-gray-300"></div>
+                <div className="h-4 w-px bg-sw-gray-300 mx-1"></div>
 
                 {/* Child */}
-                <div className="flex items-center space-x-1">
+                <div className="flex items-center space-x-1 flex-shrink-0">
                   <User className="h-4 w-4 text-sw-gray-400" />
-                  <span className="text-xs text-sw-gray-600">Child</span>
+                  <span className="text-xs text-sw-gray-600 whitespace-nowrap">Child</span>
                   <button
                     type="button"
-                    className="w-6 h-6 flex items-center justify-center text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
+                    className="w-5 h-5 flex items-center justify-center text-xs text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
                     onClick={() => setChildCount(Math.max(0, childCount - 1))}
                   >
                     -
                   </button>
-                  <span className="w-6 text-center text-sm font-medium">{childCount}</span>
+                  <span className="w-5 text-center text-xs font-medium">{childCount}</span>
                   <button
                     type="button"
-                    className="w-6 h-6 flex items-center justify-center text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
+                    className="w-5 h-5 flex items-center justify-center text-xs text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
                     onClick={() => setChildCount(childCount + 1)}
                   >
                     +
                   </button>
                 </div>
 
-                <div className="h-4 w-px bg-sw-gray-300"></div>
+                <div className="h-4 w-px bg-sw-gray-300 mx-1"></div>
 
                 {/* Infant */}
-                <div className="flex items-center space-x-1">
+                <div className="flex items-center space-x-1 flex-shrink-0">
                   <Baby className="h-4 w-4 text-sw-gray-400" />
-                  <span className="text-xs text-sw-gray-600">Infant</span>
+                  <span className="text-xs text-sw-gray-600 whitespace-nowrap">Infant</span>
                   <button
                     type="button"
-                    className="w-6 h-6 flex items-center justify-center text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
+                    className="w-5 h-5 flex items-center justify-center text-xs text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
                     onClick={() => setInfantCount(Math.max(0, infantCount - 1))}
                   >
                     -
                   </button>
-                  <span className="w-6 text-center text-sm font-medium">{infantCount}</span>
+                  <span className="w-5 text-center text-xs font-medium">{infantCount}</span>
                   <button
                     type="button"
-                    className="w-6 h-6 flex items-center justify-center text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
+                    className="w-5 h-5 flex items-center justify-center text-xs text-sw-gray-500 hover:text-sw-gray-700 border border-sw-gray-300 rounded"
                     onClick={() => setInfantCount(infantCount + 1)}
                   >
                     +
