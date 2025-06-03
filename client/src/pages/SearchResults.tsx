@@ -53,33 +53,67 @@ import Footer from "@/components/Footer";
 import { formatPrice } from "@/lib/utils";
 import { FlightResult, flightResults, filterFlights } from "@/data/flights";
 
+interface MultiCitySector {
+  sectorNumber: number;
+  origin: string;
+  destination: string;
+  departureDate: string;
+}
+
+interface MultiCityData {
+  tripType: string;
+  sectors: MultiCitySector[];
+  passengers: string;
+  adultCount: string;
+  childCount: string;
+  infantCount: string;
+  cabin: string;
+  groupCategory: string;
+  isFlexible: string;
+  preference: string;
+  remarks: string;
+}
+
 export default function SearchResults() {
   const [, setLocation] = useLocation();
   const search = useSearch();
   const searchParams = new URLSearchParams(search);
   
   // Parse search parameters
-  // Trip information
-  const origin = searchParams.get("origin") || "LAX";
-  const destination = searchParams.get("destination") || "SFO";
-  const departureDate = searchParams.get("departureDate") || "10 Oct 2022";
-  const returnDate = searchParams.get("returnDate") || "18 Oct 2022";
   const tripType = searchParams.get("tripType") || "round-trip";
   
+  // Parse multi-city data if present
+  const multiCityDataParam = searchParams.get("multiCityData");
+  let multiCityData: MultiCityData | null = null;
+  
+  if (tripType === "multi-city" && multiCityDataParam) {
+    try {
+      multiCityData = JSON.parse(multiCityDataParam);
+    } catch (err) {
+      console.error("Error parsing multi-city data:", err);
+    }
+  }
+  
+  // Trip information (single trip or fallback)
+  const origin = searchParams.get("origin") || multiCityData?.sectors[0]?.origin || "LAX";
+  const destination = searchParams.get("destination") || multiCityData?.sectors[0]?.destination || "SFO";
+  const departureDate = searchParams.get("departureDate") || multiCityData?.sectors[0]?.departureDate || "10 Oct 2022";
+  const returnDate = searchParams.get("returnDate") || "18 Oct 2022";
+  
   // Passenger information
-  const passengers = searchParams.get("passengers") || "10";
-  const adultCount = parseInt(searchParams.get("adultCount") || "8");
-  const childCount = parseInt(searchParams.get("childCount") || "2");
-  const infantCount = parseInt(searchParams.get("infantCount") || "0");
+  const passengers = searchParams.get("passengers") || multiCityData?.passengers || "10";
+  const adultCount = parseInt(searchParams.get("adultCount") || multiCityData?.adultCount || "8");
+  const childCount = parseInt(searchParams.get("childCount") || multiCityData?.childCount || "2");
+  const infantCount = parseInt(searchParams.get("infantCount") || multiCityData?.infantCount || "0");
   
   // Flight preferences
-  const cabin = searchParams.get("cabin") || "economy";
-  const groupCategory = searchParams.get("groupCategory") || "Adhoc";
-  const isFlexible = searchParams.get("isFlexible") === "true";
+  const cabin = searchParams.get("cabin") || multiCityData?.cabin || "economy";
+  const groupCategory = searchParams.get("groupCategory") || multiCityData?.groupCategory || "Adhoc";
+  const isFlexible = (searchParams.get("isFlexible") || multiCityData?.isFlexible) === "true";
   
   // Additional information
-  const preference = searchParams.get("preference") || "";
-  const remarks = searchParams.get("remarks") || "";
+  const preference = searchParams.get("preference") || multiCityData?.preference || "";
+  const remarks = searchParams.get("remarks") || multiCityData?.remarks || "";
   
   // Filter and sorting states
   const [flights, setFlights] = useState<FlightResult[]>([]);
@@ -428,18 +462,53 @@ export default function SearchResults() {
         
         {/* Search Details Summary */}
         <div className="bg-sky-50 p-4 rounded-lg mb-6">
-          <div className="flex flex-wrap items-center justify-between">
-            <div className="flex items-center text-sw-gray-800 mb-2 md:mb-0">
-              <div className="font-medium mr-4">{origin}</div>
-              <ChevronRight className="h-5 w-5 text-sw-gray-500 mr-4" />
-              <div className="font-medium">{destination}</div>
+          {tripType === "multi-city" && multiCityData ? (
+            // Multi-city trip display
+            <div>
+              <div className="flex items-center justify-between mb-3">
+                <div className="text-lg font-medium text-sw-gray-800">Multi-City Trip</div>
+                <div className="text-sm text-sw-gray-600">
+                  {passengers} Passengers | {cabin.charAt(0).toUpperCase() + cabin.slice(1)}
+                </div>
+              </div>
+              
+              <div className="space-y-2">
+                {multiCityData.sectors.map((sector, index) => (
+                  <div key={index} className="flex items-center text-sw-gray-800 bg-white p-3 rounded border border-sky-200">
+                    <div className="flex items-center flex-grow">
+                      <div className="w-8 h-8 bg-sw-blue text-white rounded-full flex items-center justify-center text-xs font-medium mr-3">
+                        {sector.sectorNumber}
+                      </div>
+                      <div className="flex items-center">
+                        <div className="font-medium">{sector.origin}</div>
+                        <Plane className="h-4 w-4 text-sw-gray-400 mx-3" />
+                        <div className="font-medium">{sector.destination}</div>
+                      </div>
+                    </div>
+                    <div className="text-sm text-sw-gray-600 ml-4">
+                      {sector.departureDate}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="text-sm text-sw-gray-600">
-              {tripType === 'one-way' ? 'One Way' : tripType === 'round-trip' ? 'Round Trip' : 'Multi-City'} | 
-              {' '}{passengers} Passengers | {cabin.charAt(0).toUpperCase() + cabin.slice(1)} | 
-              {' '}{departureDate}{returnDate ? ` - ${returnDate}` : ''}
+          ) : (
+            // Single trip display (one-way/round-trip)
+            <div>
+              <div className="flex flex-wrap items-center justify-between">
+                <div className="flex items-center text-sw-gray-800 mb-2 md:mb-0">
+                  <div className="font-medium mr-4">{origin}</div>
+                  <ChevronRight className="h-5 w-5 text-sw-gray-500 mr-4" />
+                  <div className="font-medium">{destination}</div>
+                </div>
+                <div className="text-sm text-sw-gray-600">
+                  {tripType === 'one-way' ? 'One Way' : 'Round Trip'} | 
+                  {' '}{passengers} Passengers | {cabin.charAt(0).toUpperCase() + cabin.slice(1)} | 
+                  {' '}{departureDate}{returnDate ? ` - ${returnDate}` : ''}
+                </div>
+              </div>
             </div>
-          </div>
+          )}
           
           {/* Additional flight details */}
           <div className="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4 pt-2 border-t border-sky-100 text-xs text-sw-gray-600">
