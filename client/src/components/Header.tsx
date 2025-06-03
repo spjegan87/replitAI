@@ -50,7 +50,7 @@ export default function Header() {
             className="sw-blue font-bold text-2xl flex items-center cursor-pointer cls-logo"
           >
             <img
-              src="/src/images/Infiniti-logo.png"
+              src="/src/images/logo.jpg"
               alt="Infiniti"
               className="h-8 w-8 mr-2"
             />
