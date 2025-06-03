@@ -476,16 +476,16 @@ export default function ETicket() {
                   <h3 className="font-medium text-sw-gray-800 mb-2">Check-in Information</h3>
                   <ul className="text-sm text-sw-gray-600 space-y-1">
                     <li>• Check-in opens 24 hours before departure.</li>
-                    <li>• Group check-in is available at the Southwest Group Check-in counter.</li>
+                    <li>• Group check-in is available at the Infiniti Group Check-in counter.</li>
                     <li>• Please arrive at the airport at least 2 hours before your scheduled departure.</li>
                     <li>• Have this e-ticket and valid ID ready for all passengers.</li>
                   </ul>
                 </div>
                 
                 <div className="text-xs text-sw-gray-500 italic">
-                  This document serves as an official e-ticket for your Southwest Airlines flight. 
-                  For inquiries regarding your group booking, please contact the Southwest Group Desk 
-                  at 1-800-435-9792 or send an email to groupdesk@southwest.com.
+                  This document serves as an official e-ticket for your Infiniti Airlines flight. 
+                  For inquiries regarding your group booking, please contact the Infiniti Group Desk 
+                  at 1-800-435-9792 or send an email to groupdesk@infiniti.com.
                 </div>
               </div>
             </CardContent>
