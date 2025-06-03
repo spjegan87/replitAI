@@ -204,7 +204,7 @@ export default function Itinerary() {
                       <Badge variant="outline" className="bg-green-50 text-green-600 hover:bg-green-50">Confirmed</Badge>
                     </div>
                     <div className="text-sm text-sw-gray-600">
-                      {departureDate} · Southwest Airlines · {flightNumber}
+                      {departureDate} · Infiniti Airlines · {flightNumber}
                     </div>
                   </div>
                   
@@ -270,7 +270,7 @@ export default function Itinerary() {
                         <Badge variant="outline" className="bg-green-50 text-green-600 hover:bg-green-50">Confirmed</Badge>
                       </div>
                       <div className="text-sm text-sw-gray-600">
-                        {returnDate} · Southwest Airlines · {flightNumber}
+                        {returnDate} · Infiniti Airlines · {flightNumber}
                       </div>
                     </div>
                     

@@ -36,14 +36,14 @@ export default function ETicket() {
   const ticketRef = useRef<HTMLDivElement>(null);
   
   // Parse search parameters
-  const bookingNumber = searchParams.get("bookingNumber") || "SW" + Math.floor(Math.random() * 10000000).toString().padStart(8, '0');
+  const bookingNumber = searchParams.get("bookingNumber") || "IN" + Math.floor(Math.random() * 10000000).toString().padStart(8, '0');
   const origin = searchParams.get("origin") || "LAX";
   const destination = searchParams.get("destination") || "SFO";
   const departureDate = searchParams.get("departureDate") || "10 Oct 2022";
   const returnDate = searchParams.get("returnDate") || "18 Oct 2022";
   const departureTime = searchParams.get("departureTime") || "06:45 AM";
   const arrivalTime = searchParams.get("arrivalTime") || "09:20 AM";
-  const flightNumber = searchParams.get("flightNumber") || "SW 1422";
+  const flightNumber = searchParams.get("flightNumber") || "IN 1422";
   const passengers = parseInt(searchParams.get("passengers") || "10");
   const adultCount = parseInt(searchParams.get("adultCount") || "8");
   const childCount = parseInt(searchParams.get("childCount") || "2");
@@ -128,22 +128,32 @@ export default function ETicket() {
   
   // Handle printing ticket
   const handlePrint = () => {
-    const printContent = ticketRef.current?.innerHTML;
-    const originalContent = document.body.innerHTML;
-    
-    if (printContent) {
-      document.body.innerHTML = `
-        <style>
-          @page { size: auto; margin: 10mm; }
-          body { font-family: 'Inter', sans-serif; }
-          .ticket-container { max-width: 800px; margin: 0 auto; }
-        </style>
-        <div class="ticket-container">${printContent}</div>
-      `;
-      
-      window.print();
-      document.body.innerHTML = originalContent;
-      window.location.reload();
+    if (ticketRef.current) {
+      // Create a new window for printing to avoid innerHTML manipulation
+      const printWindow = window.open('', '_blank');
+      if (printWindow) {
+        printWindow.document.write(`
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <title>E-Ticket</title>
+              <style>
+                @page { size: auto; margin: 10mm; }
+                body { font-family: 'Inter', sans-serif; margin: 0; padding: 20px; }
+                .ticket-container { max-width: 800px; margin: 0 auto; }
+              </style>
+            </head>
+            <body>
+              <div class="ticket-container">
+                ${ticketRef.current.innerHTML}
+              </div>
+            </body>
+          </html>
+        `);
+        printWindow.document.close();
+        printWindow.print();
+        printWindow.close();
+      }
     }
   };
   
@@ -195,7 +205,7 @@ export default function ETicket() {
           {/* Ticket Header */}
           <div className="flex items-center justify-between bg-sw-blue text-white p-4 rounded-t-lg">
             <div className="flex items-center">
-              <div className="font-bold text-xl mr-2">Southwest Airlines</div>
+              <div className="font-bold text-xl mr-2">Infiniti Airlines</div>
               <div className="text-sm">E-Ticket Receipt</div>
             </div>
             <div className="text-right">

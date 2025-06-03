@@ -334,7 +334,7 @@ export default function Payment() {
                       htmlFor="terms" 
                       className="ml-2 text-sm text-sw-gray-600"
                     >
-                      I agree to the Southwest Airlines <a href="#" className="text-sw-blue hover:underline">terms and conditions</a> and <a href="#" className="text-sw-blue hover:underline">fare rules</a>.
+                      I agree to the Infiniti Airlines <a href="#" className="text-sw-blue hover:underline">terms and conditions</a> and <a href="#" className="text-sw-blue hover:underline">fare rules</a>.
                     </Label>
                   </div>
                   
@@ -400,7 +400,7 @@ export default function Payment() {
                   </div>
                   <div className="flex items-start text-xs text-sw-gray-600">
                     <Info className="h-4 w-4 text-sw-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>Need help with your booking? Contact Southwest Group Desk at 1-800-435-9792</span>
+                    <span>Need help with your booking? Contact Infiniti Group Desk at 1-800-435-9792</span>
                   </div>
                 </div>
               </CardContent>
